@@ -4,7 +4,7 @@ export class User {
   email: string;
   password: string;
   isAdmin: boolean;
-  memberOfCategories: number[];
+  learningState: Record<string, number>;
 
   constructor(name: string, email: string, password: string) {
     this.id = 0;
@@ -12,6 +12,6 @@ export class User {
     this.email = email;
     this.password = password;
     this.isAdmin = false;
-    this.memberOfCategories = [];
+    this.learningState = {};
   }
 }

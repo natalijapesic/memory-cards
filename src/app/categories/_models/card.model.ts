@@ -3,7 +3,6 @@ export class Card {
   question: string;
   answer: string;
   categoryId: number;
-  numberOfMembers: number;
 
   constructor(
     id: number,
@@ -15,6 +14,5 @@ export class Card {
     this.question = question;
     this.answer = answer;
     this.categoryId = categoryId;
-    this.numberOfMembers = 0;
   }
 }
