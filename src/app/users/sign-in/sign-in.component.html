@@ -1,1 +1,21 @@
-<div class="form">sign in</div>
+<div class="user-form">
+  <h1>Sign in</h1>
+  <label class="error-label">{{ errorMessage }}</label>
+  <div class="info">
+    <input
+      name="email"
+      [(ngModel)]="email"
+      type="text"
+      placeholder="Input e-mail"
+    />
+  </div>
+  <div class="info">
+    <input
+      name="password"
+      [(ngModel)]="password"
+      type="password"
+      placeholder="Input password"
+    />
+  </div>
+  <button (click)="onSignIn()">Sign In</button>
+</div>
