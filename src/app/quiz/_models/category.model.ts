@@ -1,5 +1,3 @@
-import { Card } from './card.model';
-
 export class Category {
   id: number;
   name: string;
