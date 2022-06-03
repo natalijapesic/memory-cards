@@ -29,7 +29,7 @@ export class AuthentiocationService {
   signIn(singInRequest: SignInRequest): Observable<User> {
     console.log(singInRequest);
     return this.http
-      .post<User>(`${environment.apiUrl}login`, singInRequest)
+      .post<User>(`${environment.apiUrl}/login`, singInRequest)
       .pipe(
         tap((user) => console.log(user)),
         map((user) => {
@@ -45,7 +45,7 @@ export class AuthentiocationService {
 
   signUp(signUpRequest: SignUpRequest) {
     return this.http
-      .post<User>(`http://localhost:3000/register`, signUpRequest)
+      .post<User>(`${environment.apiUrl}/register`, signUpRequest)
       .pipe(
         map((user) => {
           this.storage.setUser(user);

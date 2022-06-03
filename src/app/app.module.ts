@@ -7,9 +7,10 @@ import { UserModule } from './users/user.module';
 import { QuizModule } from './quiz/quiz.module';
 import { SharedModule } from './shared/shared/shared.module';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
-  declarations: [AppComponent, NavBarComponent],
+  declarations: [AppComponent, NavBarComponent, HomeComponent],
   imports: [
     HttpClientModule,
     BrowserModule,

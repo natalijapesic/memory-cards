@@ -107,5 +107,8 @@
       "style": "scss"
     }
   },
-  "defaultProject": "memory-cards"
+  "defaultProject": "memory-cards",
+  "cli": {
+    "analytics": false
+  }
 }

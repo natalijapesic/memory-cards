@@ -7,5 +7,28 @@
       "username": "test",
       "id": 1
     }
+  ],
+  "categories": [
+    {
+      "name": "Spanish",
+      "purpose": "For improving Spanish vocabulary",
+      "adminId": 1,
+      "numberOfMembers": 0,
+      "id": 1
+    },
+    {
+      "name": "Capital cities",
+      "purpose": "For learning the capitals of Europe",
+      "adminId": 1,
+      "numberOfMembers": 0,
+      "id": 2
+    },
+    {
+      "name": "IT",
+      "purpose": "Any type of question on the topic of IT",
+      "adminId": 1,
+      "numberOfMembers": 0,
+      "id": 3
+    }
   ]
 }

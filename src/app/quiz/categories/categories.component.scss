@@ -1,0 +1,18 @@
+div {
+  display: flex;
+
+  button {
+    border: none;
+    padding: 10px;
+    text-align: center;
+    border-radius: 16px;
+    cursor: pointer;
+    margin: 10px;
+    background-color: aqua;
+
+    a {
+      margin-right: 7px;
+      color: white;
+    }
+  }
+}

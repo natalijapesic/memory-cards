@@ -1,0 +1,10 @@
+<div *ngIf="categories" class="categories">
+  <button
+    *ngFor="let category of categories"
+    (click)="selectCategory(category.id)"
+  >
+    <a *ngIf="selectedCategories.get(category.id)">x</a>
+    <a [routerLink]="['/category', category.name]">{{ category.name }}</a>
+  </button>
+</div>
+<button (click)="startQuiz()">Start Quiz</button>
