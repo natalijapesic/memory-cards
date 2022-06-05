@@ -6,6 +6,13 @@
       "isAdmin": false,
       "username": "test",
       "id": 1
+    },
+    {
+      "email": "dimitrije@gmail.com",
+      "password": "$2a$10$DVRiRBxEP3OjM8L1.7mICOhWyPX3bCeEE0ahc0ArxOEZnTGDAbRQm",
+      "isAdmin": true,
+      "username": "dimitrije",
+      "id": 2
     }
   ],
   "categories": [
@@ -24,10 +31,67 @@
       "id": 2
     },
     {
-      "name": "IT",
-      "purpose": "Any type of question on the topic of IT",
+      "name": "OOP",
+      "purpose": "Basic knowledge of OOP",
       "adminId": 1,
       "numberOfMembers": 0,
+      "id": 3
+    }
+  ],
+  "cards": [
+    {
+      "question": "Attributes of an object are also known as?",
+      "categoryId": 3,
+      "answers": {
+        "methods": false,
+        "properties": true,
+        "classes": false,
+        "functions": false
+      },
+      "id": 1
+    },
+    {
+      "question": "Which one of the following is the process where an object of one class receives the properties of objects of another class?",
+      "categoryId": 3,
+      "answers": {
+        "encapsulation": false,
+        "inheritance": true,
+        "polymorphism": false,
+        "modularity": false
+      },
+      "id": 2
+    },
+    {
+      "question": "What is the main goal of Object oriented programming?",
+      "categoryId": 3,
+      "answers": {
+        "Ease of evolution": true,
+        "Monitoring maintenance.": false,
+        "Encapsulating code.": false,
+        "Information hiding.": false
+      },
+      "id": 3
+    },
+    {
+      "question": "Which one of the following is the process where an object of one class receives the properties of objects of another class?",
+      "categoryId": 1,
+      "answers": {
+        "encapsulation": false,
+        "inheritance": true,
+        "polymorphism": false,
+        "modularity": false
+      },
+      "id": 2
+    },
+    {
+      "question": "What is the main goal of Object oriented programming?",
+      "categoryId": 2,
+      "answers": {
+        "Ease of evolution": true,
+        "Monitoring maintenance.": false,
+        "Encapsulating code.": false,
+        "Information hiding.": false
+      },
       "id": 3
     }
   ]

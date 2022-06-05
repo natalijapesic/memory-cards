@@ -18,4 +18,12 @@ export class StorageService {
   removeItem(key: string): void {
     localStorage.removeItem(key);
   }
+
+  setAccessToken(token: string): void {
+    localStorage.setItem('token', JSON.stringify(token));
+  }
+
+  getAccessToken(): string {
+    return JSON.parse(localStorage.getItem('token')!);
+  }
 }

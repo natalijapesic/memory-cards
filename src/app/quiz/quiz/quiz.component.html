@@ -1,1 +1,3 @@
-<p>quiz works!</p>
+<div *ngIf="cards$ | async as cards">
+  <p *ngFor="let card of cards">{{ card.id }}</p>
+</div>

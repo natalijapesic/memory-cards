@@ -1,14 +1,25 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Card } from '../_models';
-import { combineLatest, map, Observable, Subject, tap } from 'rxjs';
+import {
+  BehaviorSubject,
+  catchError,
+  combineLatest,
+  map,
+  Observable,
+  Subject,
+  tap,
+  throwError,
+} from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CardService {
-  private cardUrl = 'cards';
   private categorySelectedSubject = new Subject<number[]>();
+
+  private chosenCategories: number[] = [];
 
   constructor(private http: HttpClient) {}
 
@@ -40,27 +51,54 @@ export class CardService {
   //   );
   // }
 
-  generateQuiz() {
-    //gde ovo treba da se postavi?
-    let categorySelectedAction$: Observable<number[]> =
-      this.categorySelectedSubject.asObservable();
+  // generateQuiz() {
+  //   //gde ovo treba da se postavi?
+  //   let categorySelectedAction$: Observable<number[]> =
+  //     this.categorySelectedSubject.asObservable();
 
-      const cards$ = combineLatest([
-        this.getCards(),
-        categorySelectedAction$
-      ]).pipe(
-        map(([cards, categoryIds]) =>
-        cards.filter(card => categoryIds ? card.categoryId === categoryIds[0] : true)) 
-      );
+  //   const cards$ = combineLatest([
+  //     this.getCards(),
+  //     categorySelectedAction$,
+  //   ]).pipe(
+  //     map(([cards, categoryIds]) =>
+  //       cards.filter((card) =>
+  //         categoryIds ? card.categoryId === categoryIds[0] : true
+  //       )
+  //     )
+  //   );
+  // }
+
+  // onSelected(categoryIds: string[]): void {
+  //   const categoryIdsConverted = categoryIds.map((categoryId) => +categoryId);
+  //   this.categorySelectedSubject.next(categoryIdsConverted);
+  // }
+
+  chosen(categoryIds: number[]): void {
+    this.chosenCategories = categoryIds;
   }
 
-  onSelected(categoryIds: string[]): void {
-    const categoryIdsConverted = categoryIds.map((categoryId) => +categoryId);
-    this.categorySelectedSubject.next(categoryIdsConverted);
+  generateQuiz(): Observable<Card[]> {
+    let url = `${environment.apiUrl}/cards?`;
+    if (this.chosenCategories.length > 0) {
+      this.chosenCategories.forEach((categoryId) => {
+        url += `categoryId=${categoryId}&`;
+      });
+    }
+    return this.http.get<Card[]>(url).pipe(
+      tap((data) => console.log(JSON.stringify(data))),
+      catchError((error) => {
+        return throwError(() => new Error(`${error}`));
+      })
+    );
   }
 
   getCards(): Observable<Card[]> {
-    return this.http.get<Card[]>(this.cardUrl);
+    return this.http.get<Card[]>(`${environment.apiUrl}/cards`).pipe(
+      catchError((error) => {
+        console.log(`Handling error locally and rethrowing it ...`, error);
+        return throwError(() => new Error(`${error}`));
+      })
+    );
   }
 
   getCard(id: number): Observable<Card> {

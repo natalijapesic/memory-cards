@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { CategoryComponent, CreateCategoryComponent } from './quiz';
+import { QuizComponent } from './quiz/quiz/quiz.component';
 import { SignInComponent, SignUpComponent } from './users';
+import { AuthGuard } from './_helpers';
+import { Role } from './_models';
 
 const routes: Routes = [
   {
@@ -11,28 +13,27 @@ const routes: Routes = [
     component: HomeComponent,
   },
   {
-    path: 'sign-in',
-    component: SignInComponent,
-    // kreira kategoriju i odmah dodaje i kartice
-    // kreirane kartica moze i kasnije da se doda u okviru strice
-  },
-  {
-    path: 'sign-up',
-    component: SignUpComponent,
-    // kreira kategoriju i odmah dodaje i kartice
-    // kreirane kartica moze i kasnije da se doda u okviru strice
-  },
-  {
-    path: 'create-category',
-    component: CreateCategoryComponent,
-    // kreira kategoriju i odmah dodaje i kartice
-    // kreirane kartica moze i kasnije da se doda u okviru strice
+    path: 'quiz',
+    component: QuizComponent,
   },
   {
     path: 'category/:name',
     component: CategoryComponent,
-    //ovde takodje moze da se doda i kartica, da se vidi opis neke kategorije...
-    // da se odigra kviz samo da tu jednu kategoriju
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'sign-in',
+    component: SignInComponent,
+  },
+  {
+    path: 'sign-up',
+    component: SignUpComponent,
+  },
+  {
+    path: 'create-category',
+    component: CreateCategoryComponent,
+    canActivate: [AuthGuard],
+    data: { roles: [Role.Moderator, Role.CategoryAdmin] },
   },
   // otherwise redirect to home
   { path: '**', redirectTo: '' },

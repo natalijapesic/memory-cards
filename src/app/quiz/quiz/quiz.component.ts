@@ -1,15 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import * as core from '@angular/core';
+import { catchError, EMPTY } from 'rxjs';
+import { CardService } from '../_services/card.service';
 
-@Component({
+@core.Component({
   selector: 'app-quiz',
   templateUrl: './quiz.component.html',
-  styleUrls: ['./quiz.component.scss']
+  styleUrls: ['./quiz.component.scss'],
 })
-export class QuizComponent implements OnInit {
+export class QuizComponent {
+  errorMessage = '';
 
-  constructor() { }
+  constructor(private cardService: CardService) {}
 
-  ngOnInit(): void {
-  }
-
+  cards$ = this.cardService.generateQuiz().pipe(
+    catchError((err) => {
+      this.errorMessage = err;
+      return EMPTY;
+    })
+  );
 }

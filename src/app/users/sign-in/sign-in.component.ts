@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthentiocationService } from '../_services/authentiocation.service';
+import { AuthenticationService } from '../_services/authentiocation.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -11,7 +11,7 @@ export class SignInComponent implements OnInit {
   password: string = '';
   email: string = '';
 
-  constructor(private autenticationService: AuthentiocationService) {
+  constructor(private autenticationService: AuthenticationService) {
     console.log(this.errorMessage);
   }
 

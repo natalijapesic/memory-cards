@@ -10,7 +10,7 @@ import { SignInRequest, SignUpRequest } from './types';
 @Injectable({
   providedIn: 'root',
 })
-export class AuthentiocationService {
+export class AuthenticationService {
   private userSubject: BehaviorSubject<User | null>;
   private user: Observable<User | null>;
 

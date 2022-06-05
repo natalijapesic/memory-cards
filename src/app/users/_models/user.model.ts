@@ -1,17 +1,18 @@
+import { Role } from "src/app/_models";
+
 export class User {
-  id: number;
+  id?: number;
   name: string;
   email: string;
   password: string;
-  isAdmin: boolean;
+  role: Role;
   // learningState: Record<string, number>;
 
   constructor(name: string, email: string, password: string) {
-    this.id = 0;
     this.name = name;
     this.email = email;
     this.password = password;
-    this.isAdmin = false;
+    this.role = Role.User;
     // this.learningState = {};
   }
 }

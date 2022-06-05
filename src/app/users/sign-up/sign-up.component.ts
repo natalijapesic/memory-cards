@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthentiocationService } from '../_services/authentiocation.service';
+import { AuthenticationService } from '../_services/authentiocation.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -12,20 +12,20 @@ export class SignUpComponent implements OnInit {
   email: string = '';
   name: string = '';
 
-  constructor(private autenticationService: AuthentiocationService) {
+  constructor(private autenticationService: AuthenticationService) {
     console.log(this.errorMessage);
   }
 
   ngOnInit(): void {}
 
   onSignUp() {
-      this.autenticationService
-        .signUp({
-          username: this.name,
-          isAdmin: false,
-          email: this.email,
-          password: this.password,
-        })
-        .subscribe((response) => console.log(`${response} erorororo`))
+    this.autenticationService
+      .signUp({
+        username: this.name,
+        isAdmin: false,
+        email: this.email,
+        password: this.password,
+      })
+      .subscribe((response) => console.log(`${response} erorororo`));
   }
 }

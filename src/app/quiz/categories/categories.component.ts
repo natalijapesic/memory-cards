@@ -1,40 +1,72 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { Category } from '../_models';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { catchError, EMPTY, map, shareReplay, tap } from 'rxjs';
+import { CardService } from '../_services/card.service';
 import { CategoryService } from '../_services/category.service';
+
+const numberToHex = (component: number): string => {
+  let hex = component.toString(16);
+  return hex.length == 1 ? '0' + hex : hex;
+};
+
+const rgbToHex = (rgb: number[]): string => {
+  return `#${numberToHex(rgb[0])}${numberToHex(rgb[1])}${numberToHex(rgb[2])}`;
+};
 
 @Component({
   selector: 'app-categories',
   templateUrl: './categories.component.html',
   styleUrls: ['./categories.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CategoriesComponent implements OnInit, OnDestroy {
-  categories: Category[] = [];
+export class CategoriesComponent implements OnInit {
   errorMessage = '';
-  sub!: Subscription;
-  selectedCategories = new Map<number, boolean>();
+  categoriesState = new Map<number, boolean>();
 
-  constructor(private categoryService: CategoryService) {}
+  categories$ = this.categoryService.categories$.pipe(
+    tap((data) => console.log(JSON.stringify(data))),
+    catchError((err) => {
+      this.errorMessage = err;
+      return EMPTY;
+    })
+  );
+
+  constructor(
+    private categoryService: CategoryService,
+    private cardService: CardService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
-    this.sub = this.categoryService.getCategories().subscribe({
-      next: (categories) => (this.categories = categories),
-      error: (err) => (this.errorMessage = err),
-    });
-
-    this.categories.map((category) => {
-      this.selectedCategories.set(category.id, false);
-    });
+    this.categories$.pipe(
+      map((categories) => {
+        categories.map((category) =>
+          this.categoriesState.set(category.id, false)
+        );
+      })
+    );
   }
 
   selectCategory(categoryId: number) {
-    let isSelected = this.selectedCategories.get(categoryId);
-    this.selectedCategories.set(categoryId, !isSelected);
+    let isSelected = this.categoriesState.get(categoryId);
+    this.categoriesState.set(categoryId, !isSelected);
   }
 
-  startQuiz() {}
-
-  ngOnDestroy(): void {
-    this.sub.unsubscribe();
+  startQuiz() {
+    const choosenCategory = [];
+    for (let [id, state] of this.categoriesState)
+      if (state) choosenCategory.push(id);
+    this.cardService.chosen(choosenCategory);
+    this.router.navigate(['/quiz']);
   }
+
+  buttonCategoryColor = (categoryId: number): string => {
+    if (categoryId == 0) categoryId = 99;
+    let rgb: number[] = [255, 255, 0];
+    categoryId % 2 === 0
+      ? (rgb[1] = Number((255 / (100 - categoryId) / 10).toFixed()))
+      : (rgb[0] = Number(((255 * categoryId) / 100).toFixed()));
+
+    return rgbToHex(rgb);
+  };
 }

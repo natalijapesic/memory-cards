@@ -9,8 +9,15 @@ import { RouterModule } from '@angular/router';
 import { QuizComponent } from './quiz/quiz.component';
 
 @NgModule({
-  declarations: [CardComponent, CreateCardComponent, CreateCategoryComponent, CategoryComponent, CategoriesComponent, QuizComponent],
+  declarations: [
+    CardComponent,
+    CreateCardComponent,
+    CreateCategoryComponent,
+    CategoryComponent,
+    CategoriesComponent,
+    QuizComponent,
+  ],
   imports: [CommonModule, RouterModule],
-  exports:[CategoriesComponent]
+  exports: [CategoriesComponent],
 })
 export class QuizModule {}

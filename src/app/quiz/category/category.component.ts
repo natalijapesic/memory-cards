@@ -7,9 +7,6 @@ import { Category } from '../_models';
   styleUrls: ['./category.component.scss'],
 })
 export class CategoryComponent implements OnInit {
-  @Input()
-  category!: Category;
-
   constructor() {}
 
   ngOnInit(): void {}
