@@ -1,1 +1,9 @@
-<div>works</div>
+<div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
+  <div class="example-box" *ngFor="let card of cards; let i = index" cdkDrag>
+    <h3>{{ card.question }}</h3>
+    <span>Offered answers:</span>
+    <ol>
+      <li *ngFor="let answer of card.answers">{{ answer }}</li>
+    </ol>
+  </div>
+</div>

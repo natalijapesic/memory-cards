@@ -8,6 +8,7 @@ import { CategoriesComponent } from './categories/categories.component';
 import { RouterModule } from '@angular/router';
 import { QuizComponent } from './quiz/quiz.component';
 import { FormsModule } from '@angular/forms';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,7 @@ import { FormsModule } from '@angular/forms';
     CategoriesComponent,
     QuizComponent,
   ],
-  imports: [CommonModule, RouterModule, FormsModule],
+  imports: [CommonModule, RouterModule, FormsModule, DragDropModule],
   exports: [CategoriesComponent],
 })
 export class QuizModule {}

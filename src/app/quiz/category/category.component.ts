@@ -1,9 +1,10 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { forkJoin, Subscription } from 'rxjs';
 import { Card, Category } from '../_models';
 import { CardService } from '../_services/card.service';
 import { CategoryService } from '../_services/category.service';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-category',
@@ -14,8 +15,8 @@ export class CategoryComponent implements OnInit, OnDestroy {
   categoryId: number = 0;
   errorMessage: string = '';
   sub!: Subscription;
-  categoryResponse: Category | undefined;
-  cardsResponse: Card[] = [];
+  category: Category | undefined;
+  cards: Card[] = [];
 
   constructor(
     private categoryService: CategoryService,
@@ -34,10 +35,15 @@ export class CategoryComponent implements OnInit, OnDestroy {
       cardsResponse: this.cardService.getCardsByCategoryId(this.categoryId),
     }).subscribe({
       next: (data) => {
-        this.categoryResponse = data.categoryResponse;
-        this.cardsResponse = data.cardsResponse;
+        this.category = data.categoryResponse;
+        this.cards = data.cardsResponse;
       },
       error: (err) => (this.errorMessage = err),
     });
+  }
+
+  drop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.cards, event.previousIndex, event.currentIndex);
+    console.log(this.cards);
   }
 }
