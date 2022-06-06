@@ -13,7 +13,6 @@ export class CategoryService {
   categories$ = this.http
     .get<Category[]>(`${environment.apiUrl}/categories`)
     .pipe(
-      tap((data) => console.log('Categories', JSON.stringify(data))),
       catchError((error) => {
         throw new Error(`Error ${error}`);
       })

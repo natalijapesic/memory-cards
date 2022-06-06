@@ -85,7 +85,6 @@ export class CardService {
       });
     }
     return this.http.get<Card[]>(url).pipe(
-      tap((data) => console.log(JSON.stringify(data))),
       catchError((error) => {
         return throwError(() => new Error(`${error}`));
       })

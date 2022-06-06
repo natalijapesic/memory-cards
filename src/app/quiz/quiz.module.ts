@@ -7,6 +7,7 @@ import { CategoryComponent } from './category/category.component';
 import { CategoriesComponent } from './categories/categories.component';
 import { RouterModule } from '@angular/router';
 import { QuizComponent } from './quiz/quiz.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,7 @@ import { QuizComponent } from './quiz/quiz.component';
     CategoriesComponent,
     QuizComponent,
   ],
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, FormsModule],
   exports: [CategoriesComponent],
 })
 export class QuizModule {}

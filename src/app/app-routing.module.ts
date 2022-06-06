@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
-import { CategoryComponent, CreateCategoryComponent } from './quiz';
+import { CardComponent, CategoryComponent, CreateCategoryComponent } from './quiz';
 import { QuizComponent } from './quiz/quiz/quiz.component';
 import { SignInComponent, SignUpComponent } from './users';
 import { AuthGuard } from './_helpers';
@@ -15,6 +15,10 @@ const routes: Routes = [
   {
     path: 'quiz',
     component: QuizComponent,
+  },
+  {
+    path: 'card',
+    component: CardComponent,
   },
   {
     path: 'category/:name',

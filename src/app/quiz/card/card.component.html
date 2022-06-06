@@ -1,7 +1,14 @@
-<div class="question-form">
-    <div>
-        <button>
-            
-        </button>
-    </div>
+<div *ngIf="card">
+  <h3>{{ card.question }}</h3>
+  <div *ngFor="let answer of card.answers; let i = index">
+    <input
+      [id]="i"
+      type="radio"
+      [name]="answer + card.id"
+      [value]="answer"
+      [(ngModel)]="checkedAnswer"
+    />
+    <label [for]="answer">{{ answer }}</label>
+  </div>
+  <button (click)="checkAnswer()">Answer</button>
 </div>

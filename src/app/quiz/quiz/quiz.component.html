@@ -1,3 +1,15 @@
-<div *ngIf="cards$ | async as cards">
-  <p *ngFor="let card of cards">{{ card.id }}</p>
+<div class="question-form">
+  <div>
+    <button>Arrow</button>
+    <div class="scale">
+      <div></div>
+    </div>
+    <label></label>
+  </div>
+
+  <div *ngIf="cards$ | async as cards">
+    <div *ngFor="let card of cards">
+      <app-card (isCorrect)="isAnswerCorrent($event)" [card]="card"></app-card>
+    </div>
+  </div>
 </div>

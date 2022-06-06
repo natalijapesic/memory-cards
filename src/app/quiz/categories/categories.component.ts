@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { catchError, EMPTY, map, shareReplay, tap } from 'rxjs';
+import { catchError, EMPTY, map, tap } from 'rxjs';
 import { CardService } from '../_services/card.service';
 import { CategoryService } from '../_services/category.service';
 
@@ -22,6 +22,7 @@ const rgbToHex = (rgb: number[]): string => {
 export class CategoriesComponent implements OnInit {
   errorMessage = '';
   categoriesState = new Map<number, boolean>();
+  
 
   categories$ = this.categoryService.categories$.pipe(
     tap((data) => console.log(JSON.stringify(data))),

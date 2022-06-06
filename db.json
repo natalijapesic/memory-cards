@@ -42,57 +42,54 @@
     {
       "question": "Attributes of an object are also known as?",
       "categoryId": 3,
-      "answers": {
-        "methods": false,
-        "properties": true,
-        "classes": false,
-        "functions": false
-      },
+      "answers": ["methods", "properties", "classes", "functions"],
+      "correctAnswer": "properties",
       "id": 1
     },
     {
       "question": "Which one of the following is the process where an object of one class receives the properties of objects of another class?",
       "categoryId": 3,
-      "answers": {
-        "encapsulation": false,
-        "inheritance": true,
-        "polymorphism": false,
-        "modularity": false
-      },
+      "answers": ["encapsulation", "inheritance", "polymorphism", "modularity"],
+      "correctAnswer": "inheritance",
       "id": 2
     },
     {
       "question": "What is the main goal of Object oriented programming?",
       "categoryId": 3,
-      "answers": {
-        "Ease of evolution": true,
-        "Monitoring maintenance.": false,
-        "Encapsulating code.": false,
-        "Information hiding.": false
-      },
+      "answers": [
+        "Ease of evolution",
+        "Monitoring maintenance.",
+        "Encapsulating code.",
+        "Information hiding."
+      ],
+      "correctAnswer": "Ease of evolution",
       "id": 3
     },
     {
-      "question": "Which one of the following is the process where an object of one class receives the properties of objects of another class?",
+      "question": "Attributes of an object are also known as?",
       "categoryId": 1,
-      "answers": {
-        "encapsulation": false,
-        "inheritance": true,
-        "polymorphism": false,
-        "modularity": false
-      },
-      "id": 2
+      "answers": ["methods", "properties", "classes", "functions"],
+      "correctAnswer": "properties",
+      "id": 4
+    },
+    {
+      "question": "Which one of the following is the process where an object of one class receives the properties of objects of another class?",
+      "categoryId": 2,
+      "answers": ["encapsulation", "inheritance", "polymorphism", "modularity"],
+      "correctAnswer": "inheritance",
+      "id": 5
     },
     {
       "question": "What is the main goal of Object oriented programming?",
       "categoryId": 2,
-      "answers": {
-        "Ease of evolution": true,
-        "Monitoring maintenance.": false,
-        "Encapsulating code.": false,
-        "Information hiding.": false
-      },
-      "id": 3
+      "answers": [
+        "Ease of evolution",
+        "Monitoring maintenance.",
+        "Encapsulating code.",
+        "Information hiding."
+      ],
+      "correctAnswer": "Ease of evolution",
+      "id": 6
     }
   ]
 }

@@ -18,4 +18,8 @@ export class QuizComponent {
       return EMPTY;
     })
   );
+
+  isAnswerCorrent(value: boolean) {
+    console.log(value);
+  }
 }
