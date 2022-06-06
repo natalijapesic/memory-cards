@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, tap } from 'rxjs';
+import { catchError, Observable, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Category } from '../_models';
+import { Card, Category } from '../_models';
 
 @Injectable({
   providedIn: 'root',
@@ -17,4 +17,15 @@ export class CategoryService {
         throw new Error(`Error ${error}`);
       })
     );
+
+  getCategory(id: number): Observable<Category> {
+    return this.http
+      .get<Category>(`${environment.apiUrl}/categories/${id}`)
+      .pipe(
+        tap((data) => console.log(data)),
+        catchError((error) => {
+          throw new Error(`Error ${error}`);
+        })
+      );
+  }
 }

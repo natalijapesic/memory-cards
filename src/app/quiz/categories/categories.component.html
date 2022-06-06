@@ -6,7 +6,7 @@
       [ngStyle]="{ 'background-color': buttonCategoryColor(category.id) }"
     >
       <a *ngIf="categoriesState.get(category.id)">x</a>
-      <a [routerLink]="['/category', category.name]">{{ category.name }}</a>
+      <a [routerLink]="['/category', category.id]">{{ category.name }}</a>
     </button>
   </div>
   <button class="startQuiz" (click)="startQuiz()">Start Quiz</button>

@@ -92,6 +92,22 @@ export class CardService {
   }
 
   getCard(id: number): Observable<Card> {
-    return this.http.get<Card>(`this.cardUrl${id}`);
+    return this.http.get<Card>(`${environment.apiUrl}/cards/${id}`).pipe(
+      catchError((error) => {
+        console.log(`Handling error locally and rethrowing it ...`, error);
+        return throwError(() => new Error(`${error}`));
+      })
+    );
+  }
+
+  getCardsByCategoryId(categoryId: number): Observable<Card[]> {
+    return this.http
+      .get<Card[]>(`${environment.apiUrl}/cards?categoryId=${categoryId}`)
+      .pipe(
+        catchError((error) => {
+          console.log(`Handling error locally and rethrowing it ...`, error);
+          return throwError(() => new Error(`${error}`));
+        })
+      );
   }
 }

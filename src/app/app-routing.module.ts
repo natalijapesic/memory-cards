@@ -1,7 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
-import { CardComponent, CategoryComponent, CreateCategoryComponent } from './quiz';
+import {
+  CardComponent,
+  CategoryComponent,
+  CreateCategoryComponent,
+} from './quiz';
 import { QuizComponent } from './quiz/quiz/quiz.component';
 import { SignInComponent, SignUpComponent } from './users';
 import { AuthGuard } from './_helpers';
@@ -21,7 +25,7 @@ const routes: Routes = [
     component: CardComponent,
   },
   {
-    path: 'category/:name',
+    path: 'category/:id',
     component: CategoryComponent,
     canActivate: [AuthGuard],
   },
