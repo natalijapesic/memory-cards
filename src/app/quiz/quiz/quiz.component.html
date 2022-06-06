@@ -7,9 +7,12 @@
     <label></label>
   </div>
 
-  <div *ngIf="cards$ | async as cards">
-    <div *ngFor="let card of cards">
-      <app-card (isCorrect)="isAnswerCorrent($event)" [card]="card"></app-card>
-    </div>
+  <div *ngIf="cards">
+    <app-card
+      *ngIf="!showResult"
+      (isCorrect)="isAnswerCorrect($event)"
+      [card]="cards[currentCard]"
+    ></app-card>
+    <div *ngIf="showResult">{{ correctAnswers }}</div>
   </div>
 </div>

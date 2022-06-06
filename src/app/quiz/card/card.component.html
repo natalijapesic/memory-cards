@@ -1,14 +1,17 @@
-<div *ngIf="card">
+<div class="card-form" *ngIf="card">
   <h3>{{ card.question }}</h3>
-  <div *ngFor="let answer of card.answers; let i = index">
-    <input
-      [id]="i"
-      type="radio"
-      [name]="answer + card.id"
-      [value]="answer"
-      [(ngModel)]="checkedAnswer"
-    />
-    <label [for]="answer">{{ answer }}</label>
+  <div class="radio-forms">
+    <div class="radio-div" *ngFor="let answer of card.answers; let i = index">
+      <input
+        [id]="i"
+        type="radio"
+        [name]="answer + card.id"
+        [value]="answer"
+        [(ngModel)]="checkedAnswer"
+      />
+      <label [for]="answer">{{ answer }}</label>
+    </div>
   </div>
+
   <button (click)="checkAnswer()">Answer</button>
 </div>

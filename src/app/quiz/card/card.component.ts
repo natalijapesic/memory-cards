@@ -17,9 +17,13 @@ export class CardComponent implements OnInit {
   constructor() {}
 
   checkAnswer() {
-    this.checkedAnswer === this.card?.correctAnswer
-      ? this.isCorrect.emit(true)
-      : this.isCorrect.emit(false);
+    if(this.checkedAnswer === this.card?.correctAnswer){
+      this.isCorrect.emit(true)
+    }
+    else{
+      this.isCorrect.emit(false);
+
+    }
   }
 
   ngOnInit(): void {}

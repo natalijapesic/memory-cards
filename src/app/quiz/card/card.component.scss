@@ -1,0 +1,17 @@
+.card-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.radio-div {
+  display: flex;
+  flex-direction: row;
+  width: 150px;
+  margin: 5px;
+}
+
+.radio-forms {
+  display: flex;
+  flex-wrap: wrap;
+}
