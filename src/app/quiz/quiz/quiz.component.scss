@@ -1,0 +1,24 @@
+.question-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.scale {
+  display: flex;
+  align-items: center;
+  width: 400px;
+  max-width: 400px;
+  border: none;
+
+  .percentage {
+    display: flex;
+    flex-grow: 1;
+    border: 2px solid gray;
+
+    div {
+      height: 20px;
+      background-color: rgb(236, 132, 95);
+    }
+  }
+}

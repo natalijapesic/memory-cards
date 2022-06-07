@@ -1,6 +1,6 @@
 import * as core from '@angular/core';
 import { OnDestroy, OnInit } from '@angular/core';
-import { catchError, EMPTY, Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { Card } from '../_models';
 import { CardService } from '../_services/card.service';
 
@@ -26,6 +26,10 @@ export class QuizComponent implements OnInit, OnDestroy {
       error: (err) => (this.errorMessage = err),
     });
   }
+
+  proportion = () => {
+    return this.currentCard / this.cards.length;
+  };
 
   isAnswerCorrect(isCorrect: boolean) {
     if (isCorrect) this.correctAnswers += 1;

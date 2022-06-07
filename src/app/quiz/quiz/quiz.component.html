@@ -1,10 +1,10 @@
 <div class="question-form">
-  <div>
+  <div *ngIf="!showResult" class="scale">
     <button>Arrow</button>
-    <div class="scale">
-      <div></div>
+    <div class="percentage">
+      <div [ngStyle]="{ 'flex-grow': proportion() }"></div>
     </div>
-    <label></label>
+    <label> {{ (proportion() * 100).toFixed() }}% </label>
   </div>
 
   <div *ngIf="cards">
