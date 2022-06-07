@@ -1,10 +1,10 @@
-import * as core from '@angular/core';
-import { OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Card } from '../_models';
 import { CardService } from '../_services/card.service';
+import { PreviousCardState } from '../_types';
 
-@core.Component({
+@Component({
   selector: 'app-quiz',
   templateUrl: './quiz.component.html',
   styleUrls: ['./quiz.component.scss'],
@@ -12,7 +12,10 @@ import { CardService } from '../_services/card.service';
 export class QuizComponent implements OnInit, OnDestroy {
   errorMessage: string = '';
   correctAnswers: number = 0;
-  currentCard: number = 0;
+  currentCard: PreviousCardState = {
+    serial: 0,
+    isCorrectAnswered: false,
+  };
   showResult: boolean = false;
 
   sub!: Subscription;
@@ -28,15 +31,17 @@ export class QuizComponent implements OnInit, OnDestroy {
   }
 
   proportion = () => {
-    return this.currentCard / this.cards.length;
+    return this.currentCard.serial / this.cards.length;
   };
 
   isAnswerCorrect(isCorrect: boolean) {
     if (isCorrect) this.correctAnswers += 1;
-    this.currentCard < this.cards.length - 1
-      ? (this.currentCard += 1)
+    this.currentCard.serial < this.cards.length - 1
+      ? (this.currentCard.serial += 1)
       : (this.showResult = true);
   }
+
+  previousQuestion() {}
 
   ngOnDestroy(): void {
     this.sub.unsubscribe();
