@@ -42,16 +42,28 @@
     {
       "question": "Attributes of an object are also known as?",
       "categoryId": 3,
-      "answers": ["methods", "properties", "classes", "functions"],
+      "answers": [
+        "methods",
+        "properties",
+        "classes",
+        "functions"
+      ],
       "correctAnswer": "properties",
-      "id": 1
+      "id": 1,
+      "level": 1
     },
     {
       "question": "Which one of the following is the process where an object of one class receives the properties of objects of another class?",
       "categoryId": 3,
-      "answers": ["encapsulation", "inheritance", "polymorphism", "modularity"],
+      "answers": [
+        "encapsulation",
+        "inheritance",
+        "polymorphism",
+        "modularity"
+      ],
       "correctAnswer": "inheritance",
-      "id": 2
+      "id": 2,
+      "level": 2
     },
     {
       "question": "What is the main goal of Object oriented programming?",
@@ -63,21 +75,34 @@
         "Information hiding."
       ],
       "correctAnswer": "Ease of evolution",
-      "id": 3
+      "id": 3,
+      "level": 0
     },
     {
       "question": "Attributes of an object are also known as?",
       "categoryId": 1,
-      "answers": ["methods", "properties", "classes", "functions"],
+      "answers": [
+        "methods",
+        "properties",
+        "classes",
+        "functions"
+      ],
       "correctAnswer": "properties",
-      "id": 4
+      "id": 4,
+      "level": 4
     },
     {
       "question": "Which one of the following is the process where an object of one class receives the properties of objects of another class?",
       "categoryId": 2,
-      "answers": ["encapsulation", "inheritance", "polymorphism", "modularity"],
+      "answers": [
+        "encapsulation",
+        "inheritance",
+        "polymorphism",
+        "modularity"
+      ],
       "correctAnswer": "inheritance",
-      "id": 5
+      "id": 5,
+      "level": 5
     },
     {
       "question": "What is the main goal of Object oriented programming?",
@@ -89,7 +114,8 @@
         "Information hiding."
       ],
       "correctAnswer": "Ease of evolution",
-      "id": 6
+      "id": 6,
+      "level": 6
     }
   ]
 }

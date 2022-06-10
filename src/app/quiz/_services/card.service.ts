@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Card } from '../_models';
-import { catchError, Observable, throwError } from 'rxjs';
+import { catchError, Observable, tap, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { DifficultyLevelRequest } from './types';
 
 @Injectable({
   providedIn: 'root',
@@ -16,6 +17,18 @@ export class CardService {
 
   chosen(categoryIds: number[]): void {
     this.chosenCategories = categoryIds;
+  }
+
+  updateDifficultyLevel(request: DifficultyLevelRequest) {
+    return this.http
+      .patch<Card>(`${environment.apiUrl}/cards/${request.cardId}`, {
+        level: request.newLevel,
+      })
+      .pipe(
+        catchError((error) => {
+          return throwError(() => new Error(`${error}`));
+        })
+      );
   }
 
   generateQuiz(): Observable<Card[]> {

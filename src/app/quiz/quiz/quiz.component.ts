@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Card } from '../_models';
 import { CardService } from '../_services/card.service';
-import { PreviousCardState } from '../_types';
+// import { PreviousCardState } from '../_types';
 
 @Component({
   selector: 'app-quiz',
@@ -11,13 +11,10 @@ import { PreviousCardState } from '../_types';
 })
 export class QuizComponent implements OnInit, OnDestroy {
   errorMessage: string = '';
-  correctAnswers: number = 0;
-  currentCard: PreviousCardState = {
-    serial: 0,
-    isCorrectAnswered: false,
-  };
+  countCorrectAnswers: number = 0;
+  isPreviousAnswerCorrect: boolean = false;
+  currentCard: number = 0;
   showResult: boolean = false;
-
   sub!: Subscription;
   cards: Card[] = [];
 
@@ -31,17 +28,25 @@ export class QuizComponent implements OnInit, OnDestroy {
   }
 
   proportion = () => {
-    return this.currentCard.serial / this.cards.length;
+    return this.currentCard / this.cards.length;
   };
 
   isAnswerCorrect(isCorrect: boolean) {
-    if (isCorrect) this.correctAnswers += 1;
-    this.currentCard.serial < this.cards.length - 1
-      ? (this.currentCard.serial += 1)
+    if (isCorrect) {
+      this.countCorrectAnswers += 1;
+      this.isPreviousAnswerCorrect = true;
+    }
+    this.currentCard < this.cards.length - 1
+      ? (this.currentCard += 1)
       : (this.showResult = true);
   }
 
-  previousQuestion() {}
+  previousQuestion() {
+    if (this.currentCard > 0) {
+      this.currentCard -= 1;
+      if (this.isPreviousAnswerCorrect) this.countCorrectAnswers -= 1;
+    }
+  }
 
   ngOnDestroy(): void {
     this.sub.unsubscribe();

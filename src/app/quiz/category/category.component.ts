@@ -14,7 +14,8 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 export class CategoryComponent implements OnInit, OnDestroy {
   categoryId: number = 0;
   errorMessage: string = '';
-  sub!: Subscription;
+  subscribeCC!: Subscription;
+  subscribeUDL!: Subscription;
   category: Category | undefined;
   cards: Card[] = [];
 
@@ -26,11 +27,11 @@ export class CategoryComponent implements OnInit, OnDestroy {
     this.categoryId = Number(route.snapshot.params['id']);
   }
   ngOnDestroy(): void {
-    this.sub.unsubscribe();
+    this.subscribeCC.unsubscribe();
   }
 
   ngOnInit(): void {
-    this.sub = forkJoin({
+    this.subscribeCC = forkJoin({
       categoryResponse: this.categoryService.getCategory(this.categoryId),
       cardsResponse: this.cardService.getCardsByCategoryId(this.categoryId),
     }).subscribe({
@@ -45,5 +46,19 @@ export class CategoryComponent implements OnInit, OnDestroy {
   drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.cards, event.previousIndex, event.currentIndex);
     console.log(this.cards);
+  }
+
+  onApplyChanges() {
+    this.subscribeUDL = forkJoin(
+      this.cards.map((card, index) =>
+        this.cardService.updateDifficultyLevel({
+          cardId: card.id,
+          newLevel: index,
+        })
+      )
+    ).subscribe({
+      next: (data) => console.log(data),
+      error: (err) => (this.errorMessage = err),
+    });
   }
 }

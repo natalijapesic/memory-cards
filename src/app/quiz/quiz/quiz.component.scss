@@ -5,6 +5,11 @@
   align-items: center;
 }
 
+mat-icon{
+  transform: scale(1.5);
+  margin-right: 8px;
+}
+
 .scale {
   display: flex;
   align-items: center;
@@ -21,6 +26,9 @@
     div {
       height: 20px;
       background-color: rgb(236, 132, 95);
+      border-top-left-radius: 15px;
+      border-bottom-left-radius: 15px;
+
     }
   }
 

@@ -24,7 +24,7 @@ export class SignInComponent implements OnInit {
           email: this.email,
           password: this.password,
         })
-        .subscribe((response) => console.log(`${response} erorororo`))
+        .subscribe((response) => console.log(`${response}`))
     );
   }
 }

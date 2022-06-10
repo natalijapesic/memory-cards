@@ -11,8 +11,8 @@
     <app-card
       *ngIf="!showResult"
       (isCorrect)="isAnswerCorrect($event)"
-      [card]="cards[currentCard.serial]"
+      [card]="cards[currentCard]"
     ></app-card>
-    <div *ngIf="showResult">{{ correctAnswers }}</div>
+    <div *ngIf="showResult">{{ countCorrectAnswers }}</div>
   </div>
 </div>
