@@ -50,7 +50,7 @@
       ],
       "correctAnswer": "properties",
       "id": 1,
-      "level": 1
+      "level": 2
     },
     {
       "question": "Which one of the following is the process where an object of one class receives the properties of objects of another class?",
@@ -63,7 +63,7 @@
       ],
       "correctAnswer": "inheritance",
       "id": 2,
-      "level": 2
+      "level": 1
     },
     {
       "question": "What is the main goal of Object oriented programming?",

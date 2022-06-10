@@ -4,7 +4,7 @@ export class Card {
   answers: string[];
   categoryId: number;
   correctAnswer: string;
-  level?: number;
+  level: number;
 
   constructor(
     id: number,
@@ -18,6 +18,7 @@ export class Card {
     this.answers = answers;
     this.categoryId = categoryId;
     this.correctAnswer = correctAnswer;
+    this.level = 0;
   }
 
   setLevel(level: number) {

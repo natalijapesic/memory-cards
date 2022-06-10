@@ -22,7 +22,9 @@ export class QuizComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.sub = this.cardService.generateQuiz().subscribe({
-      next: (cards) => (this.cards = cards),
+      next: (cards) => {
+        this.cards = cards.sort((a, b) => a.level - b.level);
+      },
       error: (err) => (this.errorMessage = err),
     });
   }
