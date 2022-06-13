@@ -10,6 +10,7 @@ import { QuizComponent } from './quiz/quiz.component';
 import { FormsModule } from '@angular/forms';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatIconModule } from '@angular/material/icon';
+import { QuizBuilderComponent } from './quiz-builder/quiz-builder.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { MatIconModule } from '@angular/material/icon';
     CategoryComponent,
     CategoriesComponent,
     QuizComponent,
+    QuizBuilderComponent,
   ],
   imports: [CommonModule, RouterModule, FormsModule, DragDropModule,  MatIconModule],
   exports: [CategoriesComponent],

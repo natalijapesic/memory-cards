@@ -6,6 +6,7 @@ import {
   CategoryComponent,
   CreateCategoryComponent,
 } from './quiz';
+import { QuizBuilderComponent } from './quiz/quiz-builder/quiz-builder.component';
 import { QuizComponent } from './quiz/quiz/quiz.component';
 import { SignInComponent, SignUpComponent } from './users';
 import { AuthGuard } from './_helpers';
@@ -36,6 +37,10 @@ const routes: Routes = [
   {
     path: 'sign-up',
     component: SignUpComponent,
+  },
+  {
+    path: 'quizBuilder',
+    component: QuizBuilderComponent,
   },
   {
     path: 'create-category',

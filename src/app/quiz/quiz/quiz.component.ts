@@ -29,8 +29,10 @@ export class QuizComponent implements OnInit, OnDestroy {
     });
   }
 
-  proportion = () => {
-    return this.currentCard / this.cards.length;
+  proportion = (isResult: boolean) => {
+    return !isResult
+      ? this.currentCard / this.cards.length
+      : this.countCorrectAnswers / this.cards.length;
   };
 
   isAnswerCorrect(isCorrect: boolean) {

@@ -10,6 +10,13 @@ mat-icon{
   margin-right: 8px;
 }
 
+.result{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+}
+
 .scale {
   display: flex;
   align-items: center;
