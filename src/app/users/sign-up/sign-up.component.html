@@ -1,16 +1,22 @@
-<div class="user-form">
-  <h1>Sign in</h1>
-  <label class="error-label">{{ errorMessage }}</label>
-  <input name="name" [(ngModel)]="name" type="text" placeholder="Input name" />
-  <input
-    [(ngModel)]="email"
-    type="text"
-    placeholder="Input e-mail"
-  />
-  <input
-    [(ngModel)]="password"
-    type="password"
-    placeholder="Input password"
-  />
-  <button (click)="onSignUp()">Sign In</button>
+<div class="signUp-form">
+  <form [formGroup]="form" (ngSubmit)="onSignUp()">
+    <div class="form-group" *ngFor="let control of formControls; let i = index">
+      <input
+        type="{{ control }}"
+        formControlName="{{ control }}"
+        class="form-control"
+        placeholder="{{ control }}"
+        [ngClass]="{ 'is-invalid': submitted && formControl[control].errors }"
+      />
+      <div
+        *ngIf="submitted && formControl[control].errors"
+        class="invalid-feedback"
+      >
+        <label *ngIf="formControl[control].errors">{{
+          formControlsErrorMessages[i]
+        }}</label>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Sign Up</button>
+  </form>
 </div>

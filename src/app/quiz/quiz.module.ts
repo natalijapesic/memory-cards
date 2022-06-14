@@ -7,10 +7,10 @@ import { CategoryComponent } from './category/category.component';
 import { CategoriesComponent } from './categories/categories.component';
 import { RouterModule } from '@angular/router';
 import { QuizComponent } from './quiz/quiz.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatIconModule } from '@angular/material/icon';
 import { QuizBuilderComponent } from './quiz-builder/quiz-builder.component';
+import { SharedModule } from '../shared/shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -22,14 +22,7 @@ import { QuizBuilderComponent } from './quiz-builder/quiz-builder.component';
     QuizComponent,
     QuizBuilderComponent,
   ],
-  imports: [
-    CommonModule,
-    RouterModule,
-    FormsModule,
-    DragDropModule,
-    MatIconModule,
-    ReactiveFormsModule,
-  ],
+  imports: [RouterModule, SharedModule, DragDropModule, MatIconModule],
   exports: [CategoriesComponent],
 })
 export class QuizModule {}

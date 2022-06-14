@@ -13,6 +13,13 @@
       "isAdmin": true,
       "username": "dimitrije",
       "id": 2
+    },
+    {
+      "email": "natalija@gmail.com",
+      "password": "$2a$10$60PyScRwYDW2anw9/UM.s.12/xgeMPyxajk7Is/QXrQr3xwBGuTAy",
+      "username": "natalija",
+      "isAdmin": false,
+      "id": 3
     }
   ],
   "categories": [
@@ -42,16 +49,30 @@
     {
       "question": "Attributes of an object are also known as?",
       "categoryId": 3,
-      "answers": ["methods", "properties", "classes", "functions"],
-      "correctAnswers": ["properties"],
+      "answers": [
+        "methods",
+        "properties",
+        "classes",
+        "functions"
+      ],
+      "correctAnswers": [
+        "properties"
+      ],
       "id": 1,
       "level": 2
     },
     {
       "question": "Which one of the following is the process where an object of one class receives the properties of objects of another class?",
       "categoryId": 3,
-      "answers": ["encapsulation", "inheritance", "polymorphism", "modularity"],
-      "correctAnswers": ["inheritance"],
+      "answers": [
+        "encapsulation",
+        "inheritance",
+        "polymorphism",
+        "modularity"
+      ],
+      "correctAnswers": [
+        "inheritance"
+      ],
       "id": 2,
       "level": 1
     },
@@ -64,23 +85,39 @@
         "Encapsulating code.",
         "Information hiding."
       ],
-      "correctAnswers": ["Ease of evolution"],
+      "correctAnswers": [
+        "Ease of evolution"
+      ],
       "id": 3,
       "level": 0
     },
     {
       "question": "Attributes of an object are also known as?",
       "categoryId": 1,
-      "answers": ["methods", "properties", "classes", "functions"],
-      "correctAnswers": ["properties"],
+      "answers": [
+        "methods",
+        "properties",
+        "classes",
+        "functions"
+      ],
+      "correctAnswers": [
+        "properties"
+      ],
       "id": 4,
       "level": 4
     },
     {
       "question": "Which one of the following is the process where an object of one class receives the properties of objects of another class?",
       "categoryId": 2,
-      "answers": ["encapsulation", "inheritance", "polymorphism", "modularity"],
-      "correctAnswers": ["inheritance"],
+      "answers": [
+        "encapsulation",
+        "inheritance",
+        "polymorphism",
+        "modularity"
+      ],
+      "correctAnswers": [
+        "inheritance"
+      ],
       "id": 5,
       "level": 5
     },
@@ -93,7 +130,9 @@
         "Encapsulating code.",
         "Information hiding."
       ],
-      "correctAnswers": ["Ease of evolution"],
+      "correctAnswers": [
+        "Ease of evolution"
+      ],
       "id": 6,
       "level": 6
     }

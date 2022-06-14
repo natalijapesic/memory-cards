@@ -9,7 +9,7 @@ import { Card } from '../_models';
   styleUrls: ['./card.component.scss'],
 })
 export class CardComponent implements OnInit {
-  form: FormGroup | undefined;
+  form: FormGroup;
 
   @Output()
   correctPercentage = new EventEmitter<number>();
@@ -48,10 +48,7 @@ export class CardComponent implements OnInit {
         ? (countCorrect += 1)
         : (countCorrect -= 1);
     });
-    console.log(selectedAnswers);
-    console.log({ countCorrect });
     let result = pointsPerAnswer(this.card!) * countCorrect;
-    console.log(`u card componenti ${result / calculateMaxPoints(this.card!)}`);
     result <= 0
       ? this.correctPercentage.emit(0)
       : this.correctPercentage.emit(result / calculateMaxPoints(this.card!));

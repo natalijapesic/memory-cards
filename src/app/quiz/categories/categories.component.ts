@@ -1,17 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError, EMPTY, map, tap } from 'rxjs';
+import { rgbToHex } from 'src/app/_helpers';
 import { CardService } from '../_services/card.service';
 import { CategoryService } from '../_services/category.service';
-
-const numberToHex = (component: number): string => {
-  let hex = component.toString(16);
-  return hex.length == 1 ? '0' + hex : hex;
-};
-
-const rgbToHex = (rgb: number[]): string => {
-  return `#${numberToHex(rgb[0])}${numberToHex(rgb[1])}${numberToHex(rgb[2])}`;
-};
 
 @Component({
   selector: 'app-categories',
