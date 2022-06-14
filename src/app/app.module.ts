@@ -8,6 +8,7 @@ import { QuizModule } from './quiz/quiz.module';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { HomeComponent } from './home/home.component';
 import { JwtInterceptor } from './_helpers';
+import { SharedModule } from './shared/shared/shared.module';
 
 @NgModule({
   declarations: [AppComponent, NavBarComponent, HomeComponent],
@@ -17,6 +18,7 @@ import { JwtInterceptor } from './_helpers';
     AppRoutingModule,
     UserModule,
     QuizModule,
+    SharedModule,
     // NoopAnimationsModule,
   ],
   exports: [],

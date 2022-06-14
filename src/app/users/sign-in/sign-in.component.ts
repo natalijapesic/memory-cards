@@ -1,8 +1,12 @@
-import { Component } from "@angular/core";
-import { AbstractControl, FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { User } from "../_models";
-import { AuthenticationService } from "../_services";
-
+import { Component } from '@angular/core';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
+import { User } from '../_models';
+import { AuthenticationService } from '../_services';
 
 type FormGroupControls = { [key: string]: AbstractControl };
 @Component({
@@ -36,7 +40,6 @@ export class SignInComponent {
       ],
     });
   }
-
 
   onSignIn() {
     this.submitted = true;
