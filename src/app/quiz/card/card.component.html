@@ -1,17 +1,17 @@
-<div class="card-form" *ngIf="card">
-  <h3>{{ card.question }}</h3>
-  <div class="radio-forms">
-    <form class="radio-div" *ngFor="let answer of card.answers; let i = index">
-      <input
-        [id]="answer + i"
-        type="radio"
-        [name]="answer + card.id"
-        [value]="answer"
-        [(ngModel)]="checkedAnswer"
-      />
-      <label [for]="answer">{{ answer }}</label>
-    </form>
-  </div>
-
-  <button (click)="checkAnswer()">Answer</button>
-</div>
+<section *ngIf="form && card">
+  {{ card.question }}
+  <form [formGroup]="form" (ngSubmit)="onAnswer()" novalidate>
+    <div class="answers">
+      <div *ngFor="let answer of card.answers; let i = index">
+        <input
+          type="checkbox"
+          formArrayName="selectedAnswers"
+          [value]="answer"
+          (change)="onCheckboxChange($event)"
+        />
+        <label>{{ answer }}</label>
+      </div>
+    </div>
+    <button type="submit">Answer</button>
+  </form>
+</section>

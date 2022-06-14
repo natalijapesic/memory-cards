@@ -1,6 +1,6 @@
 <div class="question-form">
   <div *ngIf="!showResult" class="scale">
-    <mat-icon (click)="previousQuestion()">keyboard_backspace</mat-icon>
+    <mat-icon routerLink="/">keyboard_backspace</mat-icon>
     <div class="percentage">
       <div [ngStyle]="{ 'flex-grow': proportion(false) }"></div>
     </div>
@@ -10,7 +10,7 @@
   <div *ngIf="cards">
     <app-card
       *ngIf="!showResult"
-      (isCorrect)="isAnswerCorrect($event)"
+      (correctPercentage)="isAnswerCorrect($event)"
       [card]="cards[currentCard]"
     ></app-card>
     <div class="result" *ngIf="showResult">

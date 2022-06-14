@@ -1,4 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { calculateMaxPoints, pointsPerAnswer } from 'src/app/_helpers';
 import { Card } from '../_models';
 
 @Component({
@@ -7,18 +9,56 @@ import { Card } from '../_models';
   styleUrls: ['./card.component.scss'],
 })
 export class CardComponent implements OnInit {
-  public checkedAnswer = '';
-  
+  form: FormGroup | undefined;
 
   @Output()
-  isCorrect = new EventEmitter<boolean>();
+  correctPercentage = new EventEmitter<number>();
   @Input()
-  public card: Card | null = null;
+  public card: Card | undefined;
 
-  constructor() {}
+  constructor(private formBuilder: FormBuilder) {
+    this.form = formBuilder.group({
+      selectedAnswers: new FormArray([]),
+    });
+  }
 
-  checkAnswer() {
-    this.isCorrect.emit(this.card?.correctAnswers.includes(this.checkedAnswer));
+  onCheckboxChange(event: Event) {
+    const input = event.target as HTMLInputElement;
+    const selectedAnswers = this.form?.controls['selectedAnswers'] as FormArray;
+    if (input.checked) {
+      selectedAnswers.push(new FormControl(input.value));
+    } else {
+      const index = selectedAnswers.controls.findIndex(
+        (x) => x.value === input.value
+      );
+      selectedAnswers.removeAt(index);
+    }
+  }
+
+  onAnswer(): void {
+    const selectedAnswers: string[] = (
+      this.form!.controls['selectedAnswers'] as FormArray
+    ).value;
+    if (selectedAnswers.length === 0)
+      alert('Please choose at least one answer');
+
+    let countCorrect = 0;
+    selectedAnswers.forEach((answer) => {
+      this.card!.correctAnswers.includes(answer)
+        ? (countCorrect += 1)
+        : (countCorrect -= 1);
+    });
+    console.log(selectedAnswers);
+    console.log({ countCorrect });
+    let result = pointsPerAnswer(this.card!) * countCorrect;
+    console.log(`u card componenti ${result / calculateMaxPoints(this.card!)}`);
+    result <= 0
+      ? this.correctPercentage.emit(0)
+      : this.correctPercentage.emit(result / calculateMaxPoints(this.card!));
+
+    this.form = this.formBuilder.group({
+      selectedAnswers: new FormArray([]),
+    });
   }
 
   ngOnInit(): void {}

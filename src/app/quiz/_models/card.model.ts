@@ -24,4 +24,5 @@ export class Card {
   setLevel(level: number) {
     this.level = level;
   }
+
 }
