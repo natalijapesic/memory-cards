@@ -1,38 +1,64 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
-import { AuthenticationService } from '../_services/authentiocation.service';
+import { Component } from '@angular/core';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
+import { User } from '../_models';
+import { AuthenticationService } from '../_services';
 
+type FormGroupControls = { [key: string]: AbstractControl };
 @Component({
   selector: 'app-sign-in',
   templateUrl: './sign-in.component.html',
   styleUrls: ['./sign-in.component.scss'],
 })
-export class SignInComponent implements OnInit {
-  errorMessage: string = '';
-  password: string = '';
-  email: string = '';
+export class SignInComponent {
+  form: FormGroup;
+  submitted: boolean;
+  formControls: string[] = ['email', 'password'];
+  formControlsErrorMessages: string[] = [
+    'Email is invalid',
+    'Password must be at least 6 characters or not exceed 40',
+  ];
 
-  constructor(private formBuilder: FormBuilder,private autenticationService: AuthenticationService) {
-    console.log(this.errorMessage);
-  }
-
-  ngOnInit(): void {
-    this.formBuilder.group(
-      {
-        fullnume: ['', ]
-      }
-    )
-
+  constructor(
+    private formBuilder: FormBuilder,
+    private autenticationService: AuthenticationService
+  ) {
+    this.submitted = false;
+    this.form = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(6),
+          Validators.maxLength(30),
+        ],
+      ],
+    });
   }
 
   onSignIn() {
-    console.log(
-      this.autenticationService
-        .signIn({
-          email: this.email,
-          password: this.password,
-        })
-        .subscribe((response) => console.log(`${response}`))
-    );
+    this.submitted = true;
+    if (this.form.valid) {
+      const email: string = this.form.value.email;
+      const password: string = this.form.value.password;
+      this.autenticationService.signIn({ email, password }).subscribe({
+        next: (user: User) => console.log(user),
+        error: (reason: string) => console.log(reason),
+      });
+    }
+  }
+
+  get formControl(): FormGroupControls {
+    return this.form.controls;
+  }
+
+  onReset() {
+    this.submitted = false;
+    this.form.reset();
   }
 }
