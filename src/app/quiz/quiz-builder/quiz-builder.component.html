@@ -1,24 +1,4 @@
 <div class="quiz-builder">
-  <div *ngIf="categories$ | async as categories">
-    <h1>Quiz Builder</h1>
-    <label for="category">Choose category: </label>
-    <select id="category">
-      <option *ngFor="let category of categories" value="{{ category.name }}">
-        {{ category.name }}
-      </option>
-    </select>
-    <div
-      #editable
-      contenteditable="true"
-      (keyup)="question.next(editable.innerHTML)"
-    >
-      Question..?
-    </div>
-
-    <div class="answer-option">
-      <input type="text" placeholder="Answer.." />
-      <input type="checkbox" />
-    </div>
-    <button (click)="onAddOption()">Add option</button>
-  </div>
+  <app-create-card></app-create-card>
+  <button (click)="onAddCardForm()">Add card form</button>
 </div>
