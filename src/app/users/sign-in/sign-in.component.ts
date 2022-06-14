@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
 import { AuthenticationService } from '../_services/authentiocation.service';
 
 @Component({
@@ -11,11 +12,18 @@ export class SignInComponent implements OnInit {
   password: string = '';
   email: string = '';
 
-  constructor(private autenticationService: AuthenticationService) {
+  constructor(private formBuilder: FormBuilder,private autenticationService: AuthenticationService) {
     console.log(this.errorMessage);
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.formBuilder.group(
+      {
+        fullnume: ['', ]
+      }
+    )
+
+  }
 
   onSignIn() {
     console.log(
