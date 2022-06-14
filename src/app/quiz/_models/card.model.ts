@@ -3,7 +3,7 @@ export class Card {
   question: string;
   answers: string[];
   categoryId: number;
-  correctAnswer: string;
+  correctAnswers: string[];
   level: number;
 
   constructor(
@@ -11,13 +11,13 @@ export class Card {
     question: string,
     answers: string[],
     categoryId: number,
-    correctAnswer: string
+    correctAnswers: string[]
   ) {
     this.id = id;
     this.question = question;
     this.answers = answers;
     this.categoryId = categoryId;
-    this.correctAnswer = correctAnswer;
+    this.correctAnswers = correctAnswers;
     this.level = 0;
   }
 

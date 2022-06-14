@@ -8,6 +8,7 @@ import { Card } from '../_models';
 })
 export class CardComponent implements OnInit {
   public checkedAnswer = '';
+  
 
   @Output()
   isCorrect = new EventEmitter<boolean>();
@@ -17,7 +18,7 @@ export class CardComponent implements OnInit {
   constructor() {}
 
   checkAnswer() {
-    this.isCorrect.emit(this.checkedAnswer === this.card?.correctAnswer);
+    this.isCorrect.emit(this.card?.correctAnswers.includes(this.checkedAnswer));
   }
 
   ngOnInit(): void {}
