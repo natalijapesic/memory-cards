@@ -1,7 +1,7 @@
 <div class="createCard-form">
   <div *ngIf="categories$ | async as categories">
     <h1>Quiz Builder</h1>
-    <form [formGroup]="form" (ngSubmit)="onSaveCard()">
+    <form [formGroup]="form">
       <select
         id="category"
         formControlName="category"
@@ -39,7 +39,24 @@
       <label *ngIf="formControl['isCorrectAnswer'].errors">
         ...and at least one correct answer</label
       >
-      <button id="save" [disabled]="form.invalid" type="submit">Save card</button>
+      <button
+        id="save"
+        *ngIf="!created"
+        [disabled]="form.invalid"
+        type="submit"
+        (click)="onSaveCard()"
+      >
+        Save card
+      </button>
+      <button
+        id="update"
+        *ngIf="created"
+        [disabled]="form.invalid"
+        type="submit"
+        (click)="onChangeCard()"
+      >
+        Change card
+      </button>
     </form>
   </div>
 </div>

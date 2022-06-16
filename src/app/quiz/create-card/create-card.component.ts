@@ -23,7 +23,7 @@ type FormGroupControls = { [key: string]: AbstractControl };
 export class CreateCardComponent {
   form: FormGroup;
   errorMessage: string;
-  answerOptions: number = 0;
+  created: Card | undefined;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -68,38 +68,52 @@ export class CreateCardComponent {
     checkedControl.patchValue(input.checked);
   }
 
-  onSaveCard() {
-    console.log('gtr');
-    console.log(this.formControl['isCorrectAnswer'].errors);
+  getFormData(): Card {
     let selectedCategory: Category | undefined = undefined;
-    if (this.form.valid) {
-      const formValues = this.form.value;
-      this.categories$.forEach((categories) => {
-        selectedCategory = categories.find(
-          (category) => category.name === formValues.category
-        );
-      });
-      let correctAnswers: string[] = [];
+    const formValues = this.form.value;
+    this.categories$.forEach((categories) => {
+      selectedCategory = categories.find(
+        (category) => category.name === formValues.category
+      );
+    });
 
-      let isCorrectAnswers: boolean[] = formValues.isCorrectAnswer;
-      isCorrectAnswers.forEach((isCorrect, index) => {
-        if (isCorrect) correctAnswers.push(formValues.answers[index]);
-      });
-      console.log(selectedCategory);
-      this.cardService
-        .add(
-          new Card(
-            formValues.question,
-            formValues.answers,
-            selectedCategory!.id,
-            correctAnswers
-          )
-        )
-        .subscribe({
-          next: (user: Card) => console.log(user),
-          error: (reason: string) => console.log(reason),
-        });
-    }
+    let correctAnswers: string[] = [];
+
+    let isCorrectAnswers: boolean[] = formValues.isCorrectAnswer;
+    isCorrectAnswers.forEach((isCorrect, index) => {
+      if (isCorrect) correctAnswers.push(formValues.answers[index]);
+    });
+
+    return new Card(
+      formValues.question,
+      formValues.answers,
+      selectedCategory!.id,
+      correctAnswers
+    );
+  }
+
+  onSaveCard() {
+    this.cardService.add(this.getFormData()).subscribe({
+      next: (card: Card) => {
+        this.created = card;
+        console.log(this.created);
+      },
+      error: (reason: string) => console.log(reason),
+    });
+  }
+
+  onChangeCard() {
+    let changed: Card = this.getFormData();
+    changed.id = this.created!.id;
+    changed.level = this.created!.level;
+
+    this.cardService.update(changed).subscribe({
+      next: (card: Card) => {
+        this.created = card;
+        console.log(this.created);
+      },
+      error: (reason: string) => console.log(reason),
+    });
   }
 
   get formControl(): FormGroupControls {

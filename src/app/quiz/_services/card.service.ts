@@ -82,4 +82,13 @@ export class CardService {
       })
     );
   }
+
+  update(card: Card): Observable<Card> {
+    return this.http.put<Card>(`${environment.apiUrl}/cards/${card.id}`, card).pipe(
+      catchError((error) => {
+        console.log(`Handling error locally and rethrowing it ...`, error);
+        return throwError(() => new Error(`${error}`));
+      })
+    );
+  }
 }
