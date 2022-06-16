@@ -31,12 +31,18 @@ export class SignInComponent {
   ) {
     this.submitted = false;
     this.form = this.formBuilder.group({
-      email: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', [
-        Validators.required,
-        Validators.minLength(6),
-        Validators.maxLength(30),
-      ]),
+      email: new FormControl('', {
+        validators: [Validators.email],
+        initialValueIsDefault: true,
+      }),
+      password: new FormControl('', {
+        validators: [Validators.minLength(6), Validators.maxLength(30)],
+        initialValueIsDefault: true,
+      }),
+    });
+
+    Object.keys(this.form.controls).forEach((key) => {
+      this.form.controls[key].addValidators(Validators.required);
     });
   }
 

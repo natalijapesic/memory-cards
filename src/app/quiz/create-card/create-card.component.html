@@ -12,11 +12,11 @@
           {{ category.name }}
         </option>
       </select>
-      <label *ngIf="submitted && formControl['category'].errors">
+      <label *ngIf="formControl['category'].errors">
         Category is required</label
       >
       <input type="text" placeholder="Question..?" formControlName="question" />
-      <label *ngIf="submitted && formControl['question'].errors">
+      <label *ngIf="formControl['question'].errors">
         Question is required</label
       >
       <div *ngFor="let answer of answers.controls; index as i">
@@ -31,15 +31,15 @@
           type="checkbox"
         />
       </div>
-      <button id="option" (click)="onAddOption()">Add option</button>
+      <button type="button" (click)="onAddOption()">Add option</button>
 
-      <label *ngIf="submitted && formControl['answers'].errors">
+      <label *ngIf="formControl['answers'].errors">
         The question should have at least one answer</label
       >
-      <label *ngIf="submitted && formControl['isCorrectAnswer'].errors">
+      <label *ngIf="formControl['isCorrectAnswer'].errors">
         ...and at least one correct answer</label
       >
-      <button id="save" type="submit" (click)="onSaveCard()">Save card</button>
+      <button id="save" [disabled]="form.invalid" type="submit">Save card</button>
     </form>
   </div>
 </div>

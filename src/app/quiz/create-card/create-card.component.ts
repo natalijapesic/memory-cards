@@ -7,7 +7,8 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { catchError, EMPTY, map, shareReplay, tap } from 'rxjs';
+import { catchError, EMPTY, shareReplay, tap } from 'rxjs';
+import { atLeastOneCorrect } from 'src/app/_helpers/custom.validators';
 import { Card, Category } from '../_models';
 import { CardService } from '../_services/card.service';
 import { CategoryService } from '../_services/category.service';
@@ -21,7 +22,6 @@ type FormGroupControls = { [key: string]: AbstractControl };
 })
 export class CreateCardComponent {
   form: FormGroup;
-  submitted: boolean;
   errorMessage: string;
   answerOptions: number = 0;
 
@@ -30,32 +30,19 @@ export class CreateCardComponent {
     private categoryService: CategoryService,
     private cardService: CardService
   ) {
-    this.submitted = false;
     this.errorMessage = '';
 
-    //How to set Validators and FormControlOptions in FormControl constructor at the same time?
-    this.form = this.formBuilder.group(
-      {
-        category: new FormControl('', { initialValueIsDefault: true }),
-        question: new FormControl('', { initialValueIsDefault: true }),
-        answers: new FormArray([]),
-        isCorrectAnswer: new FormArray([]),
-      },
-      {
-        updateOn: 'submit',
-      }
-    );
+    this.form = this.formBuilder.group({
+      category: new FormControl('', { initialValueIsDefault: true }),
+      question: new FormControl('', { initialValueIsDefault: true }),
+      answers: new FormArray([]),
+      isCorrectAnswer: new FormArray([], { updateOn: 'submit' }),
+    });
 
     Object.keys(this.form.controls).forEach((key) => {
       this.form.controls[key].setValidators(Validators.required);
     });
-
-    // this.form.controls['isCorrectAnswer'].addValidators(
-    //   Validators.requiredTrue
-    // );
-
-    //Is validation applied to each FormControl element?
-    //this.form.setValidators(Validators.required);
+    this.form.controls['isCorrectAnswer'].addValidators(atLeastOneCorrect());
   }
 
   categories$ = this.categoryService.categories$.pipe(
@@ -82,14 +69,15 @@ export class CreateCardComponent {
   }
 
   onSaveCard() {
-    this.submitted = true;
+    console.log('gtr');
+    console.log(this.formControl['isCorrectAnswer'].errors);
     let selectedCategory: Category | undefined = undefined;
     if (this.form.valid) {
       const formValues = this.form.value;
       this.categories$.forEach((categories) => {
-        selectedCategory = categories.find((category) => {
-          category.name === formValues.category;
-        });
+        selectedCategory = categories.find(
+          (category) => category.name === formValues.category
+        );
       });
       let correctAnswers: string[] = [];
 
@@ -123,14 +111,8 @@ export class CreateCardComponent {
   }
 
   onAddOption() {
-    const answers = this.form.controls['answers'] as FormArray;
-    answers.push(new FormControl(''));
-    const isCorrectAnswer = this.form.controls['isCorrectAnswer'] as FormArray;
-    isCorrectAnswer.push(new FormControl(false));
-  }
-
-  onReset() {
-    this.submitted = false;
-    this.form.reset();
+    this.answers.push(new FormControl(''));
+    const isCorrectAnswers = this.form.controls['isCorrectAnswer'] as FormArray;
+    isCorrectAnswers.push(new FormControl(false));
   }
 }
