@@ -3,7 +3,6 @@ import {
   AbstractControl,
   FormBuilder,
   FormControl,
-
   FormGroup,
   Validators,
 } from '@angular/forms';
@@ -33,7 +32,6 @@ export class SignUpComponent {
   ) {
     this.submitted = false;
     this.form = this.formBuilder.group({
-
       username: new FormControl('', [Validators.required]),
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [
@@ -57,26 +55,14 @@ export class SignUpComponent {
           error: (reason: string) => console.log(reason),
         });
     }
-<<<<<<< HEAD
-=======
-  }
-
-  get formControl(): FormGroupControls {
-    return this.form.controls;
   }
 
   onReset() {
     this.submitted = false;
     this.form.reset();
->>>>>>> e8858f762d741a58535f47010fa326031bbcfb0c
   }
 
   get formControl(): FormGroupControls {
     return this.form.controls;
   }
-
-  // onReset() {
-  //   this.submitted = false;
-  //   this.form.reset();
-  // }
 }
