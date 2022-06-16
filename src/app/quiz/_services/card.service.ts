@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Card } from '../_models';
-import { catchError, Observable, tap, throwError } from 'rxjs';
+import { catchError, Observable, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { DifficultyLevelRequest } from './types';
 
@@ -84,11 +84,13 @@ export class CardService {
   }
 
   update(card: Card): Observable<Card> {
-    return this.http.put<Card>(`${environment.apiUrl}/cards/${card.id}`, card).pipe(
-      catchError((error) => {
-        console.log(`Handling error locally and rethrowing it ...`, error);
-        return throwError(() => new Error(`${error}`));
-      })
-    );
+    return this.http
+      .put<Card>(`${environment.apiUrl}/cards/${card.id}`, card)
+      .pipe(
+        catchError((error) => {
+          console.log(`Handling error locally and rethrowing it ...`, error);
+          return throwError(() => new Error(`${error}`));
+        })
+      );
   }
 }

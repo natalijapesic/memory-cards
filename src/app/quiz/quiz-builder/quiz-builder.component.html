@@ -1,15 +1,16 @@
 <div class="quiz-builder">
+  <h1>Quiz Builder</h1>
   <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
     <div
       class="example-box"
       *ngFor="let card of createdCards; let i = index"
       cdkDrag
     >
-      <div>
-        <app-create-card [level]="i"></app-create-card>
-      </div>
+      <app-create-card
+        [level]="i"
+        [checkDifficultyLevelChange]="changeDifficultyLevel"
+      ></app-create-card>
     </div>
   </div>
   <button (click)="onAddCard()">Add Card</button>
-  <button (click)="onSave()">Save</button>
 </div>
