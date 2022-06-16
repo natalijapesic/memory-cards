@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
+  FormControl,
   FormGroup,
   Validators,
 } from '@angular/forms';
@@ -9,6 +10,7 @@ import { User } from '../_models';
 import { AuthenticationService } from '../_services';
 
 type FormGroupControls = { [key: string]: AbstractControl };
+
 @Component({
   selector: 'app-sign-in',
   templateUrl: './sign-in.component.html',
@@ -29,15 +31,12 @@ export class SignInComponent {
   ) {
     this.submitted = false;
     this.form = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(6),
-          Validators.maxLength(30),
-        ],
-      ],
+      email: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', [
+        Validators.required,
+        Validators.minLength(6),
+        Validators.maxLength(30),
+      ]),
     });
   }
 

@@ -54,7 +54,7 @@ export class CardService {
     );
   }
 
-  getCard(id: number): Observable<Card> {
+  get(id: number): Observable<Card> {
     return this.http.get<Card>(`${environment.apiUrl}/cards/${id}`).pipe(
       catchError((error) => {
         console.log(`Handling error locally and rethrowing it ...`, error);
@@ -72,5 +72,14 @@ export class CardService {
           return throwError(() => new Error(`${error}`));
         })
       );
+  }
+
+  add(card: Card): Observable<Card> {
+    return this.http.post<Card>(`${environment.apiUrl}/cards`, card).pipe(
+      catchError((error) => {
+        console.log(`Handling error locally and rethrowing it ...`, error);
+        return throwError(() => new Error(`${error}`));
+      })
+    );
   }
 }

@@ -23,13 +23,7 @@ import { SharedModule } from '../shared/shared/shared.module';
     QuizComponent,
     QuizBuilderComponent,
   ],
-  imports: [
-    CommonModule,
-    RouterModule,
-    DragDropModule,
-    MatIconModule,
-    SharedModule,
-  ],
+  imports: [RouterModule, DragDropModule, MatIconModule, SharedModule],
   exports: [CategoriesComponent],
 })
 export class QuizModule {}

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { calculateMaxPoints, pointsPerAnswer } from 'src/app/_helpers';
 import { Card } from '../_models';
 
@@ -9,7 +9,7 @@ import { Card } from '../_models';
   styleUrls: ['./card.component.scss'],
 })
 export class CardComponent implements OnInit {
-  form: FormGroup | undefined;
+  form: FormGroup;
 
   @Output()
   correctPercentage = new EventEmitter<number>();
@@ -22,9 +22,9 @@ export class CardComponent implements OnInit {
     });
   }
 
-  onCheckboxChange(event: Event) {
+  onCheckboxChange(event: Event): void {
     const input = event.target as HTMLInputElement;
-    const selectedAnswers = this.form?.controls['selectedAnswers'] as FormArray;
+    const selectedAnswers = this.form.controls['selectedAnswers'] as FormArray;
     if (input.checked) {
       selectedAnswers.push(new FormControl(input.value));
     } else {
@@ -48,8 +48,6 @@ export class CardComponent implements OnInit {
         ? (countCorrect += 1)
         : (countCorrect -= 1);
     });
-    console.log(selectedAnswers);
-    console.log({ countCorrect });
     let result = pointsPerAnswer(this.card!) * countCorrect;
     console.log(`u card componenti ${result / calculateMaxPoints(this.card!)}`);
     result <= 0

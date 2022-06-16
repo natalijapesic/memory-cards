@@ -9,7 +9,6 @@ import { SharedModule } from './shared/shared/shared.module';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { HomeComponent } from './home/home.component';
 import { JwtInterceptor } from './_helpers';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [AppComponent, NavBarComponent, HomeComponent],

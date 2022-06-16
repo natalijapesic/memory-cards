@@ -1,24 +1,45 @@
-<div class="create-card">
+<div class="createCard-form">
   <div *ngIf="categories$ | async as categories">
     <h1>Quiz Builder</h1>
-    <label for="category">Choose category: </label>
-    <select id="category">
-      <option *ngFor="let category of categories" value="{{ category.name }}">
-        {{ category.name }}
-      </option>
-    </select>
-    <div
-      #editable
-      contenteditable="true"
-      (keyup)="question.next(editable.innerHTML)"
-    >
-      Question..?
-    </div>
+    <form [formGroup]="form" (ngSubmit)="onSaveCard()">
+      <select
+        id="category"
+        formControlName="category"
+        (change)="onSelect($event)"
+      >
+        <option value="" disabled selected>Select category</option>
+        <option *ngFor="let category of categories" [value]="category.name">
+          {{ category.name }}
+        </option>
+      </select>
+      <label *ngIf="submitted && formControl['category'].errors">
+        Category is required</label
+      >
+      <input type="text" placeholder="Question..?" formControlName="question" />
+      <label *ngIf="submitted && formControl['question'].errors">
+        Question is required</label
+      >
+      <div *ngFor="let answer of answers.controls; index as i">
+        <div formArrayName="answers">
+          <input [formControlName]="i" type="text" placeholder="Answer.." />
+        </div>
 
-    <div  *ngFor="let repeat of createRange()" class="answer-option">
-      <input type="text" placeholder="Answer.." />
-      <input type="checkbox" />
-    </div>
-    <button (click)="onAddOption()">Add option</button>
+        <input
+          (change)="onCheckboxChange($event)"
+          formArrayName="isCorrectAnswer"
+          [value]="i"
+          type="checkbox"
+        />
+      </div>
+      <button id="option" (click)="onAddOption()">Add option</button>
+
+      <label *ngIf="submitted && formControl['answers'].errors">
+        The question should have at least one answer</label
+      >
+      <label *ngIf="submitted && formControl['isCorrectAnswer'].errors">
+        ...and at least one correct answer</label
+      >
+      <button id="save" type="submit" (click)="onSaveCard()">Save card</button>
+    </form>
   </div>
 </div>

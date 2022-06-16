@@ -2,7 +2,6 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Card } from '../_models';
 import { CardService } from '../_services/card.service';
-// import { PreviousCardState } from '../_types';
 
 @Component({
   selector: 'app-quiz',
@@ -35,15 +34,11 @@ export class QuizComponent implements OnInit, OnDestroy {
   };
 
   isAnswerCorrect(correctPercentage: number) {
-    console.log(`result: ${correctPercentage}`);
     this.countPercentage += correctPercentage;
     this.currentCard < this.cards.length - 1
       ? (this.currentCard += 1)
       : (this.showResult = true);
-
-    console.log(`countPercentage: ${this.countPercentage}`);
   }
-
 
   ngOnDestroy(): void {
     this.sub.unsubscribe();
