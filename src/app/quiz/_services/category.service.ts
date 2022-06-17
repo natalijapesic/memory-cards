@@ -1,6 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, Observable, tap } from 'rxjs';
+import {
+  BehaviorSubject,
+  catchError,
+  merge,
+  Observable,
+  tap,
+  concatMap,
+  map,
+} from 'rxjs';
+import { Action, ActionType } from 'src/app/shared/shared/edit-action';
 import { environment } from 'src/environments/environment';
 import { Category } from '../_models';
 
@@ -8,15 +17,44 @@ import { Category } from '../_models';
   providedIn: 'root',
 })
 export class CategoryService {
+  private categoriesSubject = new BehaviorSubject<Category[]>([]);
+  private emptyCategory!: Category;
+  categories$ = this.categoriesSubject.asObservable();
+
+  // Action Stream for adding/updating/deleting products
+  private categoryModifiedSubject = new BehaviorSubject<Action<Category>>({
+    item: this.emptyCategory,
+    action: 'none',
+  });
+
+  categoryModifiedAction$ = this.categoryModifiedSubject.asObservable();
+
+  categoriesWithCRUD$ = merge(
+    this.categories$,
+    this.categoryModifiedAction$.pipe(
+      concatMap((operation) => this.saveCategory(operation)),
+      concatMap(() => this.getCategories())
+    )
+  );
+
   constructor(private http: HttpClient) {}
 
-  categories$ = this.http
-    .get<Category[]>(`${environment.apiUrl}/categories`)
-    .pipe(
+  getCategories(): Observable<Category[]> {
+    return this.http.get<Category[]>(`${environment.apiUrl}/categories`).pipe(
       catchError((error) => {
         throw new Error(`Error ${error}`);
       })
     );
+  }
+
+  saveCategory(operation: Action<Category>): Observable<Action<Category>> {
+    const category = operation.item;
+    if (operation.action === 'add') {
+      return this.add(category, operation.action);
+    }
+
+    throw new Error();
+  }
 
   getCategory(id: number): Observable<Category> {
     return this.http
@@ -29,11 +67,12 @@ export class CategoryService {
       );
   }
 
-  add(category: Category): Observable<Category> {
+  add(category: Category, action: ActionType): Observable<Action<Category>> {
     return this.http
       .post<Category>(`${environment.apiUrl}/categories`, category)
       .pipe(
         tap((data) => console.log(data)),
+        map((category) => ({ item: category, action })),
         catchError((error) => {
           throw new Error(`Error ${error}`);
         })

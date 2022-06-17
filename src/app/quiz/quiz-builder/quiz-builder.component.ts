@@ -63,7 +63,7 @@ export class QuizBuilderComponent implements OnInit, OnDestroy {
     const user: User = this.storageService.getUser();
     if (filter && user) {
       this.categoryService
-        .add(new Category(filter, user.id, ''))
+        .add(new Category(filter, user.id, ''), 'add')
         .subscribe({ next: (data) => console.log(data) });
     }
   }
