@@ -40,13 +40,11 @@ export class CreateCardComponent implements OnInit, OnDestroy {
 
   constructor(
     private formBuilder: FormBuilder,
-    private categoryService: CategoryService,
     private cardService: CardService
   ) {
     this.errorMessage = '';
     this.level = 0;
     this.form = this.formBuilder.group({
-      category: new FormControl('', { initialValueIsDefault: true }),
       question: new FormControl('', { initialValueIsDefault: true }),
       answers: new FormArray([]),
       isCorrectAnswer: new FormArray([], { updateOn: 'submit' }),
@@ -61,7 +59,7 @@ export class CreateCardComponent implements OnInit, OnDestroy {
     this.sub.unsubscribe();
   }
   ngOnInit(): void {
-    this.checkDifficultyLevelChange.subscribe({
+    this.sub = this.checkDifficultyLevelChange.subscribe({
       next: (changed: boolean) => {
         if (changed && this.created && this.level !== this.created!.level) {
           this.cardService
@@ -73,20 +71,6 @@ export class CreateCardComponent implements OnInit, OnDestroy {
         }
       },
     });
-  }
-
-  categories$ = this.categoryService.categories$.pipe(
-    tap((data) => console.log(JSON.stringify(data))),
-    shareReplay(1),
-    catchError((err) => {
-      this.errorMessage = err;
-      return EMPTY;
-    })
-  );
-
-  onSelect(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    this.form.controls['category'] = new FormControl(input.value);
   }
 
   onCheckboxChange(event: Event): void {
@@ -103,11 +87,6 @@ export class CreateCardComponent implements OnInit, OnDestroy {
       this.form.markAsUntouched();
       let selectedCategory: Category | undefined;
       const formValues = this.form.value;
-      this.categories$.forEach((categories) => {
-        selectedCategory = categories.find(
-          (category) => category.name === formValues.category
-        );
-      });
 
       let correctAnswers: string[] = [];
 

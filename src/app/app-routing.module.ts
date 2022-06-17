@@ -41,6 +41,7 @@ const routes: Routes = [
   {
     path: 'quizBuilder',
     component: QuizBuilderComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'create-category',

@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Card, Category } from '../_models';
+import { Category } from '../_models';
 
 @Injectable({
   providedIn: 'root',
@@ -29,4 +29,14 @@ export class CategoryService {
       );
   }
 
+  add(category: Category): Observable<Category> {
+    return this.http
+      .post<Category>(`${environment.apiUrl}/categories`, category)
+      .pipe(
+        tap((data) => console.log(data)),
+        catchError((error) => {
+          throw new Error(`Error ${error}`);
+        })
+      );
+  }
 }

@@ -11,8 +11,9 @@ export class StorageService {
     localStorage.setItem('user', JSON.stringify(user));
   }
 
-  getUser(key: string): User {
-    return JSON.parse(localStorage.getItem(key)!);
+  getUser(): User {
+    const user = localStorage.getItem('user');
+    return user ? JSON.parse(user) : null;
   }
 
   removeItem(key: string): void {
