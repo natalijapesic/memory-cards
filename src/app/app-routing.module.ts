@@ -1,16 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
-import {
-  CardComponent,
-  CategoryComponent,
-  CreateCategoryComponent,
-} from './quiz';
+import { CardComponent, CategoryComponent } from './quiz';
 import { QuizBuilderComponent } from './quiz/quiz-builder/quiz-builder.component';
 import { QuizComponent } from './quiz/quiz/quiz.component';
 import { SignInComponent, SignUpComponent } from './users';
-import { AuthGuard } from './_helpers';
-import { Role } from './_models';
+import { AuthGuard } from './shared';
 
 const routes: Routes = [
   {
@@ -42,12 +37,6 @@ const routes: Routes = [
     path: 'quizBuilder',
     component: QuizBuilderComponent,
     canActivate: [AuthGuard],
-  },
-  {
-    path: 'create-category',
-    component: CreateCategoryComponent,
-    canActivate: [AuthGuard],
-    data: { roles: [Role.Moderator, Role.CategoryAdmin] },
   },
   // otherwise redirect to home
   { path: '**', redirectTo: '' },

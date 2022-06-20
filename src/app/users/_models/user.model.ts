@@ -1,4 +1,4 @@
-import { Role } from 'src/app/_models';
+import { Role } from 'src/app/shared/types/types';
 
 export class User {
   id: number;

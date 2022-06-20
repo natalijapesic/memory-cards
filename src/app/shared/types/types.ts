@@ -4,3 +4,9 @@ export interface Action<T> {
   item: T;
   action: ActionType;
 }
+
+export enum Role {
+  User = 'User',
+  Moderator = 'Moderator',
+  CategoryAdmin = 'CategoryAdmin',
+}

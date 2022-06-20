@@ -8,7 +8,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Subject, Subscription } from 'rxjs';
-import { atLeastOneCorrect } from 'src/app/_helpers/custom.validators';
+import { atLeastOneCorrect } from 'src/app/shared/utils/validators/checkbox.validators';
 import { Card, Category } from '../_models';
 import { CardService } from '../_services/card.service';
 

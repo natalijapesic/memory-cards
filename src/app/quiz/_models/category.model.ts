@@ -1,4 +1,3 @@
-import { setColorById } from 'src/app/_helpers';
 
 export class Category {
   id: number;

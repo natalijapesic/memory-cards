@@ -1,6 +1,13 @@
-<div>
+<div class="nav-bar">
   <nav>
     <a routerLink="/"> Learn </a>
-    <a routerLink="create-category"> Create </a>
+    <a routerLink="quizBuilder"> Create your quiz</a>
+
+    <button mat-button [matMenuTriggerFor]="aboveMenu">Above</button>
+    <mat-menu #aboveMenu="matMenu" yPosition="above">
+      <button mat-menu-item routerLink="sign-in">Sign In</button>
+      <button mat-menu-item routerLink="sign-up">Sign Up</button>
+      <button mat-menu-item (click)="onSignOut()">Sign Out</button>
+    </mat-menu>
   </nav>
 </div>

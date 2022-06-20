@@ -1,6 +1,12 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { calculateMaxPoints, pointsPerAnswer } from 'src/app/_helpers';
+import {
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
+import { calculateMaxPoints, pointsPerAnswer } from 'src/app/shared';
 import { Card } from '../_models';
 
 @Component({

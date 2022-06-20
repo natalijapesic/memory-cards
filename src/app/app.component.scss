@@ -1,4 +1,12 @@
-body {
+.layout {
   display: grid;
-  grid-template-columns: auto, auto, auto, auto;
+  grid-template-columns: minmax(100px, 1fr) minmax(300px, 3fr);
+  grid-template-rows: 100%;
+  height: 100vh;
+  width: 100vw;
+}
+
+
+.route {
+  justify-self: center;
 }

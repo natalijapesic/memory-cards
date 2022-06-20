@@ -1,4 +1,4 @@
-import { Card } from '../quiz/_models';
+import { Card } from '../../quiz/_models';
 
 export const numberToHex = (component: number): string => {
   let hex = component.toString(16);

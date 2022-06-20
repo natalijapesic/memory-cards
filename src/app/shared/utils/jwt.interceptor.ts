@@ -6,7 +6,8 @@ import {
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AuthenticationService, StorageService } from '../users/_services';
+import { StorageService } from '..';
+import { AuthenticationService } from '../../users/_services';
 
 @Injectable({
   providedIn: 'root',

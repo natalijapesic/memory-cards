@@ -10,7 +10,7 @@ import {
   map,
   of,
 } from 'rxjs';
-import { Action, ActionType } from 'src/app/shared/shared/edit-action';
+import { Action, ActionType } from 'src/app/shared/types/types';
 import { environment } from 'src/environments/environment';
 import { Category } from '../_models';
 

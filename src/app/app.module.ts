@@ -5,10 +5,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { UserModule } from './users/user.module';
 import { QuizModule } from './quiz/quiz.module';
-import { SharedModule } from './shared/shared/shared.module';
+import { SharedModule } from './shared/shared.module';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { HomeComponent } from './home/home.component';
-import { JwtInterceptor } from './_helpers';
+import { JwtInterceptor } from './shared';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   declarations: [AppComponent, NavBarComponent, HomeComponent],
@@ -19,7 +20,7 @@ import { JwtInterceptor } from './_helpers';
     UserModule,
     QuizModule,
     SharedModule,
-    // NoopAnimationsModule,
+    MatMenuModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

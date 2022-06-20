@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, catchError, map, Observable, tap } from 'rxjs';
+import { StorageService } from 'src/app/shared';
 import { environment } from 'src/environments/environment';
 
 import { User } from '../_models';
-import { StorageService } from './storage.service';
 import { SignInRequest, SignUpRequest } from './types';
 
 @Injectable({
