@@ -8,6 +8,7 @@ import {
   tap,
   concatMap,
   map,
+  of,
 } from 'rxjs';
 import { Action, ActionType } from 'src/app/shared/shared/edit-action';
 import { environment } from 'src/environments/environment';
@@ -21,7 +22,7 @@ export class CategoryService {
   private emptyCategory!: Category;
   categories$ = this.categoriesSubject.asObservable();
 
-  // Action Stream for adding/updating/deleting products
+  // Action Stream for adding/updating/deleting
   private categoryModifiedSubject = new BehaviorSubject<Action<Category>>({
     item: this.emptyCategory,
     action: 'none',
@@ -29,7 +30,7 @@ export class CategoryService {
 
   categoryModifiedAction$ = this.categoryModifiedSubject.asObservable();
 
-  categoriesWithCRUD$ = merge(
+  freshCategories$ = merge(
     this.categories$,
     this.categoryModifiedAction$.pipe(
       concatMap((operation) => this.saveCategory(operation)),
@@ -53,7 +54,7 @@ export class CategoryService {
       return this.add(category, operation.action);
     }
 
-    throw new Error();
+    return of(operation);
   }
 
   getCategory(id: number): Observable<Category> {
@@ -71,11 +72,14 @@ export class CategoryService {
     return this.http
       .post<Category>(`${environment.apiUrl}/categories`, category)
       .pipe(
-        tap((data) => console.log(data)),
         map((category) => ({ item: category, action })),
         catchError((error) => {
           throw new Error(`Error ${error}`);
         })
       );
+  }
+
+  addCategory(newCategory: Category): void {
+    this.categoryModifiedSubject.next({ item: newCategory, action: 'add' });
   }
 }

@@ -17,15 +17,14 @@ const rgbToHex = (rgb: number[]): string => {
   selector: 'app-categories',
   templateUrl: './categories.component.html',
   styleUrls: ['./categories.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CategoriesComponent implements OnInit {
   errorMessage = '';
   categoriesState = new Map<number, boolean>();
   
 
-  categories$ = this.categoryService.categories$.pipe(
-    tap((data) => console.log(JSON.stringify(data))),
+  categories$ = this.categoryService.freshCategories$.pipe(
+    tap((data) => console.log(JSON.stringify(data) + 'categories')),
     catchError((err) => {
       this.errorMessage = err;
       return EMPTY;

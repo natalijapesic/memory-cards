@@ -49,30 +49,16 @@
     {
       "question": "Attributes of an object are also known as?",
       "categoryId": 3,
-      "answers": [
-        "methods",
-        "properties",
-        "classes",
-        "functions"
-      ],
-      "correctAnswers": [
-        "properties"
-      ],
+      "answers": ["methods", "properties", "classes", "functions"],
+      "correctAnswers": ["properties"],
       "id": 1,
       "level": 2
     },
     {
       "question": "Which one of the following is the process where an object of one class receives the properties of objects of another class?",
       "categoryId": 3,
-      "answers": [
-        "encapsulation",
-        "inheritance",
-        "polymorphism",
-        "modularity"
-      ],
-      "correctAnswers": [
-        "inheritance"
-      ],
+      "answers": ["encapsulation", "inheritance", "polymorphism", "modularity"],
+      "correctAnswers": ["inheritance"],
       "id": 2,
       "level": 1
     },
@@ -85,39 +71,23 @@
         "Encapsulating code.",
         "Information hiding."
       ],
-      "correctAnswers": [
-        "Ease of evolution"
-      ],
+      "correctAnswers": ["Ease of evolution"],
       "id": 3,
       "level": 0
     },
     {
       "question": "Attributes of an object are also known as?",
       "categoryId": 1,
-      "answers": [
-        "methods",
-        "properties",
-        "classes",
-        "functions"
-      ],
-      "correctAnswers": [
-        "properties"
-      ],
+      "answers": ["methods", "properties", "classes", "functions"],
+      "correctAnswers": ["properties"],
       "id": 4,
       "level": 4
     },
     {
       "question": "Which one of the following is the process where an object of one class receives the properties of objects of another class?",
       "categoryId": 2,
-      "answers": [
-        "encapsulation",
-        "inheritance",
-        "polymorphism",
-        "modularity"
-      ],
-      "correctAnswers": [
-        "inheritance"
-      ],
+      "answers": ["encapsulation", "inheritance", "polymorphism", "modularity"],
+      "correctAnswers": ["inheritance"],
       "id": 5,
       "level": 0
     },
@@ -130,124 +100,80 @@
         "Encapsulating code.",
         "Information hiding."
       ],
-      "correctAnswers": [
-        "Ease of evolution"
-      ],
+      "correctAnswers": ["Ease of evolution"],
       "id": 6,
       "level": 1
     },
     {
       "id": 7,
       "question": "Natalija",
-      "answers": [
-        "pesic",
-        "pitanje"
-      ],
+      "answers": ["pesic", "pitanje"],
       "categoryId": 2,
-      "correctAnswers": [
-        "pitanje"
-      ],
+      "correctAnswers": ["pitanje"],
       "level": 0
     },
     {
       "id": 8,
       "question": "Question",
-      "answers": [
-        "first",
-        "second"
-      ],
+      "answers": ["first", "second"],
       "categoryId": 1,
-      "correctAnswers": [
-        "first"
-      ],
+      "correctAnswers": ["first"],
       "level": 0
     },
     {
       "id": 9,
       "question": "few",
-      "answers": [
-        "few"
-      ],
+      "answers": ["few"],
       "categoryId": 1,
-      "correctAnswers": [
-        "few"
-      ],
+      "correctAnswers": ["few"],
       "level": 0
     },
     {
       "id": 10,
       "question": "efew",
-      "answers": [
-        "fewf"
-      ],
+      "answers": ["fewf"],
       "categoryId": 1,
-      "correctAnswers": [
-        "fewf"
-      ],
+      "correctAnswers": ["fewf"],
       "level": 0
     },
     {
       "id": 11,
       "question": "fewf",
-      "answers": [
-        "few"
-      ],
+      "answers": ["few"],
       "categoryId": 2,
-      "correctAnswers": [
-        "few"
-      ],
+      "correctAnswers": ["few"],
       "level": 0
     },
     {
       "id": 12,
       "question": "PItanje",
-      "answers": [
-        "fewf",
-        "fe"
-      ],
+      "answers": ["fewf", "fe"],
       "categoryId": 1,
-      "correctAnswers": [
-        "fewf"
-      ],
+      "correctAnswers": ["fewf"],
       "level": 0
     },
     {
       "id": 13,
       "question": "fewfwe",
-      "answers": [
-        "fewf",
-        "fewfewfew",
-        "few"
-      ],
+      "answers": ["fewf", "fewfewfew", "few"],
       "categoryId": 2,
-      "correctAnswers": [
-        "fewf",
-        "fewfewfew"
-      ],
+      "correctAnswers": ["fewf", "fewfewfew"],
       "level": 1
     },
     {
       "id": 14,
       "question": "fewfw",
-      "answers": [
-        "few"
-      ],
+      "answers": ["few"],
       "categoryId": 2,
-      "correctAnswers": [
-        "few"
-      ],
+      "correctAnswers": ["few"],
       "level": 1
     },
     {
       "id": 15,
       "question": "fewfew",
-      "answers": [
-        "fewfew"
-      ],
+      "answers": ["fewfew"],
       "categoryId": 1,
-      "correctAnswers": [
-        "fewfew"
-      ],
+      "correctAnswers": ["fewfew"],
       "level": 0
     }
   ]

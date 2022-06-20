@@ -34,7 +34,7 @@ export class QuizBuilderComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.sub = this.categoryService.categories$.subscribe({
+    this.sub = this.categoryService.freshCategories$.subscribe({
       next: (categories: Category[]) => {
         this.categories = categories;
       },
@@ -62,9 +62,7 @@ export class QuizBuilderComponent implements OnInit, OnDestroy {
     const filter = this.filterCategory.value;
     const user: User = this.storageService.getUser();
     if (filter && user) {
-      this.categoryService
-        .add(new Category(filter, user.id, ''), 'add')
-        .subscribe({ next: (data) => console.log(data) });
+      this.categoryService.addCategory(new Category(filter, user.id, ''));
     }
   }
 
