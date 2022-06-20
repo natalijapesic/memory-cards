@@ -7,18 +7,10 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import {
-  catchError,
-  EMPTY,
-  shareReplay,
-  Subject,
-  Subscription,
-  tap,
-} from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { atLeastOneCorrect } from 'src/app/_helpers/custom.validators';
 import { Card, Category } from '../_models';
 import { CardService } from '../_services/card.service';
-import { CategoryService } from '../_services/category.service';
 
 type FormGroupControls = { [key: string]: AbstractControl };
 
@@ -28,15 +20,18 @@ type FormGroupControls = { [key: string]: AbstractControl };
   styleUrls: ['./create-card.component.scss'],
 })
 export class CreateCardComponent implements OnInit, OnDestroy {
+  //parent: quiz-builder
   @Input()
   level: number;
   @Input()
   checkDifficultyLevelChange!: Subject<boolean>;
-  sub!: Subscription;
+  @Input()
+  selectedCategoryId: number;
 
   form: FormGroup;
   errorMessage: string;
   created: Card | undefined;
+  sub!: Subscription;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -44,6 +39,8 @@ export class CreateCardComponent implements OnInit, OnDestroy {
   ) {
     this.errorMessage = '';
     this.level = 0;
+    this.selectedCategoryId = 0;
+
     this.form = this.formBuilder.group({
       question: new FormControl('', { initialValueIsDefault: true }),
       answers: new FormArray([]),
@@ -55,9 +52,7 @@ export class CreateCardComponent implements OnInit, OnDestroy {
     });
     this.form.controls['isCorrectAnswer'].addValidators(atLeastOneCorrect());
   }
-  ngOnDestroy(): void {
-    this.sub.unsubscribe();
-  }
+
   ngOnInit(): void {
     this.sub = this.checkDifficultyLevelChange.subscribe({
       next: (changed: boolean) => {
@@ -85,7 +80,6 @@ export class CreateCardComponent implements OnInit, OnDestroy {
   getFormData(): Card | null {
     if (this.form.touched) {
       this.form.markAsUntouched();
-      let selectedCategory: Category | undefined;
       const formValues = this.form.value;
 
       let correctAnswers: string[] = [];
@@ -98,7 +92,7 @@ export class CreateCardComponent implements OnInit, OnDestroy {
       return new Card(
         formValues.question,
         formValues.answers,
-        selectedCategory!.id,
+        this.selectedCategoryId,
         correctAnswers,
         this.level
       );
@@ -143,5 +137,9 @@ export class CreateCardComponent implements OnInit, OnDestroy {
 
   get answers(): FormArray {
     return this.form.get('answers') as FormArray;
+  }
+
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
   }
 }

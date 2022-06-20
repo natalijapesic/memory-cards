@@ -1,27 +1,35 @@
 <div class="quiz-builder">
   <h1>Quiz Builder</h1>
-  <form>
-      <mat-form-field class="example-full-width" appearance="fill">
-        <mat-label>Categories</mat-label>
-        <input
-          type="text"
-          matInput
-          [formControl]="filterCategory"
-          [matAutocomplete]="auto"
-        />
-        <mat-autocomplete #auto="matAutocomplete">
-          <mat-option
-            *ngFor="let filteredCategorie of filteredCategories | async"
-            [value]="filteredCategorie.name"
-          >
-            {{ filteredCategorie.name }}
-          </mat-option>
-        </mat-autocomplete>
-      </mat-form-field>
-    <button *ngIf="enableAddCategory" (click)="onAddCategory()">Add category</button>
+  <span *ngIf="buildQuiz"> {{ filterCategory.value }}</span>
+  <form *ngIf="!buildQuiz">
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Categories</mat-label>
+      <input
+        type="text"
+        matInput
+        [formControl]="filterCategory"
+        [matAutocomplete]="auto"
+      />
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option
+          *ngFor="let filteredCategorie of filteredCategories | async"
+          [value]="filteredCategorie.name"
+        >
+          {{ filteredCategorie.name }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <button *ngIf="enableAddCategory" (click)="onAddCategory()">
+      Add category
+    </button>
   </form>
 
-  <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
+  <div
+    *ngIf="buildQuiz"
+    cdkDropList
+    class="example-list"
+    (cdkDropListDropped)="drop($event)"
+  >
     <div
       class="example-box"
       *ngFor="let card of createdCards; let i = index"
@@ -30,8 +38,15 @@
       <app-create-card
         [level]="i"
         [checkDifficultyLevelChange]="changeDifficultyLevel"
+        [selectedCategoryId]="selectedCategoryId"
       ></app-create-card>
     </div>
+    <button (click)="onAddCard()">Add Card</button>
   </div>
-  <button (click)="onAddCard()">Add Card</button>
+  <button
+    *ngIf="!buildQuiz && this.filterCategory.value"
+    (click)="onBuildQuiz()"
+  >
+    Build quiz for chosen category
+  </button>
 </div>

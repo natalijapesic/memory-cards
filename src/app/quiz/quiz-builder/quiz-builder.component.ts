@@ -1,7 +1,16 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { Observable, Subject, Subscription, startWith, map, tap } from 'rxjs';
+import {
+  Observable,
+  Subject,
+  Subscription,
+  startWith,
+  map,
+  tap,
+  debounce,
+  timer,
+} from 'rxjs';
 import { User } from 'src/app/users/_models';
 import { StorageService } from 'src/app/users/_services';
 import { Category } from '../_models';
@@ -18,19 +27,20 @@ export class QuizBuilderComponent implements OnInit, OnDestroy {
   filteredCategories?: Observable<Category[] | undefined>;
   sub!: Subscription;
   enableAddCategory: boolean;
+  buildQuiz: boolean;
+  selectedCategoryId: number;
 
   createdCards: number[] = [];
   changeDifficultyLevel: Subject<boolean> = new Subject();
+  changeDificultyLevelAction = this.changeDifficultyLevel.asObservable();
 
   constructor(
     private categoryService: CategoryService,
     private storageService: StorageService
   ) {
     this.enableAddCategory = false;
-  }
-
-  ngOnDestroy(): void {
-    this.sub.unsubscribe();
+    this.buildQuiz = false;
+    this.selectedCategoryId = 0;
   }
 
   ngOnInit(): void {
@@ -45,6 +55,11 @@ export class QuizBuilderComponent implements OnInit, OnDestroy {
       map((value) => (typeof value === 'string' ? value : value?.name)),
       map((name) => (name ? this._filter(name) : this.categories?.slice()))
     );
+
+    this.changeDificultyLevelAction.pipe(
+      debounce(() => timer(1000)),
+      tap((data) => console.log(data))
+    );
   }
 
   private _filter(name: string): Category[] | undefined {
@@ -58,21 +73,33 @@ export class QuizBuilderComponent implements OnInit, OnDestroy {
     return result;
   }
 
-  onAddCategory() {
-    const filter = this.filterCategory.value;
+  onAddCategory(): void {
+    const filter: string = this.filterCategory.value;
     const user: User = this.storageService.getUser();
     if (filter && user) {
       this.categoryService.addCategory(new Category(filter, user.id, ''));
     }
   }
 
-  drop(event: CdkDragDrop<string[]>) {
+  drop(event: CdkDragDrop<string[]>): void {
     moveItemInArray(this.createdCards, event.previousIndex, event.currentIndex);
 
     this.changeDifficultyLevel.next(true);
   }
 
-  onAddCard() {
+  onAddCard(): void {
     this.createdCards.push(Math.random() * 10);
+  }
+
+  onBuildQuiz(): void {
+    this.buildQuiz = true;
+    const selectedCategory: Category[] | undefined = this._filter(
+      this.filterCategory.value
+    );
+    this.selectedCategoryId = selectedCategory![0].id;
+  }
+
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
   }
 }
