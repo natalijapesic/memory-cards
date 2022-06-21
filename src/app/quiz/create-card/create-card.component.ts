@@ -7,9 +7,9 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { Subject, Subscription } from 'rxjs';
+import { debounceTime, Subject, Subscription } from 'rxjs';
 import { atLeastOneCorrect } from 'src/app/shared/utils/validators/checkbox.validators';
-import { Card, Category } from '../_models';
+import { Card } from '../_models';
 import { CardService } from '../_services/card.service';
 
 type FormGroupControls = { [key: string]: AbstractControl };
@@ -26,18 +26,16 @@ export class CreateCardComponent implements OnInit, OnDestroy {
   @Input()
   checkDifficultyLevelChange!: Subject<boolean>;
   @Input()
-  selectedCategoryId: number;
+  selectedCategoryId: number | undefined;
 
   form: FormGroup;
-  errorMessage: string;
   created: Card | undefined;
-  sub!: Subscription;
+  subOnLastChanges!: Subscription;
 
   constructor(
     private formBuilder: FormBuilder,
     private cardService: CardService
   ) {
-    this.errorMessage = '';
     this.level = 0;
     this.selectedCategoryId = 0;
 
@@ -54,7 +52,8 @@ export class CreateCardComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.sub = this.checkDifficultyLevelChange.subscribe({
+    const lastChanges$ = this.checkDifficultyLevelChange.pipe(debounceTime(1500));
+    this.subOnLastChanges = lastChanges$.subscribe({
       next: (changed: boolean) => {
         if (changed && this.created && this.level !== this.created!.level) {
           this.cardService
@@ -92,7 +91,7 @@ export class CreateCardComponent implements OnInit, OnDestroy {
       return new Card(
         formValues.question,
         formValues.answers,
-        this.selectedCategoryId,
+        this.selectedCategoryId!,
         correctAnswers,
         this.level
       );
@@ -140,6 +139,6 @@ export class CreateCardComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.sub.unsubscribe();
+    this.subOnLastChanges.unsubscribe();
   }
 }

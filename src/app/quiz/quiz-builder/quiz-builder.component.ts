@@ -1,5 +1,11 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import {
   Observable,
@@ -8,8 +14,7 @@ import {
   startWith,
   map,
   tap,
-  debounce,
-  timer,
+  debounceTime,
 } from 'rxjs';
 import { StorageService } from 'src/app/shared';
 import { User } from 'src/app/users/_models';
@@ -22,68 +27,44 @@ import { CategoryService } from '../_services/category.service';
   styleUrls: ['./quiz-builder.component.scss'],
 })
 export class QuizBuilderComponent implements OnInit, OnDestroy {
+  @ViewChild('dragAngDropDiv')
+  dragAngDropDiv: ElementRef | undefined;
+
   filterCategory = new FormControl('', [Validators.required]);
   categories?: Category[];
-  filteredCategories?: Observable<Category[] | undefined>;
-  sub!: Subscription;
-  enableAddCategory: boolean;
-  buildQuiz: boolean;
-  selectedCategoryId: number;
-
+  filteredCategories$?: Observable<Category[] | undefined>;
+  selectedCategoryId: number | undefined;
   createdCards: number[] = [];
   changeDifficultyLevel: Subject<boolean> = new Subject();
-  changeDificultyLevelAction = this.changeDifficultyLevel.asObservable();
+  subOnChangeLevel!: Subscription;
 
   constructor(
     private categoryService: CategoryService,
     private storageService: StorageService
-  ) {
-    this.enableAddCategory = false;
-    this.buildQuiz = false;
-    this.selectedCategoryId = 0;
-  }
+  ) {}
 
   ngOnInit(): void {
-    this.sub = this.categoryService.freshCategories$.subscribe({
+    this.subOnChangeLevel = this.categoryService.freshCategories$.subscribe({
       next: (categories: Category[]) => {
         this.categories = categories;
       },
     });
 
-    this.filteredCategories = this.filterCategory.valueChanges.pipe(
+    this.filteredCategories$ = this.filterCategory.valueChanges.pipe(
       startWith(''),
+      debounceTime(200),
       map((value) => (typeof value === 'string' ? value : value?.name)),
-      map((name) => (name ? this._filter(name) : this.categories?.slice()))
-    );
-
-    this.changeDificultyLevelAction.pipe(
-      debounce(() => timer(1000)),
-      tap((data) => console.log(data))
+      map((name) =>
+        name ? this._filterSubstring(name) : this.categories?.slice()
+      ),
+      tap((filtered) => {
+        if (filtered) this.selectedCategoryId = this._findCategoryId(filtered);
+      })
     );
   }
 
-  private _filter(name: string): Category[] | undefined {
-    this.enableAddCategory = false;
-
-    const filterValue = name.toLowerCase();
-    let result = this.categories?.filter((category) =>
-      category.name.toLowerCase().includes(filterValue)
-    );
-    if (result?.length === 0) this.enableAddCategory = true;
-    return result;
-  }
-
-  onAddCategory(): void {
-    const filter: string = this.filterCategory.value;
-    const user: User = this.storageService.getUser();
-    if (filter && user) {
-      this.categoryService.addCategory(new Category(filter, user.id, ''));
-    }
-  }
-
-  drop(event: CdkDragDrop<string[]>): void {
+  onDrop(event: CdkDragDrop<string[]>): void {
     moveItemInArray(this.createdCards, event.previousIndex, event.currentIndex);
-
     this.changeDifficultyLevel.next(true);
   }
 
@@ -91,15 +72,38 @@ export class QuizBuilderComponent implements OnInit, OnDestroy {
     this.createdCards.push(Math.random() * 10);
   }
 
-  onBuildQuiz(): void {
-    this.buildQuiz = true;
-    const selectedCategory: Category[] | undefined = this._filter(
-      this.filterCategory.value
-    );
-    this.selectedCategoryId = selectedCategory![0].id;
+  onCreateCategory(): void {
+    const filter: string = this.filterCategory.value;
+    const user: User = this.storageService.getUser();
+    if (filter && user) {
+      this.categoryService.addCategory(new Category(filter, user.id));
+      this.selectedCategoryId = this._findCategoryId(this.categories);
+    }
   }
 
   ngOnDestroy(): void {
-    this.sub.unsubscribe();
+    this.subOnChangeLevel.unsubscribe();
   }
+
+  private _filterSubstring(name: string): Category[] | undefined {
+    const filterValue = name.toLowerCase();
+
+    return this.categories?.filter((category) =>
+      category.name.toLowerCase().includes(filterValue)
+    );
+  }
+
+  private _findCategoryId = (
+    categories: Category[] | undefined
+  ): number | undefined => {
+    if (categories != undefined) {
+      const category = categories?.find(
+        (category) =>
+          category.name.toLowerCase() ===
+          this.filterCategory.value.toLowerCase()
+      );
+    }
+
+    return undefined;
+  };
 }

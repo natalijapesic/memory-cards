@@ -1,17 +1,13 @@
-
 export class Category {
   id: number;
   name: string;
   adminId: number;
-  purpose: string;
   numberOfMembers: number;
-  hexColor?: string;
 
-  constructor(name: string, admin: number, purpose: string) {
+  constructor(name: string, adminId: number) {
     this.id = 0;
     this.name = name;
-    this.adminId = admin;
-    this.purpose = purpose;
+    this.adminId = adminId;
     this.numberOfMembers = 0;
   }
 }

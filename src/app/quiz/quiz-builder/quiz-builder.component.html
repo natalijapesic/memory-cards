@@ -1,7 +1,7 @@
 <div class="quiz-builder">
   <h1>Quiz Builder</h1>
-  <span *ngIf="buildQuiz"> {{ filterCategory.value }}</span>
-  <form *ngIf="!buildQuiz">
+  <span *ngIf="selectedCategoryId"> {{ filterCategory.value }}</span>
+  <form *ngIf="!selectedCategoryId">
     <mat-form-field class="example-full-width" appearance="fill">
       <mat-label>Categories</mat-label>
       <input
@@ -11,24 +11,29 @@
         [matAutocomplete]="auto"
       />
       <mat-autocomplete #auto="matAutocomplete">
-        <mat-option
-          *ngFor="let filteredCategorie of filteredCategories | async"
-          [value]="filteredCategorie.name"
-        >
-          {{ filteredCategorie.name }}
-        </mat-option>
+        <div *ngIf="filteredCategories$ | async as filteredCategories">
+          <mat-option
+            *ngFor="let filteredCategory of filteredCategories"
+            [value]="filteredCategory.name"
+          >
+            {{ filteredCategory.name }}
+          </mat-option>
+          <mat-option *ngIf="!filteredCategories[0]">
+            <button (click)="onCreateCategory()">
+              Create category
+            </button>
+          </mat-option>
+        </div>
       </mat-autocomplete>
     </mat-form-field>
-    <button *ngIf="enableAddCategory" (click)="onAddCategory()">
-      Add category
-    </button>
   </form>
 
   <div
-    *ngIf="buildQuiz"
+    #dragAngDropDiv
+    [hidden]="!selectedCategoryId"
     cdkDropList
     class="example-list"
-    (cdkDropListDropped)="drop($event)"
+    (cdkDropListDropped)="onDrop($event)"
   >
     <div
       class="example-box"
@@ -43,10 +48,4 @@
     </div>
     <button (click)="onAddCard()">Add Card</button>
   </div>
-  <button
-    *ngIf="!buildQuiz && this.filterCategory.value"
-    (click)="onBuildQuiz()"
-  >
-    Build quiz for chosen category
-  </button>
 </div>
