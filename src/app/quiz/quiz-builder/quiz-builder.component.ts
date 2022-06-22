@@ -1,11 +1,5 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import {
-  Component,
-  ElementRef,
-  OnDestroy,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import {
   Observable,
@@ -27,16 +21,13 @@ import { CategoryService } from '../_services/category.service';
   styleUrls: ['./quiz-builder.component.scss'],
 })
 export class QuizBuilderComponent implements OnInit, OnDestroy {
-  @ViewChild('dragAngDropDiv')
-  dragAngDropDiv: ElementRef | undefined;
-
   filterCategory = new FormControl('', [Validators.required]);
   categories?: Category[];
   filteredCategories$?: Observable<Category[] | undefined>;
   selectedCategoryId: number | undefined;
   createdCards: number[] = [];
   changeDifficultyLevel: Subject<boolean> = new Subject();
-  subOnChangeLevel!: Subscription;
+  subOnCategories!: Subscription;
 
   constructor(
     private categoryService: CategoryService,
@@ -44,16 +35,13 @@ export class QuizBuilderComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.subOnChangeLevel = this.categoryService.freshCategories$.subscribe({
-      next: (categories: Category[]) => {
-        this.categories = categories;
-      },
+    this.subOnCategories = this.categoryService.freshCategories$.subscribe({
+      next: (categories: Category[]) => (this.categories = categories),
     });
 
     this.filteredCategories$ = this.filterCategory.valueChanges.pipe(
       startWith(''),
       debounceTime(200),
-      map((value) => (typeof value === 'string' ? value : value?.name)),
       map((name) =>
         name ? this._filterSubstring(name) : this.categories?.slice()
       ),
@@ -76,13 +64,13 @@ export class QuizBuilderComponent implements OnInit, OnDestroy {
     const filter: string = this.filterCategory.value;
     const user: User = this.storageService.getUser();
     if (filter && user) {
-      this.categoryService.addCategory(new Category(filter, user.id));
-      this.selectedCategoryId = this._findCategoryId(this.categories);
+      const category = new Category(filter, user.id);
+      this.categoryService.addCategory(category);
     }
   }
 
   ngOnDestroy(): void {
-    this.subOnChangeLevel.unsubscribe();
+    this.subOnCategories.unsubscribe();
   }
 
   private _filterSubstring(name: string): Category[] | undefined {
@@ -93,17 +81,20 @@ export class QuizBuilderComponent implements OnInit, OnDestroy {
     );
   }
 
-  private _findCategoryId = (
-    categories: Category[] | undefined
-  ): number | undefined => {
-    if (categories != undefined) {
-      const category = categories?.find(
+  private _findCategoryId = (categories: Category[]): number | undefined => {
+    let createdCategory;
+    if (
+      categories &&
+      this.filterCategory.value &&
+      this.filterCategory.value != ''
+    ) {
+      createdCategory = categories.find(
         (category) =>
           category.name.toLowerCase() ===
           this.filterCategory.value.toLowerCase()
       );
     }
 
-    return undefined;
+    return createdCategory?.id;
   };
 }

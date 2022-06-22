@@ -1,7 +1,7 @@
 <div class="quiz-builder">
   <h1>Quiz Builder</h1>
   <span *ngIf="selectedCategoryId"> {{ filterCategory.value }}</span>
-  <form *ngIf="!selectedCategoryId">
+  <form>
     <mat-form-field class="example-full-width" appearance="fill">
       <mat-label>Categories</mat-label>
       <input
@@ -18,10 +18,11 @@
           >
             {{ filteredCategory.name }}
           </mat-option>
-          <mat-option *ngIf="!filteredCategories[0]">
-            <button (click)="onCreateCategory()">
-              Create category
-            </button>
+          <mat-option
+            *ngIf="!filteredCategories[0]"
+            [value]="filterCategory.value"
+          >
+            <button (click)="onCreateCategory()">Create category</button>
           </mat-option>
         </div>
       </mat-autocomplete>

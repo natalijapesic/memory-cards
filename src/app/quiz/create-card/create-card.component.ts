@@ -52,7 +52,9 @@ export class CreateCardComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    const lastChanges$ = this.checkDifficultyLevelChange.pipe(debounceTime(1500));
+    const lastChanges$ = this.checkDifficultyLevelChange.pipe(
+      debounceTime(1500)
+    );
     this.subOnLastChanges = lastChanges$.subscribe({
       next: (changed: boolean) => {
         if (changed && this.created && this.level !== this.created!.level) {
