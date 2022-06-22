@@ -6,7 +6,6 @@ import { CategoriesComponent } from './categories/categories.component';
 import { RouterModule } from '@angular/router';
 import { QuizComponent } from './quiz/quiz.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
-import { MatIconModule } from '@angular/material/icon';
 import { QuizBuilderComponent } from './quiz-builder/quiz-builder.component';
 import { SharedModule } from '../shared/shared.module';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
@@ -25,12 +24,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
   imports: [
     RouterModule,
     DragDropModule,
-    MatIconModule,
     SharedModule,
     MatAutocompleteModule,
     MatInputModule,
     MatFormFieldModule,
-
   ],
   exports: [CategoriesComponent],
 })

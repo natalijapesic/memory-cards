@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { User } from 'src/app/users';
+import { StorageUser, User } from 'src/app/users';
 
 @Injectable({
   providedIn: 'root',
@@ -20,8 +20,9 @@ export class StorageService {
     localStorage.removeItem(key);
   }
 
-  setAccessToken(token: string): void {
-    localStorage.setItem('token', JSON.stringify(token));
+  setAccessToken(token?: string): void {
+    if(token)
+      localStorage.setItem('token', JSON.stringify(token));
   }
 
   getAccessToken(): string {

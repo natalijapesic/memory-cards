@@ -55,7 +55,6 @@ export class CardComponent implements OnInit {
         : (countCorrect -= 1);
     });
     let result = pointsPerAnswer(this.card!) * countCorrect;
-    console.log(`u card componenti ${result / calculateMaxPoints(this.card!)}`);
     result <= 0
       ? this.correctPercentage.emit(0)
       : this.correctPercentage.emit(result / calculateMaxPoints(this.card!));

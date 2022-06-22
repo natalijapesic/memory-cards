@@ -6,7 +6,6 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { User } from '../_models';
 import { AuthenticationService } from '../_services';
 
 type FormGroupControls = { [key: string]: AbstractControl };
@@ -52,8 +51,8 @@ export class SignInComponent {
       const email: string = this.form.value.email;
       const password: string = this.form.value.password;
       this.autenticationService.signIn({ email, password }).subscribe({
-        next: (user: User) => console.log(user),
-        error: (reason: string) => console.log(reason),
+        // next: (user: User) => console.log(user),
+        // error: (reason: string) => console.log(reason),
       });
     }
   }

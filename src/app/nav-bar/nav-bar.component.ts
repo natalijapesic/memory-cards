@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { StorageService } from '../shared';
+import { AuthenticationService, User } from '../users';
 
 @Component({
   selector: 'app-nav-bar',
@@ -7,11 +7,16 @@ import { StorageService } from '../shared';
   styleUrls: ['./nav-bar.component.scss'],
 })
 export class NavBarComponent implements OnInit {
-  constructor(private storageService: StorageService) {}
+  user: User | null;
+  constructor(private authenticationService: AuthenticationService) {
+    this.user = null;
+  }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.authenticationService.user.subscribe((x) => (this.user = x));
+  }
 
   onSignOut() {
-    this.storageService.removeItem('user');
+    this.authenticationService.signOut();
   }
 }

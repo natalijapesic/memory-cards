@@ -48,7 +48,6 @@ export class CardService {
   getCards(): Observable<Card[]> {
     return this.http.get<Card[]>(`${environment.apiUrl}/cards`).pipe(
       catchError((error) => {
-        console.log(`Handling error locally and rethrowing it ...`, error);
         return throwError(() => new Error(`${error}`));
       })
     );
@@ -57,7 +56,6 @@ export class CardService {
   get(id: number): Observable<Card> {
     return this.http.get<Card>(`${environment.apiUrl}/cards/${id}`).pipe(
       catchError((error) => {
-        console.log(`Handling error locally and rethrowing it ...`, error);
         return throwError(() => new Error(`${error}`));
       })
     );
@@ -68,7 +66,6 @@ export class CardService {
       .get<Card[]>(`${environment.apiUrl}/cards?categoryId=${categoryId}`)
       .pipe(
         catchError((error) => {
-          console.log(`Handling error locally and rethrowing it ...`, error);
           return throwError(() => new Error(`${error}`));
         })
       );
@@ -77,7 +74,6 @@ export class CardService {
   add(card: Card): Observable<Card> {
     return this.http.post<Card>(`${environment.apiUrl}/cards`, card).pipe(
       catchError((error) => {
-        console.log(`Handling error locally and rethrowing it ...`, error);
         return throwError(() => new Error(`${error}`));
       })
     );
@@ -88,7 +84,6 @@ export class CardService {
       .put<Card>(`${environment.apiUrl}/cards/${card.id}`, card)
       .pipe(
         catchError((error) => {
-          console.log(`Handling error locally and rethrowing it ...`, error);
           return throwError(() => new Error(`${error}`));
         })
       );

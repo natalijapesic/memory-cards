@@ -47,12 +47,12 @@ export class SignUpComponent {
     if (this.form.valid) {
       const email: string = this.form.value.email;
       const password: string = this.form.value.password;
-      const username: string = this.form.value.username;
+      const name: string = this.form.value.username;
       this.autenticationService
-        .signUp({ username, isAdmin: false, email, password })
+        .signUp({ name, isAdmin: false, email, password })
         .subscribe({
-          next: (user: User) => console.log(user),
-          error: (reason: string) => console.log(reason),
+          // next: (user: User) => console.log(user),
+          // error: (reason: string) => console.log(reason),
         });
     }
   }

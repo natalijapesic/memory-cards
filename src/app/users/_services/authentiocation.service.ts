@@ -5,20 +5,21 @@ import { StorageService } from 'src/app/shared';
 import { environment } from 'src/environments/environment';
 
 import { User } from '../_models';
-import { SignInRequest, SignUpRequest } from './types';
+import { SignInRequest, SignUpRequest, StorageUser } from './types';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthenticationService {
   private userSubject: BehaviorSubject<User | null>;
-  private user: Observable<User | null>;
+  user: Observable<User | null>;
 
-  constructor(private http: HttpClient, private storage: StorageService) {
-    const storedUser = localStorage.getItem('user');
-    this.userSubject = new BehaviorSubject<User | null>(
-      JSON.parse(storedUser!)
-    );
+  constructor(
+    private http: HttpClient,
+    private storageService: StorageService
+  ) {
+    const storedUser = this.storageService.getUser();
+    this.userSubject = new BehaviorSubject<User | null>(storedUser);
     this.user = this.userSubject.asObservable();
   }
 
@@ -27,15 +28,15 @@ export class AuthenticationService {
   }
 
   signIn(singInRequest: SignInRequest): Observable<User> {
-    console.log(singInRequest);
     return this.http
-      .post<User>(`${environment.apiUrl}/login`, singInRequest)
+      .post<StorageUser>(`${environment.apiUrl}/login`, singInRequest)
       .pipe(
-        tap((user) => console.log(user)),
-        map((user) => {
-          this.storage.setUser(user); //interceptor ili middleware?
-          this.userSubject.next(user);
-          return user;
+        tap((response) => console.log(response)),
+        map((response) => {
+          this.storageService.setUser(response.user); //interceptor or middleware?
+          this.storageService.setAccessToken(response.accessToken);
+          this.userSubject.next(response.user);
+          return response.user;
         }),
         catchError((err) => {
           throw 'error in source. Details: ' + err;
@@ -45,19 +46,22 @@ export class AuthenticationService {
 
   signUp(signUpRequest: SignUpRequest) {
     return this.http
-      .post<User>(`${environment.apiUrl}/register`, signUpRequest)
+      .post<StorageUser>(`${environment.apiUrl}/register`, signUpRequest)
       .pipe(
-        map((user) => {
-          this.storage.setUser(user);
-          this.userSubject.next(user);
-          return user;
+        tap((response) => console.log(response)),
+        map((response) => {
+          this.storageService.setUser(response.user);
+          this.storageService.setAccessToken(response.accessToken);
+          this.userSubject.next(response.user);
+          return response.user;
         }),
         catchError((err, caught) => caught)
       );
   }
 
   signOut(): void {
-    localStorage.removeItem('user');
+    this.storageService.removeItem('user');
+    this.storageService.removeItem('token');
     this.userSubject.next(null);
   }
 }

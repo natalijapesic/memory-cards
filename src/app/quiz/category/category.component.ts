@@ -45,7 +45,6 @@ export class CategoryComponent implements OnInit, OnDestroy {
 
   drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.cards, event.previousIndex, event.currentIndex);
-    console.log(this.cards);
   }
 
   onApplyChanges() {
@@ -57,8 +56,8 @@ export class CategoryComponent implements OnInit, OnDestroy {
         })
       )
     ).subscribe({
-      next: (data) => console.log(data),
-      error: (err) => (this.errorMessage = err),
+      // next: (data) => console.log(data),
+      // error: (err) => (this.errorMessage = err),
     });
   }
 }
