@@ -1,22 +1,17 @@
-<div class="signUp-form">
-  <form [formGroup]="form" (ngSubmit)="onSignUp()">
-    <div class="form-group" *ngFor="let control of formControls; let i = index">
+<form [formGroup]="form" (ngSubmit)="onSignUp()">
+  <div *ngFor="let control of formControls; let i = index">
+    <mat-form-field appearance="fill">
+      <mat-label>{{ control }}</mat-label>
       <input
+        matInput
         [type]="control"
         [formControlName]="control"
-        class="form-control"
         [placeholder]="control"
-        [ngClass]="{ 'is-invalid': submitted && formControl[control].errors }"
       />
-      <div
-        *ngIf="submitted && formControl[control].errors"
-        class="invalid-feedback"
-      >
-        <label *ngIf="formControl[control].errors">{{
-          formControlsErrorMessages[i]
-        }}</label>
-      </div>
-    </div>
-    <button type="submit" class="btn btn-primary">Sign Up</button>
-  </form>
-</div>
+      <mat-error *ngIf="submitted && formControl[control].errors">{{
+        formControlsErrorMessages[i]
+      }}</mat-error>
+    </mat-form-field>
+  </div>
+  <button mat-stroked-button>Sign In</button>
+</form>

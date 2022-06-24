@@ -31,18 +31,20 @@ export class CreateCardComponent implements OnInit, OnDestroy {
   form: FormGroup;
   created: Card | undefined;
   subOnLastChanges!: Subscription;
+  submitted: boolean;
 
   constructor(
     private formBuilder: FormBuilder,
     private cardService: CardService
   ) {
+    this.submitted = false;
     this.level = 0;
     this.selectedCategoryId = 0;
 
     this.form = this.formBuilder.group({
       question: new FormControl('', { initialValueIsDefault: true }),
       answers: new FormArray([]),
-      isCorrectAnswer: new FormArray([], { updateOn: 'submit' }),
+      isCorrectAnswer: new FormArray([]),
     });
 
     Object.keys(this.form.controls).forEach((key) => {
@@ -101,6 +103,7 @@ export class CreateCardComponent implements OnInit, OnDestroy {
   }
 
   onSaveCard() {
+
     this.cardService.add(this.getFormData()!).subscribe({
       next: (card: Card) => {
         this.created = card;

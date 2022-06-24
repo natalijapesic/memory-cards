@@ -1,12 +1,32 @@
 <div class="createCard-form">
   <form [formGroup]="form">
-    <input type="text" placeholder="Question..?" formControlName="question" />
-    <label *ngIf="formControl['question'].errors"> Question is required</label>
-    <div *ngFor="let answer of answers.controls; index as i">
-      <div formArrayName="answers">
-        <input [formControlName]="i" type="text" placeholder="Answer.." />
-      </div>
+    <mat-form-field appearance="fill">
+      <input
+        matInput
+        type="text"
+        placeholder="Question..?"
+        formControlName="question"
+      />
+      <mat-error *ngIf="formControl['question'].errors">
+        Question is required</mat-error
+      >
+    </mat-form-field>
 
+    <div *ngFor="let answer of answers.controls; index as i">
+      <mat-form-field formArrayName="answers">
+        <input
+          matInput
+          [formControlName]="i"
+          type="text"
+          placeholder="Answer.."
+        />
+        <mat-error *ngIf="formControl['answers'].errors"
+          >The question should have at least two answer</mat-error
+        >
+        <mat-error *ngIf="formControl['isCorrectAnswer'].errors">
+          ...and at least one correct answer</mat-error
+        >
+      </mat-form-field>
       <input
         (change)="onCheckboxChange($event)"
         formArrayName="isCorrectAnswer"
@@ -14,15 +34,12 @@
         type="checkbox"
       />
     </div>
-    <button type="button" (click)="onAddOption()">Add option</button>
 
-    <label *ngIf="formControl['answers'].errors">
-      The question should have at least one answer</label
-    >
-    <label *ngIf="formControl['isCorrectAnswer'].errors">
-      ...and at least one correct answer</label
-    >
+    <button mat-stroked-button type="button" (click)="onAddOption()">
+      Add option
+    </button>
     <button
+      mat-stroked-button
       id="save"
       *ngIf="!created"
       [disabled]="form.invalid"
@@ -32,6 +49,7 @@
       Save card
     </button>
     <button
+      mat-stroked-button
       id="update"
       *ngIf="created"
       [disabled]="form.invalid"

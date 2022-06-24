@@ -9,8 +9,6 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { QuizBuilderComponent } from './quiz-builder/quiz-builder.component';
 import { SharedModule } from '../shared/shared.module';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
 
 @NgModule({
   declarations: [
@@ -26,8 +24,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     DragDropModule,
     SharedModule,
     MatAutocompleteModule,
-    MatInputModule,
-    MatFormFieldModule,
   ],
   exports: [CategoriesComponent],
 })
