@@ -12,7 +12,8 @@ import {
 } from 'rxjs';
 import { StorageService } from 'src/app/shared';
 import { User } from 'src/app/users/_models';
-import { Category } from '../_models';
+import { Card, Category } from '../_models';
+import { CardService } from '../_services/card.service';
 import { CategoryService } from '../_services/category.service';
 
 @Component({
@@ -25,13 +26,17 @@ export class QuizBuilderComponent implements OnInit, OnDestroy {
   categories?: Category[];
   filteredCategories$?: Observable<Category[] | undefined>;
   selectedCategoryId: number | undefined;
-  createdCards: number[] = [];
+  createdCardComponents: number[] = [];
+  createdCards: Card[] = [];
   changeDifficultyLevel: Subject<boolean> = new Subject();
+
   subOnCategories!: Subscription;
+  subOnCardsByCategoryId: Subscription | undefined;
 
   constructor(
     private categoryService: CategoryService,
-    private storageService: StorageService
+    private storageService: StorageService,
+    private cardService: CardService
   ) {}
 
   ngOnInit(): void {
@@ -48,24 +53,37 @@ export class QuizBuilderComponent implements OnInit, OnDestroy {
       tap((filtered) => {
         if (filtered) {
           this.selectedCategoryId = this._findCategoryId(filtered);
-          //get cards by selectedCategoryId
+          this.subOnCardsByCategoryId = this.cardService
+            .getCardsByCategoryId(this.selectedCategoryId!)
+            .subscribe({
+              next: (cards: Card[]) => {
+                this.createdCards = cards;
+                this.createdCards.sort((a, b) => a.level - b.level);
+                this._initCardComponents(cards.length);
+              },
+            });
         }
       })
     );
   }
 
   onDrop(event: CdkDragDrop<string[]>): void {
-    moveItemInArray(this.createdCards, event.previousIndex, event.currentIndex);
+    moveItemInArray(
+      this.createdCardComponents,
+      event.previousIndex,
+      event.currentIndex
+    );
     this.changeDifficultyLevel.next(true);
   }
 
   onAddCard(): void {
-    this.createdCards.push(Math.random() * 10);
+    this.createdCardComponents.push(Math.random() * 10);
   }
 
   onCreateCategory(): void {
     const filter: string = this.filterCategory.value;
     const user: User = this.storageService.getUser();
+
     if (filter && user) {
       const category = new Category(filter, user.id);
       this.categoryService.addCategory(category);
@@ -100,4 +118,9 @@ export class QuizBuilderComponent implements OnInit, OnDestroy {
 
     return createdCategory?.id;
   };
+
+  private _initCardComponents(numberOfCreatedCards: number) {
+    for (let i = 0; i < numberOfCreatedCards; i++)
+      this.createdCardComponents.push(Math.random() * 10);
+  }
 }

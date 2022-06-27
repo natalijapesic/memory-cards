@@ -31,10 +31,10 @@ export class CreateCardComponent implements OnInit, OnDestroy {
   @Input()
   selectedCategoryId: number | undefined;
   @Input()
-  initForm: Card | undefined;
+  formData: Card | undefined;
 
   form: FormGroup;
-  created: Card | undefined;
+  // created: Card | undefined;
   subOnLastChanges!: Subscription;
 
   constructor(
@@ -54,26 +54,23 @@ export class CreateCardComponent implements OnInit, OnDestroy {
       this.form.controls[key].setValidators(Validators.required);
     });
 
-    this.form.controls['isCorrectAnswer'].addValidators(minOneCorrect());
-    this.form.controls['answers'].addValidators([
-      Validators.minLength(2),
-      minOneWord(),
-    ]);
+    this.isCorrectAnswer.addValidators(minOneCorrect());
+    this.answers.addValidators([Validators.minLength(2), minOneWord()]);
   }
 
   ngOnInit(): void {
-    if (this.initForm) {
-      this.form;
-    }
+    this._initForm();
+
     const lastChanges$ = this.checkDifficultyLevelChange.pipe(
       debounceTime(1500)
     );
+
     this.subOnLastChanges = lastChanges$.subscribe({
       next: (changed: boolean) => {
-        if (changed && this.created && this.level !== this.created!.level) {
+        if (changed && this.formData && this.level !== this.formData!.level) {
           this.cardService
             .updateDifficultyLevel({
-              cardId: this.created!.id,
+              cardId: this.formData!.id,
               newLevel: this.level,
             })
             .subscribe();
@@ -83,8 +80,7 @@ export class CreateCardComponent implements OnInit, OnDestroy {
   }
 
   private _initCheckedControl(answerId: number, isChecked: boolean): void {
-    const isCorrectAnswer = this.form.controls['isCorrectAnswer'] as FormArray;
-    const checkedControl: AbstractControl = isCorrectAnswer.at(answerId);
+    const checkedControl: AbstractControl = this.isCorrectAnswer.at(answerId);
     checkedControl.patchValue(isChecked);
   }
 
@@ -120,8 +116,8 @@ export class CreateCardComponent implements OnInit, OnDestroy {
     if (newCard)
       this.cardService.add(newCard).subscribe({
         next: (card: Card) => {
-          this.created = card;
-          console.log(this.created);
+          this.formData = card;
+          console.log(this.formData);
         },
         error: (reason: string) => console.log(reason),
       });
@@ -130,13 +126,13 @@ export class CreateCardComponent implements OnInit, OnDestroy {
   onChangeCard() {
     let changed: Card | null = this.getFormData();
     if (changed) {
-      changed.id = this.created!.id;
+      changed.id = this.formData!.id;
       changed.level = this.level;
 
       this.cardService.update(changed).subscribe({
         next: (card: Card) => {
-          this.created = card;
-          console.log(this.created);
+          this.formData = card;
+          console.log(this.formData);
         },
         error: (reason: string) => console.log(reason),
       });
@@ -145,8 +141,28 @@ export class CreateCardComponent implements OnInit, OnDestroy {
 
   onAddOption() {
     this.answers.push(new FormControl(''));
-    const isCorrectAnswers = this.form.controls['isCorrectAnswer'] as FormArray;
-    isCorrectAnswers.push(new FormControl(false));
+    this.isCorrectAnswer.push(new FormControl(false));
+  }
+
+  ngOnDestroy(): void {
+    this.subOnLastChanges.unsubscribe();
+  }
+
+  private _initForm(): void {
+    if (!this.formData) return;
+    this.form.reset();
+    this.level = this.formData.level;
+    this.selectedCategoryId = this.formData.categoryId;
+
+    const correctAnswers: string[] = this.formData.correctAnswers;
+
+    this.formData.answers.forEach((answer) => {
+      this.answers.push(new FormControl(answer));
+      const isCorrect = correctAnswers.includes(answer);
+      this.isCorrectAnswer.push(new FormControl(isCorrect));
+    });
+
+    this.question.patchValue(this.formData.question);
   }
 
   get formControl(): FormGroupControls {
@@ -157,7 +173,11 @@ export class CreateCardComponent implements OnInit, OnDestroy {
     return this.form.get('answers') as FormArray;
   }
 
-  ngOnDestroy(): void {
-    this.subOnLastChanges.unsubscribe();
+  get question(): FormControl {
+    return this.form.get('question') as FormControl;
+  }
+
+  get isCorrectAnswer(): FormArray {
+    return this.form.get('isCorrectAnswer') as FormArray;
   }
 }

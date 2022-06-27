@@ -7,9 +7,7 @@
         placeholder="Question..?"
         formControlName="question"
       />
-      <mat-error *ngIf="formControl['question'].errors">
-        Question is required</mat-error
-      >
+      <mat-error *ngIf="question.errors"> Question is required</mat-error>
     </mat-form-field>
 
     <div *ngFor="let answer of answers.controls; index as i">
@@ -21,12 +19,14 @@
           placeholder="Answer.."
         />
       </mat-form-field>
-      <input
-        (change)="onCheckboxChange($event)"
-        formArrayName="isCorrectAnswer"
-        [value]="i"
-        type="checkbox"
-      />
+      <div formArrayName="isCorrectAnswer">
+        <input
+          (change)="onCheckboxChange($event)"
+          [value]="i"
+          [formControlName]="i"
+          type="checkbox"
+        />
+      </div>
     </div>
 
     <button mat-stroked-button type="button" (click)="onAddOption()">
@@ -35,7 +35,7 @@
     <button
       mat-stroked-button
       id="save"
-      *ngIf="!created"
+      *ngIf="!formData"
       [disabled]="form.invalid"
       type="submit"
       (click)="onSaveCard()"
@@ -45,7 +45,7 @@
     <button
       mat-stroked-button
       id="update"
-      *ngIf="created"
+      *ngIf="formData"
       [disabled]="form.invalid"
       type="submit"
       (click)="onChangeCard()"

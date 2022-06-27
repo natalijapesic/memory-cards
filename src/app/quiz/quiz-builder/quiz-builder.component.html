@@ -38,10 +38,11 @@
   >
     <div
       class="example-box"
-      *ngFor="let card of createdCards; let i = index"
+      *ngFor="let card of createdCardComponents; let i = index"
       cdkDrag
     >
       <app-create-card
+        [formData]="createdCards[i]"
         [level]="i"
         [checkDifficultyLevelChange]="changeDifficultyLevel"
         [selectedCategoryId]="selectedCategoryId"
