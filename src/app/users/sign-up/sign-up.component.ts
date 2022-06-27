@@ -6,6 +6,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { Router } from '@angular/router';
 import { User } from '../_models';
 import { AuthenticationService } from '../_services/authentiocation.service';
 
@@ -27,6 +28,7 @@ export class SignUpComponent {
   ];
 
   constructor(
+    private router: Router,
     private formBuilder: FormBuilder,
     private autenticationService: AuthenticationService
   ) {
@@ -51,8 +53,11 @@ export class SignUpComponent {
       this.autenticationService
         .signUp({ name, isAdmin: false, email, password })
         .subscribe({
-          // next: (user: User) => console.log(user),
-          // error: (reason: string) => console.log(reason),
+          next: (user: User) => {
+            console.log(user);
+            this.router.navigateByUrl('/');
+          },
+          error: (reason: string) => console.log(reason),
         });
     }
   }

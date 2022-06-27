@@ -2,24 +2,10 @@
   "users": [
     {
       "email": "test@gmail.com",
-      "password": "$2a$10$DVRiRBxEP3OjM8L1.7mICOhWyPX3bCeEE0ahc0ArxOEZnTGDAbRQm",
-      "isAdmin": false,
+      "password": "$2a$10$C0DAc0GDaAfvwmSUt1GvSO6kl/1X5tAIbTL.gSIgBVGI56s5jhglq",
       "name": "test",
-      "id": 1
-    },
-    {
-      "email": "dimitrije@gmail.com",
-      "password": "$2a$10$DVRiRBxEP3OjM8L1.7mICOhWyPX3bCeEE0ahc0ArxOEZnTGDAbRQm",
-      "isAdmin": true,
-      "name": "dimitrije",
-      "id": 2
-    },
-    {
-      "email": "nikola@gmail.com",
-      "password": "$2a$10$nB1Lb484DemyKT7dAIp9LuicZF5hN2X/Xtas/DHWdZ449u68pP4ta",
-      "name": "nikola",
       "isAdmin": false,
-      "id": 3
+      "id": 1
     }
   ],
   "categories": [
@@ -43,8 +29,8 @@
     },
     {
       "id": 4,
-      "name": "efew",
-      "adminId": 3,
+      "name": "natalija",
+      "adminId": 1,
       "numberOfMembers": 0
     }
   ],
@@ -95,134 +81,44 @@
       "level": 0
     },
     {
-      "question": "Attributes of an object are also known as?",
-      "categoryId": 1,
-      "answers": [
-        "methods",
-        "properties",
-        "classes",
-        "functions"
-      ],
-      "correctAnswers": [
-        "properties"
-      ],
       "id": 4,
-      "level": 4
-    },
-    {
-      "question": "Which one of the following is the process where an object of one class receives the properties of objects of another class?",
-      "categoryId": 2,
+      "question": "Que pasa?",
       "answers": [
-        "encapsulation",
-        "inheritance",
-        "polymorphism",
-        "modularity"
-      ],
-      "correctAnswers": [
-        "inheritance"
-      ],
-      "id": 5,
-      "level": 0
-    },
-    {
-      "question": "What is the main goal of Object oriented programming?",
-      "categoryId": 2,
-      "answers": [
-        "Ease of evolution",
-        "Monitoring maintenance.",
-        "Encapsulating code.",
-        "Information hiding."
-      ],
-      "correctAnswers": [
-        "Ease of evolution"
-      ],
-      "id": 6,
-      "level": 1
-    },
-    {
-      "id": 7,
-      "question": "r32r32r",
-      "answers": [
-        "r32r2"
-      ],
-      "categoryId": 1,
-      "correctAnswers": [
-        "r32r2"
-      ],
-      "level": 0
-    },
-    {
-      "id": 8,
-      "question": "r32",
-      "answers": [
-        "r32"
-      ],
-      "categoryId": 1,
-      "correctAnswers": [
-        "r32"
-      ],
-      "level": 1
-    },
-    {
-      "id": 9,
-      "question": "r32",
-      "answers": [
-        "r32"
-      ],
-      "categoryId": 1,
-      "correctAnswers": [
-        "r32"
-      ],
-      "level": 2
-    },
-    {
-      "id": 10,
-      "question": "r32",
-      "answers": [
-        "r32"
-      ],
-      "categoryId": 1,
-      "correctAnswers": [
-        "r32"
-      ],
-      "level": 0
-    },
-    {
-      "id": 11,
-      "question": "uytuyt",
-      "answers": [
-        "uyt"
-      ],
-      "categoryId": 1,
-      "correctAnswers": [
-        "uyt"
-      ],
-      "level": 1
-    },
-    {
-      "id": 12,
-      "question": "uytuyt",
-      "answers": [
-        "uytu"
-      ],
-      "categoryId": 1,
-      "correctAnswers": [
-        "uytu"
-      ],
-      "level": 2
-    },
-    {
-      "id": 13,
-      "question": "jyrjhyrhrh",
-      "answers": [
-        "htrh",
+        "pasa nada",
         ""
       ],
       "categoryId": 1,
       "correctAnswers": [
-        "htrh"
+        "pasa nada"
       ],
       "level": 0
+    },
+    {
+      "id": 5,
+      "question": "que",
+      "answers": [
+        "n",
+        "d"
+      ],
+      "categoryId": 1,
+      "correctAnswers": [
+        "n"
+      ],
+      "level": 0
+    },
+    {
+      "id": 6,
+      "question": "",
+      "answers": [
+        "",
+        ""
+      ],
+      "categoryId": 2,
+      "correctAnswers": [],
+      "level": 0
+    },
+    {
+      "id": 7
     }
   ]
 }

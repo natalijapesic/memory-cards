@@ -8,7 +8,10 @@ import {
   Validators,
 } from '@angular/forms';
 import { debounceTime, Subject, Subscription } from 'rxjs';
-import { atLeastOneCorrect } from 'src/app/shared/utils/validators/checkbox.validators';
+import {
+  minOneCorrect,
+  minOneWord,
+} from 'src/app/shared/utils/validators/checkbox.validators';
 import { Card } from '../_models';
 import { CardService } from '../_services/card.service';
 
@@ -27,33 +30,41 @@ export class CreateCardComponent implements OnInit, OnDestroy {
   checkDifficultyLevelChange!: Subject<boolean>;
   @Input()
   selectedCategoryId: number | undefined;
+  @Input()
+  initForm: Card | undefined;
 
   form: FormGroup;
   created: Card | undefined;
   subOnLastChanges!: Subscription;
-  submitted: boolean;
 
   constructor(
     private formBuilder: FormBuilder,
     private cardService: CardService
   ) {
-    this.submitted = false;
     this.level = 0;
     this.selectedCategoryId = 0;
 
     this.form = this.formBuilder.group({
       question: new FormControl('', { initialValueIsDefault: true }),
-      answers: new FormArray([]),
+      answers: new FormArray([], { updateOn: 'change' }),
       isCorrectAnswer: new FormArray([]),
     });
 
     Object.keys(this.form.controls).forEach((key) => {
       this.form.controls[key].setValidators(Validators.required);
     });
-    this.form.controls['isCorrectAnswer'].addValidators(atLeastOneCorrect());
+
+    this.form.controls['isCorrectAnswer'].addValidators(minOneCorrect());
+    this.form.controls['answers'].addValidators([
+      Validators.minLength(2),
+      minOneWord(),
+    ]);
   }
 
   ngOnInit(): void {
+    if (this.initForm) {
+      this.form;
+    }
     const lastChanges$ = this.checkDifficultyLevelChange.pipe(
       debounceTime(1500)
     );
@@ -71,13 +82,15 @@ export class CreateCardComponent implements OnInit, OnDestroy {
     });
   }
 
+  private _initCheckedControl(answerId: number, isChecked: boolean): void {
+    const isCorrectAnswer = this.form.controls['isCorrectAnswer'] as FormArray;
+    const checkedControl: AbstractControl = isCorrectAnswer.at(answerId);
+    checkedControl.patchValue(isChecked);
+  }
+
   onCheckboxChange(event: Event): void {
     const input = event.target as HTMLInputElement;
-    const isCorrectAnswer = this.form.controls['isCorrectAnswer'] as FormArray;
-    const checkedControl: AbstractControl = isCorrectAnswer.at(
-      Number.parseInt(input.value)
-    );
-    checkedControl.patchValue(input.checked);
+    this._initCheckedControl(Number.parseInt(input.value), input.checked);
   }
 
   getFormData(): Card | null {
@@ -103,14 +116,15 @@ export class CreateCardComponent implements OnInit, OnDestroy {
   }
 
   onSaveCard() {
-
-    this.cardService.add(this.getFormData()!).subscribe({
-      next: (card: Card) => {
-        this.created = card;
-        console.log(this.created);
-      },
-      error: (reason: string) => console.log(reason),
-    });
+    const newCard = this.getFormData();
+    if (newCard)
+      this.cardService.add(newCard).subscribe({
+        next: (card: Card) => {
+          this.created = card;
+          console.log(this.created);
+        },
+        error: (reason: string) => console.log(reason),
+      });
   }
 
   onChangeCard() {

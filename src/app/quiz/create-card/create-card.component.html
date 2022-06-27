@@ -13,19 +13,13 @@
     </mat-form-field>
 
     <div *ngFor="let answer of answers.controls; index as i">
-      <mat-form-field formArrayName="answers">
+      <mat-form-field appearance="fill" formArrayName="answers">
         <input
           matInput
           [formControlName]="i"
           type="text"
           placeholder="Answer.."
         />
-        <mat-error *ngIf="formControl['answers'].errors"
-          >The question should have at least two answer</mat-error
-        >
-        <mat-error *ngIf="formControl['isCorrectAnswer'].errors">
-          ...and at least one correct answer</mat-error
-        >
       </mat-form-field>
       <input
         (change)="onCheckboxChange($event)"
@@ -60,3 +54,10 @@
     </button>
   </form>
 </div>
+
+<!-- <mat-error *ngIf="formControl['answers'].errors"
+>The question should have at least two answers</mat-error
+>
+<mat-error *ngIf="formControl['isCorrectAnswer'].errors">
+...and at least one correct answer</mat-error
+> -->

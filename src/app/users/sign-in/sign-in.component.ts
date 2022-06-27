@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
@@ -6,6 +6,8 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { User } from '../_models';
 import { AuthenticationService } from '../_services';
 
 type FormGroupControls = { [key: string]: AbstractControl };
@@ -15,7 +17,9 @@ type FormGroupControls = { [key: string]: AbstractControl };
   templateUrl: './sign-in.component.html',
   styleUrls: ['./sign-in.component.scss'],
 })
-export class SignInComponent {
+export class SignInComponent implements OnInit {
+  returnUrl: string | undefined;
+
   form: FormGroup;
   submitted: boolean;
   formControls: string[] = ['email', 'password'];
@@ -25,6 +29,8 @@ export class SignInComponent {
   ];
 
   constructor(
+    private route: ActivatedRoute,
+    private router: Router,
     private formBuilder: FormBuilder,
     private autenticationService: AuthenticationService
   ) {
@@ -45,14 +51,21 @@ export class SignInComponent {
     });
   }
 
+  ngOnInit(): void {
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+  }
+
   onSignIn() {
     this.submitted = true;
     if (this.form.valid) {
       const email: string = this.form.value.email;
       const password: string = this.form.value.password;
       this.autenticationService.signIn({ email, password }).subscribe({
-        // next: (user: User) => console.log(user),
-        // error: (reason: string) => console.log(reason),
+        next: (user: User) => {
+          console.log(user);
+          this.router.navigateByUrl(this.returnUrl!);
+          },
+        error: (reason: string) => console.log(reason),
       });
     }
   }

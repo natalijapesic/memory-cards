@@ -46,7 +46,10 @@ export class QuizBuilderComponent implements OnInit, OnDestroy {
         name ? this._filterSubstring(name) : this.categories?.slice()
       ),
       tap((filtered) => {
-        if (filtered) this.selectedCategoryId = this._findCategoryId(filtered);
+        if (filtered) {
+          this.selectedCategoryId = this._findCategoryId(filtered);
+          //get cards by selectedCategoryId
+        }
       })
     );
   }
