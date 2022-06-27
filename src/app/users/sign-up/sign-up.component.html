@@ -1,4 +1,4 @@
-<form [formGroup]="form" (ngSubmit)="onSignUp()">
+<form [formGroup]="form" (ngSubmit)="onSignUp()" (keydown.enter)="onSignUp()">
   <div *ngFor="let control of formControls; let i = index">
     <mat-form-field appearance="fill">
       <mat-label>{{ control }}</mat-label>

@@ -124,3 +124,5 @@ export class QuizBuilderComponent implements OnInit, OnDestroy {
       this.createdCardComponents.push(Math.random() * 10);
   }
 }
+
+// https://codesandbox.io/s/loading-spinners-for-buttons-7dbdh?file=/src/app/app.component.html

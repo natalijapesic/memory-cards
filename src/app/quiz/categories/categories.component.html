@@ -9,5 +9,5 @@
       <a [routerLink]="['/category', category.id]">{{ category.name }}</a>
     </button>
   </div>
-  <button class="startQuiz" (click)="startQuiz()">Start Quiz</button>
+  <button class="startQuiz" (click)="startQuiz()" (keydown.enter)="startQuiz()">Start Quiz</button>
 </div>

@@ -1,6 +1,6 @@
 <section *ngIf="form && card">
   {{ card.question }}
-  <form [formGroup]="form" (ngSubmit)="onAnswer()" novalidate>
+  <form [formGroup]="form" (ngSubmit)="onAnswer()" (keydown.enter)="onAnswer()" novalidate>
     <div class="answers">
       <div *ngFor="let answer of card.answers; let i = index">
         <input

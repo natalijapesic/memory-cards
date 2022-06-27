@@ -6,12 +6,14 @@ export class User {
   email: string;
   password: string;
   role: Role;
+  image: string;
 
-  constructor(name: string, email: string, password: string) {
+  constructor(name: string, email: string, password: string, image: string) {
     this.id = 0;
     this.name = name;
     this.email = email;
     this.password = password;
     this.role = Role.User;
+    this.image = image;
   }
 }

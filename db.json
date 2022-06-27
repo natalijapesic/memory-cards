@@ -38,30 +38,16 @@
     {
       "question": "Attributes of an object are also known as?",
       "categoryId": 3,
-      "answers": [
-        "methods",
-        "properties",
-        "classes",
-        "functions"
-      ],
-      "correctAnswers": [
-        "properties"
-      ],
+      "answers": ["methods", "properties", "classes", "functions"],
+      "correctAnswers": ["properties"],
       "id": 1,
       "level": 2
     },
     {
       "question": "Which one of the following is the process where an object of one class receives the properties of objects of another class?",
       "categoryId": 3,
-      "answers": [
-        "encapsulation",
-        "inheritance",
-        "polymorphism",
-        "modularity"
-      ],
-      "correctAnswers": [
-        "inheritance"
-      ],
+      "answers": ["encapsulation", "inheritance", "polymorphism", "modularity"],
+      "correctAnswers": ["inheritance"],
       "id": 2,
       "level": 1
     },
@@ -74,51 +60,9 @@
         "Encapsulating code.",
         "Information hiding."
       ],
-      "correctAnswers": [
-        "Ease of evolution"
-      ],
+      "correctAnswers": ["Ease of evolution"],
       "id": 3,
       "level": 0
-    },
-    {
-      "id": 4,
-      "question": "Que pasa?",
-      "answers": [
-        "pasa nada",
-        ""
-      ],
-      "categoryId": 1,
-      "correctAnswers": [
-        "pasa nada"
-      ],
-      "level": 0
-    },
-    {
-      "id": 5,
-      "question": "que",
-      "answers": [
-        "n",
-        "d"
-      ],
-      "categoryId": 1,
-      "correctAnswers": [
-        "n"
-      ],
-      "level": 0
-    },
-    {
-      "id": 6,
-      "question": "",
-      "answers": [
-        "",
-        ""
-      ],
-      "categoryId": 2,
-      "correctAnswers": [],
-      "level": 0
-    },
-    {
-      "id": 7
     }
   ]
 }
