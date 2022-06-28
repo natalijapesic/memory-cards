@@ -9,6 +9,7 @@ import {
   map,
   tap,
   debounceTime,
+  shareReplay,
 } from 'rxjs';
 import { StorageService } from 'src/app/shared';
 import { CardService } from 'src/app/shared/services/card.service';
@@ -47,11 +48,14 @@ export class QuizBuilderComponent implements OnInit, OnDestroy {
     this.filteredCategories$ = this.filterCategory.valueChanges.pipe(
       startWith(''),
       debounceTime(200),
+      shareReplay(1),
       map((name) =>
         name ? this._filterSubstring(name) : this.categories?.slice()
       ),
       tap((filtered) => {
-        if (filtered) {
+        if (filtered && filtered.length > 0) {
+          console.log('natalia');
+          console.log(filtered);
           this.selectedCategoryId = this._findCategoryId(filtered);
           this.subOnCardsByCategoryId = this.cardService
             .getCardsByCategoryId(this.selectedCategoryId!)
@@ -120,8 +124,8 @@ export class QuizBuilderComponent implements OnInit, OnDestroy {
   };
 
   private _initCardComponents(numberOfCreatedCards: number) {
+    this.createdCardComponents = [];
     for (let i = 0; i < numberOfCreatedCards; i++)
       this.createdCardComponents.push(Math.random() * 10);
   }
 }
-

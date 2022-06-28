@@ -17,7 +17,7 @@ const routes: Routes = [
     loadChildren: () => import('./quiz/quiz.module').then((m) => m.QuizModule),
   },
   {
-    path: 'cateogy/:id',
+    path: 'category/:id',
     loadChildren: () =>
       import('./category/category.module').then((m) => m.CategoryModule),
     canActivate: [AuthGuard],
