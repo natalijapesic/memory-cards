@@ -7,6 +7,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { SpinnerService } from 'src/app/shared/_services/spinner.service';
 import { User } from '../_models';
 import { AuthenticationService } from '../_services';
 
@@ -32,7 +33,8 @@ export class SignInComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private formBuilder: FormBuilder,
-    private autenticationService: AuthenticationService
+    private autenticationService: AuthenticationService,
+    public spinnerService: SpinnerService
   ) {
     this.submitted = false;
     this.form = this.formBuilder.group({
@@ -64,7 +66,7 @@ export class SignInComponent implements OnInit {
         next: (user: User) => {
           console.log(user);
           this.router.navigateByUrl(this.returnUrl!);
-          },
+        },
         error: (reason: string) => console.log(reason),
       });
     }

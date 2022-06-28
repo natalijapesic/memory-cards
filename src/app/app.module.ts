@@ -10,6 +10,7 @@ import { HomeComponent } from './home/home.component';
 import { JwtInterceptor } from './shared';
 import { MatMenuModule } from '@angular/material/menu';
 import { SharedModule } from './shared/shared.module';
+import { LoadingInterceptor } from './shared/utils/loading.interceptor';
 
 @NgModule({
   declarations: [AppComponent, NavBarComponent, HomeComponent],
@@ -24,6 +25,7 @@ import { SharedModule } from './shared/shared.module';
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
 })
