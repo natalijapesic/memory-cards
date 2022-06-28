@@ -11,10 +11,10 @@ import {
   debounceTime,
 } from 'rxjs';
 import { StorageService } from 'src/app/shared';
+import { CardService } from 'src/app/shared/services/card.service';
+import { CategoryService } from 'src/app/shared/services/category.service';
 import { User } from 'src/app/users/_models';
-import { Card, Category } from '../_models';
-import { CardService } from '../_services/card.service';
-import { CategoryService } from '../_services/category.service';
+import { Card, Category } from '../../shared/models';
 
 @Component({
   selector: 'app-quiz-builder',

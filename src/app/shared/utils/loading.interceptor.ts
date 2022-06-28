@@ -7,7 +7,7 @@ import {
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
-import { SpinnerService } from '../_services/spinner.service';
+import { SpinnerService } from '../services/spinner.service';
 
 @Injectable({
   providedIn: 'root',

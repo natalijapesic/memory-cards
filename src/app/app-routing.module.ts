@@ -1,29 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './home/home.component';
-import { CardComponent, CategoryComponent } from './quiz';
-import { QuizBuilderComponent } from './quiz/quiz-builder/quiz-builder.component';
-import { QuizComponent } from './quiz/quiz/quiz.component';
+import { CardComponent, QuizComponent } from './quiz';
 import { SignInComponent, SignUpComponent } from './users';
 import { AuthGuard } from './shared';
+import { LayoutComponent } from './home/layout/layout.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: HomeComponent,
-  },
-  {
-    path: 'quiz',
-    component: QuizComponent,
-  },
-  {
-    path: 'card',
-    component: CardComponent,
-  },
-  {
-    path: 'category/:id',
-    component: CategoryComponent,
-    canActivate: [AuthGuard],
+    component: LayoutComponent,
   },
   {
     path: 'sign-in',
@@ -34,11 +19,24 @@ const routes: Routes = [
     component: SignUpComponent,
   },
   {
-    path: 'quizBuilder',
-    component: QuizBuilderComponent,
+    path: '',
+    loadChildren: () => import('./quiz/quiz.module').then((m) => m.QuizModule),
+  },
+  {
+    path: '',
+    loadChildren: () =>
+      import('./category/category.module').then((m) => m.CategoryModule),
     canActivate: [AuthGuard],
   },
-  // otherwise redirect to home
+  {
+    path: '',
+    loadChildren: () =>
+      import('./quiz-builder/quiz-builder.module').then(
+        (m) => m.QuizBuilderModule
+      ),
+    canActivate: [AuthGuard],
+  },
+  //otherwise redirect to home
   { path: '**', redirectTo: '' },
 ];
 

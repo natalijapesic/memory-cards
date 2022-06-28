@@ -1,20 +1,18 @@
 import { NgModule } from '@angular/core';
-import { CardComponent } from '../quiz/card/card.component';
-import { QuizComponent } from './quiz/quiz.component';
+import { CategoryComponent } from './category/category.component';
 import { SharedModule } from '../shared/shared.module';
 import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: 'quiz',
-    component: QuizComponent,
-    pathMatch: 'full',
+    path: 'category/:id',
+    component: CategoryComponent,
   },
 ];
 
 @NgModule({
-  declarations: [CardComponent, QuizComponent],
+  declarations: [CategoryComponent],
   imports: [SharedModule, RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class QuizModule {}
+export class CategoryModule {}

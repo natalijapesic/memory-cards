@@ -1,10 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { forkJoin, Subscription } from 'rxjs';
-import { Card, Category } from '../_models';
-import { CardService } from '../_services/card.service';
-import { CategoryService } from '../_services/category.service';
+import { Card, Category } from '../../shared/models';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { CardService, CategoryService } from 'src/app/shared/services';
 
 @Component({
   selector: 'app-category',

@@ -7,7 +7,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { calculateMaxPoints, pointsPerAnswer } from 'src/app/shared';
-import { Card } from '../_models';
+import { Card } from '../../shared/models';
 
 @Component({
   selector: 'app-card',

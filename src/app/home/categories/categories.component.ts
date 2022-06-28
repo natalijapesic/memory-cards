@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError, EMPTY, map } from 'rxjs';
-import { CardService } from '../_services/card.service';
-import { CategoryService } from '../_services/category.service';
+import { CardService, CategoryService } from '../../shared/services';
 
 const categoryColors: string[] = [
   '#fcba03',

@@ -7,7 +7,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SpinnerService } from 'src/app/shared/_services/spinner.service';
+import { SpinnerService } from 'src/app/shared/services/spinner.service';
 import { User } from '../_models';
 import { AuthenticationService } from '../_services';
 

@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Card } from '../_models';
+import { Card } from '../models';
 import { catchError, Observable, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { DifficultyLevelRequest } from './types';
+import { DifficultyLevelRequest } from '../types';
 
 @Injectable({
   providedIn: 'root',

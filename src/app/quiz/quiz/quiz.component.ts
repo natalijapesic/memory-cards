@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { Card } from '../_models';
-import { CardService } from '../_services/card.service';
+import { CardService } from 'src/app/shared/services';
+import { Card } from '../../shared/models';
 
 @Component({
   selector: 'app-quiz',

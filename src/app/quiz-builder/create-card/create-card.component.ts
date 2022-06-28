@@ -12,8 +12,8 @@ import {
   minOneCorrect,
   minOneWord,
 } from 'src/app/shared/utils/validators/checkbox.validators';
-import { Card } from '../_models';
-import { CardService } from '../_services/card.service';
+import { CardService } from 'src/app/shared/services/card.service';
+import { Card } from '../../shared/models';
 
 type FormGroupControls = { [key: string]: AbstractControl };
 

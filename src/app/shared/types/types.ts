@@ -10,3 +10,8 @@ export enum Role {
   Moderator = 'Moderator',
   CategoryAdmin = 'CategoryAdmin',
 }
+
+export type DifficultyLevelRequest = {
+  cardId: number;
+  newLevel: number;
+};
