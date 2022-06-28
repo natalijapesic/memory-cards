@@ -11,17 +11,25 @@ const routes: Routes = [
     component: LayoutComponent,
   },
   {
-    path: 'user',
-    loadChildren: () => import('./users/user.module').then((m) => m.UserModule),
+    path: 'sign-in',
+    component: SignInComponent,
   },
   {
-    path: 'category/:id',
+    path: 'sign-up',
+    component: SignUpComponent,
+  },
+  {
+    path: '',
+    loadChildren: () => import('./quiz/quiz.module').then((m) => m.QuizModule),
+  },
+  {
+    path: '',
     loadChildren: () =>
       import('./category/category.module').then((m) => m.CategoryModule),
     canActivate: [AuthGuard],
   },
   {
-    path: 'quiz-builder',
+    path: '',
     loadChildren: () =>
       import('./quiz-builder/quiz-builder.module').then(
         (m) => m.QuizBuilderModule
