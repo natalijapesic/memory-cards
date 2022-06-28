@@ -1,12 +1,12 @@
 <div class="nav-bar">
   <nav>
     <a routerLink="/"><mat-icon>play_arrow</mat-icon> Learn </a>
-    <a routerLink="quizBuilder">
+    <a routerLink="quiz-builder">
       <mat-icon>create</mat-icon> Create your quiz</a
     >
   </nav>
   <div *ngIf="user">
-    <img [src]="user.image"/>
+    <img [src]="user.image" />
     <button mat-button [matMenuTriggerFor]="aboveMenu">
       {{ user?.name }}
     </button>
@@ -15,7 +15,7 @@
     </mat-menu>
   </div>
   <ul class="user" *ngIf="!user">
-      <a routerLink="sign-in">Sign In</a>
-      <a routerLink="sign-up">Sign Up</a>
+    <a routerLink="user/sign-in">Sign In</a>
+    <a routerLink="user/sign-up">Sign Up</a>
   </ul>
 </div>

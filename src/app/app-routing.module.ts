@@ -1,7 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CardComponent, QuizComponent } from './quiz';
-import { SignInComponent, SignUpComponent } from './users';
 import { AuthGuard } from './shared';
 import { LayoutComponent } from './home/layout/layout.component';
 
@@ -11,25 +9,21 @@ const routes: Routes = [
     component: LayoutComponent,
   },
   {
-    path: 'sign-in',
-    component: SignInComponent,
+    path: 'user',
+    loadChildren: () => import('./users/user.module').then((m) => m.UserModule),
   },
   {
-    path: 'sign-up',
-    component: SignUpComponent,
-  },
-  {
-    path: '',
+    path: 'quiz',
     loadChildren: () => import('./quiz/quiz.module').then((m) => m.QuizModule),
   },
   {
-    path: '',
+    path: 'cateogy/:id',
     loadChildren: () =>
       import('./category/category.module').then((m) => m.CategoryModule),
     canActivate: [AuthGuard],
   },
   {
-    path: '',
+    path: 'quiz-builder',
     loadChildren: () =>
       import('./quiz-builder/quiz-builder.module').then(
         (m) => m.QuizBuilderModule

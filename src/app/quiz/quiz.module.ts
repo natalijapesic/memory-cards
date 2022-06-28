@@ -6,9 +6,8 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: 'quiz',
+    path: '',
     component: QuizComponent,
-    pathMatch: 'full',
   },
 ];
 
