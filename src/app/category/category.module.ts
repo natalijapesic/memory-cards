@@ -5,7 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: 'category/:id',
+    path: '',
     component: CategoryComponent,
   },
 ];
