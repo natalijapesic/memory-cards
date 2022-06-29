@@ -1,0 +1,15 @@
+@import "variables";
+
+@mixin media($keys...) {
+  @each $key in $keys {
+    @media (min-width: map-get($breakpoints, $key)) {
+      @content;
+    }
+  }
+}
+
+@mixin flex-col-center() {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

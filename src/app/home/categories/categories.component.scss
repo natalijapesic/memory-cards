@@ -1,5 +1,14 @@
+@import "../../shared/styles/mixins.scss";
+
 div {
-  display: flex;
+  @include media(desktop, smallDesktop, desktop) {
+    display: flex;
+    flex-direction: row;
+  }
+
+  @include media(mobile, tablet) {
+    @include flex-col-center();
+  }
 
   button {
     a {

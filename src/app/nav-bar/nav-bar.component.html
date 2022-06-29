@@ -1,4 +1,4 @@
-<div class="nav-bar">
+<div *ngIf="!isMobile()" class="nav-bar">
   <nav>
     <a routerLink="/"><mat-icon>play_arrow</mat-icon> Learn </a>
     <a routerLink="quiz-builder">
@@ -19,3 +19,14 @@
     <a routerLink="user/sign-up">Sign Up</a>
   </ul>
 </div>
+
+<button *ngIf="isMobile()" mat-button [matMenuTriggerFor]="menu">
+  <mat-icon>menu</mat-icon>
+</button>
+<mat-menu #menu="matMenu">
+  <button routerLink="/" mat-menu-item>Learn</button>
+  <button routerLink="quiz-builder" mat-menu-item>Create your quiz</button>
+  <button *ngIf="user" mat-menu-item (click)="onSignOut()">Sign Out</button>
+  <button *ngIf="!user" routerLink="user/sign-in" mat-menu-item>Sign In</button>
+  <button *ngIf="!user" routerLink="user/sign-up" mat-menu-item>Sign Up</button>
+</mat-menu>
