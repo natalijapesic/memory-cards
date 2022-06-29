@@ -7,6 +7,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
+import { SpinnerService } from 'src/app/shared';
 import { User } from '../_models';
 import { AuthenticationService } from '../_services/authentiocation.service';
 
@@ -30,7 +31,8 @@ export class SignUpComponent {
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
-    private autenticationService: AuthenticationService
+    private autenticationService: AuthenticationService,
+    public spinnerService: SpinnerService
   ) {
     this.submitted = false;
     this.form = this.formBuilder.group({
@@ -50,11 +52,11 @@ export class SignUpComponent {
       const email: string = this.form.value.email;
       const password: string = this.form.value.password;
       const name: string = this.form.value.username;
+      const image: string = `https://picsum.photos/seed/${name}/200/300`;
       this.autenticationService
-        .signUp({ name, isAdmin: false, email, password })
+        .signUp({ name, isAdmin: false, email, password, image })
         .subscribe({
           next: (user: User) => {
-            console.log(user);
             this.router.navigateByUrl('/');
           },
           error: (reason: string) => console.log(reason),

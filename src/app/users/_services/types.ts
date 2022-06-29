@@ -10,10 +10,10 @@ export type SignUpRequest = {
   email: string;
   password: string;
   isAdmin: false;
+  image: string;
 };
 
 export type StorageUser = {
   user: User;
   accessToken?: string;
-
 };

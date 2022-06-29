@@ -5,7 +5,48 @@
       "password": "$2a$10$C0DAc0GDaAfvwmSUt1GvSO6kl/1X5tAIbTL.gSIgBVGI56s5jhglq",
       "name": "test",
       "isAdmin": false,
+      "image": "https://picsum.photos/seed/test/200",
       "id": 1
+    },
+    {
+      "email": "natalija@gmail.com",
+      "password": "$2a$10$SlQkr9SHdMb7Ots3ixYs5eerkJqYePPO7eD1a4CZPWG0gSSy6vFba",
+      "name": "natalija",
+      "isAdmin": false,
+      "image": "https://picsum.photos/seed/natalija/200",
+      "id": 2
+    },
+    {
+      "email": "novo@gmail.com",
+      "password": "$2a$10$K6Kb3btLJAhE8gUnAixPEOUYTC.HVe./mQngp5odcziTy2uZCWx/G",
+      "name": "novo",
+      "isAdmin": false,
+      "image": "https://picsum.photos/seed/novo/200/300",
+      "id": 3
+    },
+    {
+      "email": "opetopet@gmail.com",
+      "password": "$2a$10$2iDNtgaMEq1YitFxk1Yl7u4jtBq5jhKgcTu/kUSjXL4bC5SxVY6O2",
+      "name": "opetopet",
+      "isAdmin": false,
+      "image": "https://picsum.photos/seed/opetopet/200/300",
+      "id": 4
+    },
+    {
+      "email": "dsjfdsj@gmail.com",
+      "password": "$2a$10$OlMvQGpXRhr6DaODoMS2jOO1Ln4e/DSXGiGJ4hEcN1/3eNrbc1/o6",
+      "name": "ok",
+      "isAdmin": false,
+      "image": "https://picsum.photos/seed/ok/200/300",
+      "id": 5
+    },
+    {
+      "email": "znacisadaradi@gmail.com",
+      "password": "$2a$10$iNfMy3d2z3nEZRWH7UUfe.BgWZf.KUibngtOoXo4XeEsPp.xZY4OW",
+      "name": "znacisadaradi",
+      "isAdmin": false,
+      "image": "https://picsum.photos/seed/znacisadaradi/200/300",
+      "id": 6
     }
   ],
   "categories": [
@@ -38,16 +79,30 @@
     {
       "question": "Attributes of an object are also known as?",
       "categoryId": 3,
-      "answers": ["methods", "properties", "classes", "functions"],
-      "correctAnswers": ["properties"],
+      "answers": [
+        "methods",
+        "properties",
+        "classes",
+        "functions"
+      ],
+      "correctAnswers": [
+        "properties"
+      ],
       "id": 1,
       "level": 2
     },
     {
       "question": "Which one of the following is the process where an object of one class receives the properties of objects of another class?",
       "categoryId": 3,
-      "answers": ["encapsulation", "inheritance", "polymorphism", "modularity"],
-      "correctAnswers": ["inheritance"],
+      "answers": [
+        "encapsulation",
+        "inheritance",
+        "polymorphism",
+        "modularity"
+      ],
+      "correctAnswers": [
+        "inheritance"
+      ],
       "id": 2,
       "level": 1
     },
@@ -60,7 +115,9 @@
         "Encapsulating code.",
         "Information hiding."
       ],
-      "correctAnswers": ["Ease of evolution"],
+      "correctAnswers": [
+        "Ease of evolution"
+      ],
       "id": 3,
       "level": 0
     }

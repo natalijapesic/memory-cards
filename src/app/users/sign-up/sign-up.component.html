@@ -1,3 +1,6 @@
+<ng-container *ngIf="spinnerService.isLoading$ | async">
+  <mat-spinner></mat-spinner>
+</ng-container>
 <form [formGroup]="form" (ngSubmit)="onSignUp()" (keydown.enter)="onSignUp()">
   <div *ngFor="let control of formControls; let i = index">
     <mat-form-field appearance="fill">

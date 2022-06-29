@@ -5,7 +5,7 @@
       <mat-icon>create</mat-icon> Create your quiz</a
     >
   </nav>
-  <div *ngIf="user">
+  <div class="user" *ngIf="user">
     <img [src]="user.image" />
     <button mat-button [matMenuTriggerFor]="aboveMenu">
       {{ user?.name }}
@@ -14,7 +14,7 @@
       <button mat-menu-item (click)="onSignOut()">Sign Out</button>
     </mat-menu>
   </div>
-  <ul class="user" *ngIf="!user">
+  <ul class="auth" *ngIf="!user">
     <a routerLink="user/sign-in">Sign In</a>
     <a routerLink="user/sign-up">Sign Up</a>
   </ul>
