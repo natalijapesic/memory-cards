@@ -56,7 +56,7 @@ export class AuthenticationService {
           return response.user;
         }),
         catchError((err) => {
-          throw 'error in source. Details: ' + err;
+          throw err;
         })
       );
   }

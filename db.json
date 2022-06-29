@@ -2,7 +2,7 @@
   "users": [
     {
       "email": "test@gmail.com",
-      "password": "$2a$10$JFkRd4QobevI4VL9Ssl1m.Q9zTtWiZA2k5PtzfIx8NY978WmSY3gO",
+      "password": "$2a$10$LQnUGoYyGjqGkCIu.TSrFO2xKTc/N0ANTt1XA6rD3xDIj/GmWE08m",
       "name": "test",
       "isAdmin": false,
       "image": "https://picsum.photos/seed/test/200/300",

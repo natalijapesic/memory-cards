@@ -1,4 +1,5 @@
 import {
+  HttpErrorResponse,
   HttpEvent,
   HttpHandler,
   HttpInterceptor,
@@ -6,7 +7,7 @@ import {
   HttpResponse,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, tap } from 'rxjs';
+import { finalize, Observable, tap } from 'rxjs';
 import { SpinnerService } from '../services/spinner.service';
 
 @Injectable({
@@ -22,9 +23,8 @@ export class LoadingInterceptor implements HttpInterceptor {
     this.spinnerService.setLoading(true);
 
     return next.handle(request).pipe(
-      tap((event: HttpEvent<unknown>) => {
-        if (event instanceof HttpResponse)
-          this.spinnerService.setLoading(false);
+      finalize(() => {
+        this.spinnerService.setLoading(false);
       })
     );
   }

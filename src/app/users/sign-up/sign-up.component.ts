@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import {
   AbstractControl,
@@ -58,9 +59,12 @@ export class SignUpComponent {
         .signUp({ name, isAdmin: false, email, password, image })
         .subscribe({
           next: (user: User) => {
+            console.log(user);
             this.router.navigateByUrl('/');
           },
-          error: (reason: string) => console.log(reason),
+          error: (errorResponse: HttpErrorResponse) => {
+            if (errorResponse.status === 400) alert('User already exists');
+          },
         });
     }
   }
