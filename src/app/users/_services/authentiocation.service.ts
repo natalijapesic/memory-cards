@@ -55,7 +55,9 @@ export class AuthenticationService {
           this.userSubject.next(response.user);
           return response.user;
         }),
-        catchError((err, caught) => caught)
+        catchError((err) => {
+          throw 'error in source. Details: ' + err;
+        })
       );
   }
 
