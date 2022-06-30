@@ -1,20 +1,20 @@
+@import "../../shared/styles/mixins.scss";
+
 section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  @include flex-col-center();
+  margin-top: 6%;
   form {
-    display: flex;
-    flex-direction: column;
+    @include flex-col-center();
+    
     flex-wrap: wrap;
 
     .answers {
-
       display: flex;
       align-items: center;
+      flex-wrap: wrap;
+      
       div {
         display: flex;
-        flex-direction: row;
-        justify-content: space-around;
         width: 150px;
         margin: 5px;
       }

@@ -13,3 +13,8 @@
   flex-direction: column;
   align-items: center;
 }
+
+
+@mixin responsive-font-size($size){
+  font-size: calc($size + 0.390625vw);
+}

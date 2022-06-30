@@ -5,15 +5,9 @@
 
   h1 {
     margin-top: 20%;
-    font-size: 6vw;
+    @include responsive-font-size(65px);
     background: -webkit-linear-gradient(rgb(241, 112, 72), rgb(248, 178, 47));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
 }
-
-// 320px — 480px: Mobile devices.
-// 481px — 768px: iPads, Tablets.
-// 769px — 1024px: Small screens, laptops.
-// 1025px — 1200px: Desktops, large screens.
-// 1201px and more — Extra large screens, TV.

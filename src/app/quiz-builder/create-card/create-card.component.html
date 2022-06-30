@@ -1,34 +1,34 @@
-<div class="createCard-form">
-  <form [formGroup]="form">
-    <mat-form-field appearance="fill">
+<!-- <div class="createCard-form"> -->
+<form [formGroup]="form">
+  <mat-form-field appearance="fill">
+    <input
+      matInput
+      type="text"
+      placeholder="Question..?"
+      formControlName="question"
+    />
+    <mat-error *ngIf="question.errors"> Question is required</mat-error>
+  </mat-form-field>
+
+  <div class="answer" *ngFor="let answer of answers.controls; index as i">
+    <mat-form-field appearance="fill" formArrayName="answers">
       <input
         matInput
+        [formControlName]="i"
         type="text"
-        placeholder="Question..?"
-        formControlName="question"
+        placeholder="Answer.."
       />
-      <mat-error *ngIf="question.errors"> Question is required</mat-error>
     </mat-form-field>
-
-    <div *ngFor="let answer of answers.controls; index as i">
-      <mat-form-field appearance="fill" formArrayName="answers">
-        <input
-          matInput
-          [formControlName]="i"
-          type="text"
-          placeholder="Answer.."
-        />
-      </mat-form-field>
-      <div formArrayName="isCorrectAnswer">
-        <input
-          (change)="onCheckboxChange($event)"
-          [value]="i"
-          [formControlName]="i"
-          type="checkbox"
-        />
-      </div>
+    <div formArrayName="isCorrectAnswer">
+      <input
+        (change)="onCheckboxChange($event)"
+        [value]="i"
+        [formControlName]="i"
+        type="checkbox"
+      />
     </div>
-
+  </div>
+  <div>
     <button mat-stroked-button type="button" (click)="onAddOption()">
       Add option
     </button>
@@ -52,12 +52,6 @@
     >
       Change card
     </button>
-  </form>
-</div>
-
-<!-- <mat-error *ngIf="formControl['answers'].errors"
->The question should have at least two answers</mat-error
->
-<mat-error *ngIf="formControl['isCorrectAnswer'].errors">
-...and at least one correct answer</mat-error
-> -->
+  </div>
+</form>
+<!-- </div> -->

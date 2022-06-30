@@ -1,8 +1,16 @@
+@import "../../shared/styles/mixins.scss";
+
 form {
-  display: flex;
-  flex-direction: column;
+  @include flex-col-center();
+
+  @include media(desktop) {
+    @include responsive-font-size(15px);
+  }
 }
 
+button {
+  @include responsive-font-size(13px);
+}
 .transparent .mat-dialog-container {
   box-shadow: none;
   background: rgba(0, 0, 0, 0);

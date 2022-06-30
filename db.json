@@ -39,30 +39,46 @@
     {
       "question": "Attributes of an object are also known as?",
       "categoryId": 3,
-      "answers": ["methods", "properties", "classes", "functions"],
-      "correctAnswers": ["properties"],
+      "answers": [
+        "methods",
+        "properties",
+        "classes",
+        "functions"
+      ],
+      "correctAnswers": [
+        "properties"
+      ],
       "id": 1,
       "level": 2
     },
     {
       "question": "Which one of the following is the process where an object of one class receives the properties of objects of another class?",
       "categoryId": 3,
-      "answers": ["encapsulation", "inheritance", "polymorphism", "modularity"],
-      "correctAnswers": ["inheritance"],
+      "answers": [
+        "encapsulation",
+        "inheritance",
+        "polymorphism",
+        "modularity"
+      ],
+      "correctAnswers": [
+        "inheritance"
+      ],
       "id": 2,
       "level": 1
     },
     {
+      "id": 3,
       "question": "What is the main goal of Object oriented programming?",
-      "categoryId": 3,
       "answers": [
         "Ease of evolution",
         "Monitoring maintenance.",
         "Encapsulating code.",
         "Information hiding."
       ],
-      "correctAnswers": ["Ease of evolution"],
-      "id": 3,
+      "categoryId": 3,
+      "correctAnswers": [
+        "Ease of evolution"
+      ],
       "level": 0
     }
   ]

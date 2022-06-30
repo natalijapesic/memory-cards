@@ -1,6 +1,11 @@
 <section *ngIf="form && card">
-  {{ card.question }}
-  <form [formGroup]="form" (ngSubmit)="onAnswer()" (keydown.enter)="onAnswer()" novalidate>
+  <h1>{{ card.question }}</h1>
+  <form
+    [formGroup]="form"
+    (ngSubmit)="onAnswer()"
+    (keydown.enter)="onAnswer()"
+    novalidate
+  >
     <div class="answers">
       <div *ngFor="let answer of card.answers; let i = index">
         <input
@@ -12,6 +17,6 @@
         <label>{{ answer }}</label>
       </div>
     </div>
-    <button type="submit">Answer</button>
+    <button mat-stroked-button type="submit">Answer</button>
   </form>
 </section>

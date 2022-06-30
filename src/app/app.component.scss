@@ -2,9 +2,9 @@
 
 .layout {
   display: grid;
-  grid-template-columns: 2fr 5fr;
+
   @include media(mobile) {
-    grid-template-columns: 1fr;
+    grid-template-columns: 0.5fr 5fr;
   }
 
   @include media(tablet, smallDesktop, desktop) {
@@ -16,6 +16,7 @@
   width: 100%;
 }
 
-.route {
+.route { 
   justify-self: center;
+  margin-top: 10%;
 }
