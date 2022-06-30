@@ -1,8 +1,13 @@
 @import "../../shared/styles/mixins.scss";
 
 form {
+  width: 350px;
   .answer {
     display: flex;
     align-items: center;
   }
+}
+
+mat-form-field {
+  width: 100%;
 }
