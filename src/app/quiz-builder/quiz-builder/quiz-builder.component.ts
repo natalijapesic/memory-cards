@@ -47,9 +47,7 @@ export class QuizBuilderComponent implements OnInit, OnDestroy {
     this.filteredCategories$ = this.filterCategory.valueChanges.pipe(
       startWith(''),
       debounceTime(200),
-      map((name) =>
-        name ? this._filterSubstring(name) : this.categories?.slice()
-      ),
+      map((name) => this._filterSubstring(name)),
       tap((filtered) => {
         if (filtered) {
           this.selectedCategoryId = this._findCategoryId(filtered);
@@ -57,6 +55,7 @@ export class QuizBuilderComponent implements OnInit, OnDestroy {
             .getCardsByCategoryId(this.selectedCategoryId!)
             .subscribe({
               next: (cards: Card[]) => {
+                this.createdCardComponents = [];
                 this.createdCards = cards;
                 this.createdCards.sort((a, b) => a.level - b.level);
                 this._initCardComponents(cards.length);
@@ -124,4 +123,3 @@ export class QuizBuilderComponent implements OnInit, OnDestroy {
       this.createdCardComponents.push(Math.random() * 10);
   }
 }
-
