@@ -2,12 +2,14 @@
   <div *ngIf="categories$ | async as categories" class="categories">
     <button
       *ngFor="let category of categories"
-      (click)="selectCategory(category.id)"
-      [ngStyle]="{ 'background-color': buttonCategoryColor(category.id) }"
+      (click)="selectCategory(category.objectId)"
+      [ngStyle]="{ 'background-color': buttonCategoryColor(category.objectId) }"
     >
-      <a *ngIf="categoriesState.get(category.id)">x</a>
-      <a [routerLink]="['/category', category.id]">{{ category.name }}</a>
+      <a *ngIf="categoriesState.get(category.objectId)">x</a>
+      <a [routerLink]="['/category', category.objectId]">{{ category.name }}</a>
     </button>
   </div>
-  <button class="startQuiz" (click)="startQuiz()" (keydown.enter)="startQuiz()">Start Quiz</button>
+  <button class="startQuiz" (click)="startQuiz()" (keydown.enter)="startQuiz()">
+    Start Quiz
+  </button>
 </div>

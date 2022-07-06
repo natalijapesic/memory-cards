@@ -10,9 +10,13 @@ import {
   map,
   of,
 } from 'rxjs';
-import { Action, ActionType } from 'src/app/shared/types/types';
 import { environment } from 'src/environments/environment';
 import { Category } from '../models';
+import {
+  Action,
+  ActionType,
+  CategoriesResponse,
+} from '../types';
 
 @Injectable({
   providedIn: 'root',
@@ -41,11 +45,14 @@ export class CategoryService {
   constructor(private http: HttpClient) {}
 
   getCategories(): Observable<Category[]> {
-    return this.http.get<Category[]>(`${environment.apiUrl}/categories`).pipe(
-      catchError((error) => {
-        throw new Error(`Error ${error}`);
-      })
-    );
+    return this.http
+      .get<CategoriesResponse>(`${environment.parseUrl}/categories`)
+      .pipe(
+        map((data: CategoriesResponse) => data.results),
+        catchError((error) => {
+          throw new Error(`Error ${error}`);
+        })
+      );
   }
 
   saveCategory(operation: Action<Category>): Observable<Action<Category>> {
@@ -57,11 +64,11 @@ export class CategoryService {
     return of(operation);
   }
 
-  getCategory(id: number): Observable<Category> {
+  getCategory(id: string): Observable<Category> {
     return this.http
-      .get<Category>(`${environment.apiUrl}/categories/${id}`)
+      .get<Category>(`${environment.parseUrl}/categories/${id}`)
       .pipe(
-        tap((data) => console.log(data)),
+        tap((data) => console.log('Cards:', JSON.stringify(data))),
         catchError((error) => {
           throw new Error(`Error ${error}`);
         })
@@ -70,7 +77,7 @@ export class CategoryService {
 
   add(category: Category, action: ActionType): Observable<Action<Category>> {
     return this.http
-      .post<Category>(`${environment.apiUrl}/categories`, category)
+      .post<Category>(`${environment.parseUrl}/categories`, category)
       .pipe(
         map((category) => ({ item: category, action })),
         catchError((error) => {

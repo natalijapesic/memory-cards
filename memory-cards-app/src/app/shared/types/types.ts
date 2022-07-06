@@ -1,3 +1,5 @@
+import { Card, Category } from "../models";
+
 export type ActionType = 'add' | 'update' | 'delete' | 'none';
 
 export interface Action<T> {
@@ -12,6 +14,24 @@ export enum Role {
 }
 
 export type DifficultyLevelRequest = {
-  cardId: number;
+  cardId: string;
   newLevel: number;
+};
+
+export type CategoryResponse = {
+  objectId: string;
+  name: string;
+  adminId: number;
+  numberOfMembers: number;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type CategoriesResponse = {
+  results: Category[];
+};
+
+
+export type CardsResponse = {
+  results: Card[];
 };

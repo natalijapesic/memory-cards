@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { catchError, EMPTY, map } from 'rxjs';
+import { catchError, EMPTY, map, tap } from 'rxjs';
 import { CardService, CategoryService } from '../../shared/services';
 
 const categoryColors: string[] = [
@@ -19,7 +19,7 @@ const categoryColors: string[] = [
 })
 export class CategoriesComponent implements OnInit {
   errorMessage = '';
-  categoriesState = new Map<number, boolean>();
+  categoriesState = new Map<string, boolean>();
 
   categories$ = this.categoryService.freshCategories$.pipe(
     catchError((err) => {
@@ -36,15 +36,16 @@ export class CategoriesComponent implements OnInit {
 
   ngOnInit(): void {
     this.categories$.pipe(
+      tap((data) => console.log(data)),
       map((categories) => {
         categories.map((category) =>
-          this.categoriesState.set(category.id, false)
+          this.categoriesState.set(category.objectId, false)
         );
       })
     );
   }
 
-  selectCategory(categoryId: number) {
+  selectCategory(categoryId: string) {
     let isSelected = this.categoriesState.get(categoryId);
     this.categoriesState.set(categoryId, !isSelected);
   }
@@ -57,7 +58,7 @@ export class CategoriesComponent implements OnInit {
     this.router.navigate(['/quiz']);
   }
 
-  buttonCategoryColor = (categoryId: number): string => {
-    return categoryColors[categoryId % 6];
+  buttonCategoryColor = (categoryId: string): string => {
+    return categoryColors[categoryId.length  % 6];
   };
 }

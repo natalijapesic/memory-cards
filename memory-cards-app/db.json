@@ -13,24 +13,15 @@
     {
       "name": "Spanish",
       "adminId": 1,
-      "numberOfMembers": 0,
-      "id": 1
+      "numberOfMembers": 0
     },
     {
       "name": "Capital cities",
       "adminId": 1,
-      "numberOfMembers": 0,
-      "id": 2
+      "numberOfMembers": 0
     },
     {
       "name": "OOP",
-      "adminId": 1,
-      "numberOfMembers": 0,
-      "id": 3
-    },
-    {
-      "id": 4,
-      "name": "natalija",
       "adminId": 1,
       "numberOfMembers": 0
     }
@@ -38,7 +29,7 @@
   "cards": [
     {
       "question": "Attributes of an object are also known as?",
-      "categoryId": 3,
+      "categoryId": "L1a6GJqIpD",
       "answers": [
         "methods",
         "properties",
@@ -48,12 +39,11 @@
       "correctAnswers": [
         "properties"
       ],
-      "id": 1,
       "level": 2
     },
     {
       "question": "Which one of the following is the process where an object of one class receives the properties of objects of another class?",
-      "categoryId": 3,
+      "categoryId": "L1a6GJqIpD",
       "answers": [
         "encapsulation",
         "inheritance",
@@ -63,11 +53,9 @@
       "correctAnswers": [
         "inheritance"
       ],
-      "id": 2,
       "level": 1
     },
     {
-      "id": 3,
       "question": "What is the main goal of Object oriented programming?",
       "answers": [
         "Ease of evolution",
@@ -75,7 +63,7 @@
         "Encapsulating code.",
         "Information hiding."
       ],
-      "categoryId": 3,
+      "categoryId": "L1a6GJqIpD",
       "correctAnswers": [
         "Ease of evolution"
       ],

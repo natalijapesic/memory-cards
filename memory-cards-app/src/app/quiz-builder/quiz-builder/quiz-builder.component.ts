@@ -25,7 +25,7 @@ export class QuizBuilderComponent implements OnInit, OnDestroy {
   filterCategory = new FormControl('', [Validators.required]);
   categories?: Category[];
   filteredCategories$?: Observable<Category[] | undefined>;
-  selectedCategoryId: number | undefined;
+  selectedCategoryId: string | undefined;
   createdCardComponents: number[] = [];
   createdCards: Card[] = [];
   changeDifficultyLevel: Subject<boolean> = new Subject();
@@ -47,7 +47,9 @@ export class QuizBuilderComponent implements OnInit, OnDestroy {
     this.filteredCategories$ = this.filterCategory.valueChanges.pipe(
       startWith(''),
       debounceTime(200),
-      map((name) => this._filterSubstring(name)),
+      map((name) =>
+        name ? this._filterSubstring(name) : this.categories?.slice()
+      ),
       tap((filtered) => {
         if (filtered) {
           this.selectedCategoryId = this._findCategoryId(filtered);
@@ -101,7 +103,7 @@ export class QuizBuilderComponent implements OnInit, OnDestroy {
     );
   }
 
-  private _findCategoryId = (categories: Category[]): number | undefined => {
+  private _findCategoryId = (categories: Category[]): string | undefined => {
     let createdCategory;
     if (
       categories &&
@@ -115,7 +117,7 @@ export class QuizBuilderComponent implements OnInit, OnDestroy {
       );
     }
 
-    return createdCategory?.id;
+    return createdCategory?.objectId;
   };
 
   private _initCardComponents(numberOfCreatedCards: number) {

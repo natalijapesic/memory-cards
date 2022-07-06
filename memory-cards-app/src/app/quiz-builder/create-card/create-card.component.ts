@@ -29,7 +29,7 @@ export class CreateCardComponent implements OnInit, OnDestroy {
   @Input()
   checkDifficultyLevelChange!: Subject<boolean>;
   @Input()
-  selectedCategoryId: number | undefined;
+  selectedCategoryId: string | undefined;
   @Input()
   formData: Card | undefined;
 
@@ -42,7 +42,7 @@ export class CreateCardComponent implements OnInit, OnDestroy {
     private cardService: CardService
   ) {
     this.level = 0;
-    this.selectedCategoryId = 0;
+    this.selectedCategoryId = '';
 
     this.form = this.formBuilder.group({
       question: new FormControl('', { initialValueIsDefault: true }),
@@ -70,7 +70,7 @@ export class CreateCardComponent implements OnInit, OnDestroy {
         if (changed && this.formData && this.level !== this.formData!.level) {
           this.cardService
             .updateDifficultyLevel({
-              cardId: this.formData!.id,
+              cardId: this.formData!.objectId,
               newLevel: this.level,
             })
             .subscribe();
@@ -126,7 +126,7 @@ export class CreateCardComponent implements OnInit, OnDestroy {
   onChangeCard() {
     let changed: Card | null = this.getFormData();
     if (changed) {
-      changed.id = this.formData!.id;
+      changed.objectId = this.formData!.objectId;
       changed.level = this.level;
 
       this.cardService.update(changed).subscribe({

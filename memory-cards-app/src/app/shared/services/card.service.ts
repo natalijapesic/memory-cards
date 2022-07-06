@@ -1,27 +1,25 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Card } from '../models';
-import { catchError, Observable, throwError } from 'rxjs';
+import { catchError, map, Observable, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { DifficultyLevelRequest } from '../types';
+import { CardsResponse, DifficultyLevelRequest } from '../types';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CardService {
-  private chosenCategories: number[] = [];
+  private chosenCategories: string[] = [];
 
   constructor(private http: HttpClient) {}
 
-  combineOperator() {}
-
-  chosen(categoryIds: number[]): void {
+  chosen(categoryIds: string[]): void {
     this.chosenCategories = categoryIds;
   }
 
   updateDifficultyLevel(request: DifficultyLevelRequest) {
     return this.http
-      .patch<Card>(`${environment.apiUrl}/cards/${request.cardId}`, {
+      .post<Card>(`${environment.parseUrl}/cards/${request.cardId}`, {
         level: request.newLevel,
       })
       .pipe(
@@ -32,39 +30,46 @@ export class CardService {
   }
 
   generateQuiz(): Observable<Card[]> {
-    let url = `${environment.apiUrl}/cards?`;
+    let url = `${environment.parseUrl}/cards`;
     if (this.chosenCategories.length > 0) {
+      url = `${url}?where={\"categoryId\":{\"$in\":[`;
       this.chosenCategories.forEach((categoryId) => {
-        url += `categoryId=${categoryId}&`;
+        url += `\"${categoryId}\",`;
       });
+      url.replace(/.$/, ']}}');
     }
-    return this.http.get<Card[]>(url).pipe(
+    return this.http.get<CardsResponse>(url).pipe(
+      map((data) => data.results),
       catchError((error) => {
         return throwError(() => new Error(`${error}`));
       })
     );
   }
 
-  getCards(): Observable<Card[]> {
-    return this.http.get<Card[]>(`${environment.apiUrl}/cards`).pipe(
+  // getCards(): Observable<Card[]> {
+  //   return this.http.get<CardsResponse>(`${environment.parseUrl}/cards`).pipe(
+  //     map(data => data.results),
+  //     catchError((error) => {
+  //       return throwError(() => new Error(`${error}`));
+  //     })
+  //   );
+  // }
+
+  get(id: string): Observable<Card> {
+    return this.http.get<Card>(`${environment.parseUrl}/cards/${id}`).pipe(
       catchError((error) => {
         return throwError(() => new Error(`${error}`));
       })
     );
   }
 
-  get(id: number): Observable<Card> {
-    return this.http.get<Card>(`${environment.apiUrl}/cards/${id}`).pipe(
-      catchError((error) => {
-        return throwError(() => new Error(`${error}`));
-      })
-    );
-  }
-
-  getCardsByCategoryId(categoryId: number): Observable<Card[]> {
+  getCardsByCategoryId(categoryId: string): Observable<Card[]> {
     return this.http
-      .get<Card[]>(`${environment.apiUrl}/cards?categoryId=${categoryId}`)
+      .get<CardsResponse>(
+        `${environment.parseUrl}/cards?where={\"categoryId\":\"${categoryId}\"}`
+      )
       .pipe(
+        map((data) => data.results),
         catchError((error) => {
           return throwError(() => new Error(`${error}`));
         })
@@ -72,7 +77,7 @@ export class CardService {
   }
 
   add(card: Card): Observable<Card> {
-    return this.http.post<Card>(`${environment.apiUrl}/cards`, card).pipe(
+    return this.http.post<Card>(`${environment.parseUrl}/cards`, card).pipe(
       catchError((error) => {
         return throwError(() => new Error(`${error}`));
       })
@@ -81,7 +86,7 @@ export class CardService {
 
   update(card: Card): Observable<Card> {
     return this.http
-      .put<Card>(`${environment.apiUrl}/cards/${card.id}`, card)
+      .put<Card>(`${environment.parseUrl}/cards/${card.objectId}`, card)
       .pipe(
         catchError((error) => {
           return throwError(() => new Error(`${error}`));

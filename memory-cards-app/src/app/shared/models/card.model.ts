@@ -1,19 +1,19 @@
 export class Card {
-  id: number;
+  objectId: string;
   question: string;
   answers: string[];
-  categoryId: number;
+  categoryId: string;
   correctAnswers: string[];
   level: number;
 
   constructor(
     question: string,
     answers: string[],
-    categoryId: number,
+    categoryId: string,
     correctAnswers: string[],
     level: number
   ) {
-    this.id = 0;
+    this.objectId = '';
     this.question = question;
     this.answers = answers;
     this.categoryId = categoryId;

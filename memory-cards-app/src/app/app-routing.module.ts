@@ -2,11 +2,16 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './shared';
 import { LayoutComponent } from './home/layout/layout.component';
+import { TesComponent } from './tes/tes.component';
 
 const routes: Routes = [
   {
     path: '',
     component: LayoutComponent,
+  },
+  {
+    path: 'tes',
+    component: TesComponent,
   },
   {
     path: 'user',

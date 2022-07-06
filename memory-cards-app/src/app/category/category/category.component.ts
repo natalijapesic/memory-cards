@@ -11,7 +11,7 @@ import { CardService, CategoryService } from 'src/app/shared/services';
   styleUrls: ['./category.component.scss'],
 })
 export class CategoryComponent implements OnInit, OnDestroy {
-  categoryId: number = 0;
+  categoryId: string = '';
   errorMessage: string = '';
   subscribeCC!: Subscription;
   subscribeUDL!: Subscription;
@@ -23,7 +23,7 @@ export class CategoryComponent implements OnInit, OnDestroy {
     private cardService: CardService,
     route: ActivatedRoute
   ) {
-    this.categoryId = Number(route.snapshot.params['id']);
+    this.categoryId = route.snapshot.params['id'];
   }
   ngOnDestroy(): void {
     this.subscribeCC.unsubscribe();
@@ -50,7 +50,7 @@ export class CategoryComponent implements OnInit, OnDestroy {
     this.subscribeUDL = forkJoin(
       this.cards.map((card, index) =>
         this.cardService.updateDifficultyLevel({
-          cardId: card.id,
+          cardId: card.objectId,
           newLevel: index,
         })
       )
